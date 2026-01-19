@@ -13,11 +13,17 @@
 <body>
 
   <!-- HEADER -->
-   
+
   <header>
-    <div class="Header-Container">
-      <h2 class="Logo">TM</h2>
-      <h2 class="Title">TaskManager</h2>
+    <div class="header-container">
+      <h2 class="logo">TM</h2>
+      <h2 class="title">TaskManager</h2>
+    </div>
+
+    <div class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
     </div>
 
     <input type="checkbox" id="menu-toggle" class="menu-toggle">
@@ -25,118 +31,140 @@
 
     <!-- NAV-BAR -->
 
-    <nav class="Nav-Container">
+    <nav class="nav-container">
       <ul class="nav-links">
-        <li><a href="#" class="Active-nav">Dashboard</a></li>
-        <li><a href="#" class="Non-active-nav">Tasks</a></li>
-        <li><a href="#" class="Non-active-nav">Profile</a></li>
+        <li><a href="#" class="active-nav">Dashboard</a></li>
+        <li><a href="#" class="non-active-nav">Tasks</a></li>
+        <li><a href="#" class="non-active-nav">Profile</a></li>
       </ul>
     </nav>
   </header>
-  
+
 
   <main>
-    <h1 class="Main-title"><span class="line"></span>Task Dashboard</h1>
+    <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
     <section class="main-section">
 
       <!-- TASK PANEL SECTION -->
 
-      <section class="Task-panel-section">
-        <div class="Task-panel-title">
+      <section class="task-panel-section">
+        <div class="task-panel-title">
           <h3>📝Create New Task</h3>
         </div>
 
-        <form>
-          <div class="input-text">
-            <input type="text" placeholder="Task Name *" class="border-red" required />
-          </div>    
+        <form id="form">
+          <div class="input-name">
+            <input type="text" class="" id="name-input" placeholder="Task Name *" />
+            <span class="error"></span>
+          </div>
 
           <div class="input-email">
-            <input type="email" placeholder="Assignee Email *" class="border-red" required />
+            <input type="email" class="" id="email-input" placeholder="Assignee Email *" />
+            <span class="error"></span>
           </div>
 
-          <div class="input-date-time">
-            <div class="input-date">
-              <label for="Date" class="Float-label">Due Date *</label>
-              <input type="date" name="Date" class="Date border-red" required />
-
-              <label for="Time" class="Float-label">Due Time</label>
-              <input type="time" class="Time">
-            </div>
+          <div class="input-username">
+            <input type="text" id="username-input" placeholder="User Name *" />
+            <span class="error"></span>
           </div>
-          
+
+          <div class="input-date">
+            <label for="Date" class="float-label">Due Date *</label>
+            <input type="date" class="date" id="date-input" name="Date" />
+            <span class="error"></span>
+          </div>
+
+          <div class="input-time">
+            <label for="Time" class="float-label">Due Time</label>
+            <input type="time" class="time" id="time-input">
+            <span class="error"></span>
+          </div>
+
           <div class="select-priority">
-            <label for="select" class="Float-label">Priority Level *</label>
-            <select required class="priority-selection">
-              <option value="1">Low Priority</option>
-              <option value="3">Medium Priority</option>
-              <option value="2">High Priority</option>
+            <label for="select" class="float-label">Priority Level *</label>
+            <select class="priority-selection" id="priority-select">
+              <option value="" disabled selected>-- Select priority --</option>
+              <option value="low">Low Priority</option>
+              <option value="medium">Medium Priority</option>
+              <option value="high">High Priority</option>
             </select>
+            <span class="error"></span>
           </div>
 
           <div class="hours">
-            <label for="Number" class="Float-label Float-Hours">Estimated Hours</label>
-            <input type="number" name="Number" class="Number" value="0"
-                onkeydown="return !['e','E','+','-'].includes(event.key);">
+            <label for="Number" class="float-label float-Hours">Estimated Hours</label>
+            <input type="number" id="hours-input" class="number" name="Number" value="0">
+            <span class="error"></span>
           </div>
 
           <div class="project-url">
-            <input type="url" placeholder="Project URL">
+            <input type="url" id="url-input" placeholder="Project URL">
+            <span class="error"></span>
           </div>
 
-          <div class="task-Description">
-            <textarea placeholder="Task-Description"></textarea>
+          <div class="task-description">
+            <textarea id="description-input" placeholder="Task-Description"></textarea>
+            <span class="error"></span>
           </div>
 
           <div class="task-progress">
             <label for="range" class="progress-label">Task Progress</label> <br>
-            <input type="range" name="range" class="input-range" min="0" max="100" value="0"> <br>
+            <input type="range" id="progress-input" class="input-range" name="range" min="0" max="100" value="0"> <br>
             <p class="task-progress-label">0%</p>
+            <span class="error"></span>
           </div>
 
           <div class="task-color">
             <label for="color" class="color-label">Task Color</label> <br>
-            <input type="color" name="color" class="color-pick">
+            <input type="color" id="color-input" class="color-pick" name="color">
           </div>
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type</label> <br>
-                <input type="checkbox" class="check" id="Bug"> <label for="Bug" class="check-label">Bug Fix</label>
-                <input type="checkbox" class="check" id="Feature"> <label for="Feature" class="check-label">Feature</label> <br class="check-radio-br">
-                <input type="checkbox" class="check" id="Enhancement"> <label for="Enhancement" class="check-label">Enhancement</label>
+            <input type="checkbox" class="check" id="Bug"> <label for="Bug" class="check-label">Bug Fix</label>
+            <input type="checkbox" class="check" id="Feature"> <label for="Feature" class="check-label">Feature</label>
+            <br class="check-radio-br">
+            <input type="checkbox" class="check" id="Enhancement"> <label for="Enhancement"
+              class="check-label">Enhancement</label>
+            <span class="error"></span>
           </div>
 
           <div class="status">
             <label for="" class="status-label">Status</label> <br>
-                <input type="radio" name="Status" class="radio" id="Pending"> <label for="Pending" class="radio-label">Pending</label>
-                <input type="radio" name="Status" class="radio" id="In Progress"> <label for="In Progress" class="radio-label">In Progress</label> <br class="check-radio-br">
-                <input type="radio" name="Status" class="radio" id="Completed"> <label for="Completed" class="radio-label">Completed</label>
+            <input type="radio" name="Status" class="radio" value="Pending" id="Pending"> <label for="Pending"
+              class="radio-label">Pending</label>
+            <input type="radio" name="Status" class="radio in-progress-radio" value="In Progress" id="In Progress">
+            <label for="In Progress" class="radio-label in-progress-label">In Progress</label> <br
+              class="check-radio-br">
+            <input type="radio" name="Status" class="radio" id="Completed" value="Completed"> <label for="Completed"
+              class="radio-label">Completed</label>
+            <span class="error"></span>
           </div>
 
           <div class="upload-file">
             <label class="upload-box">
               <p><i class="fa-solid fa-paperclip"></i> Click to upload attachments</p>
               <small>Supported: PDF, DOC, Images</small>
-              <input type="file" class="input-upload" accept=".pdf,.doc,.docx,image/*">
+              <input type="file" id="upload-input" class="input-upload" accept=".pdf,.doc,.docx,image/*">
             </label>
           </div>
 
-          <div class="Buttons">
-            <button type="submit" class="Create-button"> <span>&#10003</span> Create Task</button>
-            <button type="reset" class="Reset-button"> <span>&#10006;</span> <br> Reset</button>
+          <div class="buttons">
+            <button type="submit" id="create-button" class="create-button"> <span>&#10003</span> Create Task</button>
+            <button type="reset" id="reset-button" class="reset-button"> <span>&#10006;</span> <br> Reset</button>
           </div>
         </form>
       </section>
 
       <!-- ACTIVE TASKS SECTION -->
 
-      <section class="Active-task-section">
-        <div class="Task-card-heading">
-          <div class="Active-panel-title">
+      <section class="active-task-section">
+        <div class="task-card-heading">
+          <div class="active-panel-title">
             <h3>&#9989 Active Tasks</h3>
           </div>
 
-          <div class="Task-card-links">
+          <div class="task-card-links">
             <input type="radio" name="priority" id="all" checked>
             <label for="all" class="task-card-active">All</label>
 
@@ -151,6 +179,13 @@
           </div>
         </div>
 
+        <!-- <div class="filter-buttons">
+          <button id="filter-all" class="filter-btn active">All</button>
+          <button id="filter-high" class="filter-btn">High</button>
+          <button id="filter-medium" class="filter-btn">Medium</button>
+          <button id="filter-low" class="filter-btn">Low</button>
+        </div> -->
+
         <!-- TASK-CARD -->
 
         <div class="task-card-container">
@@ -162,11 +197,8 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Sarah Johnson</p>
 
             <div class="priority-container">
-              <span class="Priority-high"><span class="high-dot"></span>High</span>
-              <div class="status">
-                <span class="In-progress-dot"></span>
-                <span class="In-progress">In Progress</span>
-              </div>
+              <label class="high"><span>&#9679</span>High</label>
+              <label class="progress"><small>&#9679</small>In Progress</label>
             </div>
           </div>
 
@@ -177,11 +209,8 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Michael Chen</p>
 
             <div class="priority-container">
-              <span class="Priority-high"><span class="high-dot"></span>High</span>
-              <div class="status">
-                <span class="Pending-dot"></span>
-                <span class="Pending">Pending</span>
-              </div>
+              <label class="high"><span>&#9679</span>High</label>
+              <label class="pending"><small>&#9679</small>Pending</label>
             </div>
           </div>
 
@@ -192,11 +221,8 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Emily Rodriguez</p>
 
             <div class="priority-container">
-              <span class="Priority-medium"><span class="medium-dot"></span>Medium</span>
-              <div class="status">
-                <span class="In-progress-dot"></span>
-                <span class="In-progress">In Progress</span>
-              </div>
+              <label class="medium"><span>&#9679</span>Medium</label>
+              <label class="progress"><small>&#9679</small>In Progress</label>
             </div>
           </div>
 
@@ -207,11 +233,8 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">David Kim</p>
 
             <div class="priority-container">
-              <span class="Priority-medium"><span class="medium-dot"></span>Medium</span>
-              <div class="status">
-                <span class="Pending-dot"></span>
-                <span class="Pending">Pending</span>
-              </div>
+              <label class="medium"><span>&#9679</span>Medium</label>
+              <label class="pending"><small>&#9679</small>Pending</label>
             </div>
           </div>
 
@@ -222,11 +245,8 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Alex Thompson</p>
 
             <div class="priority-container">
-              <span class="Priority-low"><span class="low-dot"></span>Low</span>
-              <div class="status">
-                <span class="Pending-dot"></span>
-                <span class="Pending">Pending</span>
-              </div>
+              <label class="low"><span>&#9679</span>Low</label>
+              <label class="pending"><small>&#9679</small>Pending</label>
             </div>
           </div>
 
@@ -237,13 +257,11 @@
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Lisa Anderson</p>
 
             <div class="priority-container">
-              <span class="Priority-high"><span class="high-dot"></span>High</span>
-              <div class="status">
-                <span class="Completed-dot"></span>
-                <span class="Completed">Completed</span>
-              </div>
+              <label class="high"><span>&#9679</span>High</label>
+              <label class="completed"><small>&#9679</small>Completed</label>
             </div>
           </div>
+
         </div>
       </section>
     </section>
@@ -292,5 +310,10 @@
       </div>
     </div>
   </footer>
+
+  <script src="script.js">
+
+  </script>
 </body>
+
 </html>

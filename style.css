@@ -18,27 +18,27 @@ header {
   background-color: white;
   position: fixed;
   top: 0%;
-  z-index: 9999;
+  z-index: 1;
 }
-.Header-Container {
+.header-container {
   display: inline-block;
   position: relative;
   left: 5.5%;
 }
-Header .Logo {
+header .logo {
   display: inline-block;
   background-color: rgb(93, 95, 239);
   color: white;
   border-radius: 8px;
   padding: 3px 0px;
 }
-Header .Title {
+header .title {
   display: inline-block;
 }
 
 /*----------NAV-BAR-----------*/
 
-.Nav-Container {
+.nav-container {
   display: inline-block;
   position: relative;
   left: 60%;
@@ -49,19 +49,19 @@ nav .nav-links {
   position: relative;
   right: 8%;
 }
-.nav-links .Non-active-nav {
+.nav-links .non-active-nav {
   text-decoration: none;
   padding: 10px;
   margin: 0px 20px;
   color: rgba(0, 0, 0, 0.6);
 }
-.nav-links .Non-active-nav:hover {
+.nav-links .non-active-nav:hover {
   /* background-color: rgb(242, 243, 245); */
   color: rgb(93, 95, 239);
   border-radius: 11px;
   transition: background-color 0.3s;
 }
-.Active-nav {
+.active-nav {
   background-color: rgb(242, 243, 245);
   color: rgb(93, 95, 239);
   border-radius: 11px;
@@ -81,11 +81,31 @@ nav .nav-links {
   padding: 3px 10px 3px 10px;
   background-color: rgb(242, 243, 245);
   border-radius: 8px;
-  right: -2%;
+  right: -2%;   
   cursor: pointer;
 }
 .menu-toggle {
   display: none;
+}
+
+.hamburger{
+  display: none;
+  position: relative;
+  float: right;
+  padding: 3px 10px 3px 10px;
+  background-color: rgb(242, 243, 245);
+  border-radius: 8px;
+  right: -2%;   
+  cursor: pointer;
+}
+.bar{
+  display: block;
+  width: 25px;
+  height: 3px;
+  margin: 5px auto;
+  -webkit-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+  background-color: black;
 }
 
 /*---------MAIN-SECTION----------*/
@@ -101,7 +121,7 @@ main .line {
   margin-right: 0.8rem;
   border-radius: 5px;
 }
-.Main-title {
+.main-title {
   display: inline-block;
   position: relative;
   left: 4.9%;
@@ -114,7 +134,7 @@ main .line {
 
 /* TASK PANEL SECTION */
 
-.Task-panel-section {
+.task-panel-section {
   position: relative;
   left: 3%;
   margin: 10px 5px 10px 90px;
@@ -125,13 +145,13 @@ main .line {
   box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.15);
   margin-bottom: 20px;
 }
-.Task-panel-title {
+.task-panel-title {
   font-size: 19px;
   margin: 10px 10px 10px 2px;
 }
-.Task-panel-section input,select {
+.task-panel-section input,select {
   font-size: 14px;
-  margin: 10px 10px 10px 8px;
+  margin: 10px 10px 13px 8px;
   padding: 10px;
   width: 95%;
   max-width: 100%;
@@ -139,37 +159,55 @@ main .line {
   border: 2px solid rgba(0, 0, 0, 0.168);
   outline-color: rgb(93, 95, 239);
 }
-.Task-panel-section .border-red {
+.task-panel-section .border-red {
   border: 2px solid red;
 }
-.input-date-time .input-date,.input-time,.select-priority,.hours {
-  line-height: 0%;
-}
-.Task-panel-section label {
+.task-panel-section label {
   font-size: 15px;
+}
+.task-panel-section .date,.time {
+  cursor: pointer;
+}
+.input-date,.input-time,.select-priority,.hours {
+  position: relative;
 }
 
 /* Floating-label */
 
-.Task-panel-section .Float-label {
+.task-panel-section .float-label {
   color: rgb(87, 104, 235);
   background-color: white;
   padding: 0% 1%;
-  font-size: 11px;
-  position: relative;
-  top: 11px;
+  font-size: 10.5px;
+  position: absolute;
+  top: 4px;
   left: 20px;
 }
 
-/* Input-Date-Time*/
+/* Form Validation */
 
-.Task-panel-section .Date,.Time {
-  cursor: pointer;
+.input-name,
+.input-email,
+.input-date,
+.select-priority {
+    position: relative;
+    /* margin-bottom: 10px; */
+}
+.error {
+    position: absolute;
+    left: 12px;
+    bottom: -7px;
+    color: rgb(242, 18, 18);
+    font-size: 11px;
+    visibility: hidden;
+}
+input{
+    border-color: rgb(206, 67, 67);
 }
 
 /* Selection */
 
-.Task-panel-section select {
+.task-panel-section select {
   padding: 10px 100px 10px 10px;
   border-radius: 6.5px;
   cursor: pointer;
@@ -177,7 +215,7 @@ main .line {
 
 /* Textarea */
 
-.Task-panel-section textarea {
+.task-panel-section textarea {
   margin: 10px 10px;
   border: 2px solid rgba(0, 0, 0, 0.168);
   border-radius: 6.5px;
@@ -189,21 +227,21 @@ main .line {
   margin-bottom: 20px;
   font-size: 14px;
 }
-.Task-panel-section textarea::placeholder {
+.task-panel-section textarea::placeholder {
   padding: 1.5rem 0rem;
   font-size: 14px;
 }
 
 /* Range */
 
-.Task-panel-section .input-range {
+.task-panel-section .input-range {
   cursor: pointer;
   padding: 0%;
 }
-.Task-panel-section .color-label,.progress-label {
+.task-panel-section .color-label,.progress-label {
   color: rgba(0, 0, 0, 0.564);
 }
-.Task-panel-section .checkbox-label,.status-label,.color-label,.progress-label {
+.task-panel-section .checkbox-label,.status-label,.color-label,.progress-label {
   position: relative;
   left: 2.5%;
 }
@@ -218,10 +256,10 @@ main .line {
 
 /* Color-picker */
 
-.Task-panel-section .task-color {
+.task-panel-section .task-color {
   margin-bottom: 20px;
 }
-.Task-panel-section .color-pick {
+.task-panel-section .color-pick {
   height: 35px;
   padding: 2px;
   cursor: pointer;
@@ -229,10 +267,10 @@ main .line {
 
 /* Checkbox */
 
-.Task-panel-section .task-type {
+.task-panel-section .task-type {
   margin-bottom: 20px;
 }
-.Task-panel-section .check {
+.task-panel-section .check {
   width: 19px;
   height: 19px;
   position: relative;
@@ -240,7 +278,7 @@ main .line {
   left: 1px;
   cursor: pointer;
 }
-.Task-panel-section .check-label {
+.task-panel-section .check-label {
   position: relative;
   bottom: 1px;
   right: 5px;
@@ -249,7 +287,7 @@ main .line {
 
 /* Radio-button */
 
-.Task-panel-section .radio {
+.task-panel-section .radio {
   width: 19px;
   height: 19px;
   position: relative;
@@ -257,7 +295,7 @@ main .line {
   left: 1px;
   cursor: pointer;
 }
-.Task-panel-section .radio-label {
+.task-panel-section .radio-label {
   position: relative;
   bottom: 1px;
   cursor: pointer;
@@ -266,7 +304,7 @@ main .line {
 
 /* Upload-File */
 
-.Task-panel-section .upload-box {
+.task-panel-section .upload-box {
   /* width: 315px; */
   width: 94%;
   max-width: 100%;
@@ -304,10 +342,10 @@ main .line {
 
 /* Button */
 
-.Task-panel-section .Buttons{
+.task-panel-section .buttons{
   display: flex;
 }
-.Task-panel-section .Create-button {
+.task-panel-section .create-button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   background-color: rgb(84, 98, 232);
@@ -323,11 +361,11 @@ main .line {
   transition: background-color 0.2s, box-shadow 0.2s;
   flex-basis: 70%;
 }
-.Task-panel-section .Create-button:hover {
+.task-panel-section .create-button:hover {
   background-color: #4252cc;
   box-shadow: 0 4px 12px rgba(84, 104, 255, 0.4);
 }
-.Task-panel-section .Reset-button {
+.task-panel-section .reset-button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   background-color: rgb(242, 243, 245);
@@ -344,47 +382,58 @@ main .line {
   transition: background-color 0.2s, box-shadow 0.2s;
   flex-basis: 25%;
 }
-.Task-panel-section .Reset-button:hover {
+.task-panel-section .reset-button:hover {
   background-color: #ffe3e3;
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
 /* ACTIVE TASKS SECTION */
 
-.Active-task-section {
+.active-task-section {
   background-color: white;
   margin: 10px 100px 19px 20px;
   padding: 20px;
   border-radius: 13px;
   box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.15);
 }
-.Active-task-section img {
+.active-task-section img {
   height: 17px;
   width: 17px;
   position: relative;
   top: 3px;
   margin-right: 8px;
 }
-.Task-card-heading {
+.task-card-heading {
   display: flex;
   justify-content: space-between;
   padding: 0.75rem 0.8rem;
 }
-.Task-card-heading .Active-panel-title {
+.task-card-heading .active-panel-title {
   font-size: 19px;
 }
-.Task-card-links {
+/* .task-card-links {
   display: flex;
   list-style: none;
   justify-content: space-around;
-}
-.Task-card-links input[type="radio"] {
+} */
+.task-card-links input[type="radio"] {
   display: none;
 }
 
 /* Default button style (inactive) */
 
-.Task-card-links label {
+.task-card-links label {
+  text-decoration: none;
+  margin-left: clamp(0.5rem,2vw,1rem);
+  padding: 0.3rem 0.75rem;
+  color: black;
+  border: 2px solid rgb(232, 234, 237);
+  border-radius: 0.9rem;
+  font-size:clamp(0.7rem,2vw,0.9rem);
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+.filter-buttons .filter-btn {
   text-decoration: none;
   margin-left: clamp(0.5rem,2vw,1rem);
   padding: 0.3rem 0.75rem;
@@ -398,7 +447,12 @@ main .line {
 
 /* Active (checked) button style */
 
-.Task-card-links input[type="radio"]:checked+label {
+.task-card-links input[type="radio"]:checked+label {
+  background-color: rgb(93, 95, 239);
+  color: white;
+  border: 1px solid rgb(93, 95, 239);
+}
+.filter-buttons .filter-btn.active{
   background-color: rgb(93, 95, 239);
   color: white;
   border: 1px solid rgb(93, 95, 239);
@@ -442,105 +496,58 @@ main .line {
   margin-top: 2rem;
   padding-top: 1rem;
 }
-.priority-container .status{
-  margin-top: 5px;
+.priority-container span{
+  font-size: 23px;
+  position: relative;
+  bottom: 1.3px;
+  right: 1px;
 }
-.Priority-high {
+.priority-container .high,.medium,.low{
+  text-transform: uppercase;
+  border-radius: 1rem;
+  padding: 0rem 1rem;
+  font-size: 0.9rem;
+  font-weight: 700;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+}
+.high{
   color: rgb(245, 66, 69);
-  text-transform: uppercase;
   background-color: rgb(255, 237, 237);
-  border-radius: 1rem;
-  padding: 0rem 1rem;
-  font-size: 0.9rem;
-  font-weight: 700;
-  height: 2rem;
-  display: flex;
-  align-items: center;
 }
-.high-dot {
-  margin-right: 5px;
-  height: 10px;
-  width: 10px;
-  background-color: rgb(245, 66, 69);
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-}
-.Priority-medium {
+.medium {
   color: rgb(250, 158, 45);
-  text-transform: uppercase;
   background-color: rgb(255, 245, 235);
-  border-radius: 1rem;
-  padding: 0rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  height: 2rem;
-  display: flex;
-  align-items: center;
 }
-.medium-dot {
-  margin-right: 5px;
-  height: 10px;
-  width: 10px;
-  background-color: rgb(250, 158, 45);
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
-}
-.Priority-low {
+.low {
   color: rgb(0, 185, 133);
-  text-transform: uppercase;
   background-color: rgb(228, 247, 242);
-  border-radius: 1rem;
-  padding: 0rem 1rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  height: 2rem;
-  display: flex;
-  align-items: center;
 }
-.low-dot {
-  margin-right: 5px;
-  height: 10px;
-  width: 10px;
-  background-color: rgb(0, 185, 133);
-  border-radius: 50%;
-  display: inline-block;
+.priority-container small{
+  font-size: 25px;
   vertical-align: middle;
+  position: relative;
+  right: 2px;
+  bottom: 1.3px;
 }
-.In-progress,.Pending,.Completed {
-  font-weight: 500;
-  font-size: 0.9rem;
+.priority-container .progress,.pending,.completed{
+ font-size: 15px;
 }
-.Pending-dot {
-  height: 11px;
-  width: 11px;
-  background-color: rgb(250, 158, 45);
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
+.priority-container .pending small{
+  color: rgb(250, 158, 45);
 }
-.In-progress-dot {
-  height: 11px;
-  width: 11px;
-  background-color: rgb(17, 133, 242);
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
+.priority-container .progress small{
+  color: rgb(17, 133, 242);
 }
-.Completed-dot {
-  height: 11px;
-  width: 11px;
-  background-color: rgb(0, 186, 133);
-  border-radius: 50%;
-  display: inline-block;
-  vertical-align: middle;
+.priority-container .completed small{
+  color: rgb(0, 186, 133);
 }
 
 /*----------FOOTER-----------*/
 
 footer {
-  padding: 2rem;
+  padding: 2rem 0;
   border-top: 2px solid rgb(232, 234, 237);
   margin-top: 2%;
   background-color: white;
@@ -589,7 +596,7 @@ footer {
 
   /* HEADER */
 
-  header .Header-Container {
+  header .header-container {
     position: relative;
     left: 2.1%;
   }
@@ -599,7 +606,7 @@ footer {
     justify-content: space-between;
     padding: 16px 24px;
   }
-  .Nav-Container {
+  .nav-container {
     display: inline-block;
     position: static;
     margin-right: -14px;
@@ -608,7 +615,7 @@ footer {
     display: flex;
     gap: 12px;
   }
-  .nav-links .Non-active-nav,.Active-nav {
+  .nav-links .non-active-nav,.active-nav {
     margin: 0;
     padding: 8px 12px;
   }
@@ -622,7 +629,7 @@ footer {
     width: 90%;
     margin: 5% auto;
   }
-   main .Main-title {
+   main .main-title {
     position: relative;
     left: 1.5%;
     margin-top: 12%;
@@ -630,57 +637,57 @@ footer {
   
   /* TASK PANEL SECTION */
 
-  .Task-panel-section {
+  .task-panel-section {
     width: 100%;
     margin: 0 auto;
     left: 0;
     padding: 20px 35px 20px 20px;
   }
-  .Task-panel-section input,
-  .Task-panel-section select {
+  .task-panel-section input,
+  .task-panel-section select {
     width: 100%;
     padding: 15px 10px;
     font-size: 18px;
     border-radius: 8px;
     margin-top: 20px;
   }
-  .Task-panel-section .Float-label {
+  .task-panel-section .float-label {
     font-size: 15px;
     top: 20px;
   }
 
   /* Textarea */
 
-  .Task-panel-section textarea {
+  .task-panel-section textarea {
     width: 100%;
     font-size: 18px;
     height: 120px;
     margin-top: 20px;
     border-radius: 8px;
   }
-  .Task-panel-section textarea::placeholder {
+  .task-panel-section textarea::placeholder {
     padding: 2rem 0rem;
     font-size: 18px;
   }
-  .Task-panel-section .color-label {
+  .task-panel-section .color-label {
     font-size: 18px;
     left: 12px;
   }
-  .Task-panel-section .progress-label {
+  .task-panel-section .progress-label {
     font-size: 18px;
     left: 12px;
   }
 
   /* Checkbox */
 
-  .Task-panel-section .checkbox-label {
+  .task-panel-section .checkbox-label {
     font-size: 18px;
     left: 12px;
   }
-  .Task-panel-section .check {
+  .task-panel-section .check {
     margin-left: 15px;
   }
-  .Task-panel-section .check-label {
+  .task-panel-section .check-label {
     font-size: 17px;
     margin-left: 65px;
     position: relative;
@@ -692,14 +699,14 @@ footer {
   
   /* Radio-button */
   
-  .Task-panel-section .status-label {
+  .task-panel-section .status-label {
     font-size: 18px;
     left: 12px;
   }
-  .Task-panel-section .radio {
+  .task-panel-section .radio {
     margin-left: 15px;
   }
-  .Task-panel-section .radio-label {
+  .task-panel-section .radio-label {
     font-size: 17px;
     margin-left: 65px;
     left: -65px;
@@ -707,7 +714,7 @@ footer {
 
   /* Upload-File */
 
-  .Task-panel-section .upload-box {
+  .task-panel-section .upload-box {
     position: relative;
     right: 10px;
     width: 100%;
@@ -723,17 +730,17 @@ footer {
 
   /* Button */
 
-  .Task-panel-section .Buttons {
+  .task-panel-section .buttons {
     display: flex;
     border-radius: 10px;
   }
-  .Task-panel-section .Create-button {
+  .task-panel-section .create-button {
     font-size: 16px;
     flex-basis: 70%;
     /* left: 1%; */
     bottom: 5px;
   }
-  .Task-panel-section .Reset-button {
+  .task-panel-section .reset-button {
     font-size: 16px;
     bottom: 5px;
     flex-basis: 30%;
@@ -743,7 +750,7 @@ footer {
 
   /* ACTIVE TASKS SECTION */
 
-  .Active-task-section {
+  .active-task-section {
     width: 100%;
     margin: 0 auto;
     padding: 20px;
@@ -803,24 +810,28 @@ footer {
     align-items: center;
     padding: 14px 18px;
   }
-  .Header-Container {
+  .header-container {
     left: -1%;
   }
-  header .Title {
+  header .title {
     font-size: 25px;
     margin-left: 5px;
   }
-  .menu-icon {
-    display: block;
-  }
-  .Nav-Container {
-    display: none;
+
+  /* nav-bar */
+
+  .nav-container {
     width: 100%;
     background-color: white;
     position: absolute;
     top: 61px;
     left: 0;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    left: -100%;
+    transition: all 0.4s;
+  }
+  .nav-container.active{
+    left: 0;
   }
   .nav-links {
     flex-direction: column;
@@ -837,8 +848,17 @@ footer {
     padding: 10px;
     font-size: 16px;
   }
-  .menu-toggle:checked~.Nav-Container {
+  .hamburger{
     display: block;
+  }
+  .hamburger.active .bar:nth-child(2){
+    opacity: 0;
+  }
+  .hamburger.active .bar:nth-child(1){
+    transform: translateY(8px) rotate(45deg);
+  }
+  .hamburger.active .bar:nth-child(3){
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   /* MAIN SECTION */
@@ -848,7 +868,7 @@ footer {
     width: 95%;
     margin: 0 auto;
   }
-  .Main-title {
+  .main-title {
     font-size: 23px;
     margin-top: 30%;
     margin-bottom: 5%;
@@ -857,89 +877,89 @@ footer {
 
   /* TASK PANEL SECTION */
 
-  .Task-panel-section {
+  .task-panel-section {
     width: 100%;
     margin: 15px auto;
     left: 0;
     padding: 15px;
     border-radius: 16px;
   }
-  .Task-panel-title{
+  .task-panel-title{
     margin: 10px 10px 10px -5px;
   }
-  .Task-panel-section input,.Task-panel-section select,.Task-panel-section textarea {
+  .task-panel-section input,.task-panel-section select,.task-panel-section textarea {
     width: 100%;
     font-size: 17px;
     margin: 13px 0;
     border-radius: 8px;
     padding: 12px 10px 12px 19px;
   }
-  .Task-panel-section .Float-label {
+  .task-panel-section .float-label {
     font-size: 13px;
     top: 12px;
   }
-  .Task-panel-section .progress-label {
+  .task-panel-section .progress-label {
     font-size: 17px;
     left: 1%;
   }
 
   /* Textarea */
 
-  .Task-panel-section textarea {
+  .task-panel-section textarea {
     height: 110px;
     margin-bottom: 25px;
   }
-  .Task-panel-section textarea::placeholder {
+  .task-panel-section textarea::placeholder {
     padding: 1.8rem 0rem;
     font-size: 17px;
   }
 
   /* Color-picker */
 
-  .Task-panel-section .color-label {
+  .task-panel-section .color-label {
     font-size: 17px;
     left: 1%;
   }
-  .Task-panel-section .task-color {
+  .task-panel-section .task-color {
     margin-bottom: 17px;
     left: 1%;
   }
 
   /* Checkbox */
 
-  .Task-panel-section .checkbox-label {
+  .task-panel-section .checkbox-label {
     font-size: 17px;
     left: 1%;
   }
-  .Task-panel-section .check {
+  .task-panel-section .check {
     width: 60px;
     left: -14px;
   }
-  .Task-panel-section .check-label {
+  .task-panel-section .check-label {
     font-size: 17px;
     left: -25px;
   }
 
   /* Radio-button */
 
-  .Task-panel-section .status-label {
+  .task-panel-section .status-label {
     font-size: 17px;
     left: 1%;
   }
-  .Task-panel-section .radio {
+  .task-panel-section .radio {
     width: 60px;
     left: -15px;
     height: 19px;
     top: 3px;
   }
-  .Task-panel-section .radio-label {
+  .task-panel-section .radio-label {
     font-size: 17px;
     left: -26px;
   }
   
   /* Upload-File */
 
-  .Task-panel-section .upload-box {
+  .task-panel-section .upload-box {
     width: 98%;
     height: 100px;
     margin: 13px 0 13px 3px;
@@ -950,12 +970,12 @@ footer {
   
   /* Button */
 
-  .Task-panel-section .Buttons {
+  .task-panel-section .buttons {
     display: flex;
     font-size: 14px;
     font-weight: 600;
   }
-  .Task-panel-section .Create-button {
+  .task-panel-section .create-button {
     padding: 0px 40px;
     margin-top: 20px;
     border-radius: 10px;
@@ -964,7 +984,7 @@ footer {
     margin-left: 11px;
     flex-basis: 62%;
   }
-  .Task-panel-section .Reset-button {
+  .task-panel-section .reset-button {
     margin: 10px 0;
     padding: 13px 30px;
     margin-left: 5px;
@@ -976,29 +996,27 @@ footer {
 
   /* ACTIVE TASKS SECTION */
 
-  .Active-task-section {
+  .active-task-section {
     width: 100%;
     margin: 0 auto;
     padding: 15px;
     margin-top: 20px;
     border-radius: 16px;
   }
-  .Active-task-section img{
+  .active-task-section img{
     top: 2.5px;
     height: 18px;
     width: 18px;
   }
-  .Task-card-heading {
+  .task-card-heading {
     flex-direction: column;
     padding: 12px 5px;
   }
-  .Task-card-heading .Active-panel-title {
+  .task-card-heading .active-panel-title {
     font-size: 19px;
-    position: relative;
-    /* right: 24.5%; */
     bottom: 2px;
   }
-  .Task-card-links {
+  .task-card-links {
     /* flex-wrap: wrap; */
     position: relative;
     right: 7px;
@@ -1007,7 +1025,7 @@ footer {
     margin-top: 10px;
     width: 100%;
   }
-  .Task-card-links label {
+  .task-card-links label {
     padding: 0.5rem 1rem;
     font-size:clamp(0.9rem,3.5vw,1rem);
     margin-left: clamp(0.5rem,1vw,0.7rem);
@@ -1064,19 +1082,23 @@ footer {
     font-size: 16px;
     line-height: 25px;
   }
+  .footer-copyrights{
+    padding: 16px 44px;
+  }
 }
-@media (min-width: 0px) and (max-width: 348px) {
-  .Task-card-links label {
+
+@media (min-width: 0px) and (max-width: 355px) {
+  .task-card-links label {
     padding: 0.4rem 0.8rem;
     font-size:clamp(0.77rem,3.5vw,1rem);
   }
-  .Task-panel-section .radio{
+  .task-panel-section .radio{
     width: 55px;
   }
-  .Task-panel-section .Create-button {
+  .task-panel-section .create-button {
     flex-basis: 65%;
   }
-  .Task-panel-section .Reset-button{
+  .task-panel-section .reset-button{
     flex-basis: 10%;
   }
 }
