@@ -26,9 +26,6 @@
       <span class="bar"></span>
     </div>
 
-    <input type="checkbox" id="menu-toggle" class="menu-toggle">
-    <label for="menu-toggle" class="menu-icon"><i class="fas fa-bars"></i></label>
-
     <!-- NAV-BAR -->
 
     <nav class="nav-container">
@@ -43,6 +40,8 @@
 
   <main>
     <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
+    <div id="toast" class="toast"></div>
+
     <section class="main-section">
 
       <!-- TASK PANEL SECTION -->
@@ -53,18 +52,18 @@
         </div>
 
         <form id="form">
+          <div class="input-username">
+            <input type="text" id="username-input" placeholder="User Name" />
+            <span class="error"></span>
+          </div>
+
           <div class="input-name">
-            <input type="text" class="" id="name-input" placeholder="Task Name *" />
+            <input type="text" class="username" id="name-input" placeholder="Task Name *" />
             <span class="error"></span>
           </div>
 
           <div class="input-email">
-            <input type="email" class="" id="email-input" placeholder="Assignee Email *" />
-            <span class="error"></span>
-          </div>
-
-          <div class="input-username">
-            <input type="text" id="username-input" placeholder="User Name *" />
+            <input type="email" class="email" id="email-input" placeholder="Assignee Email *" />
             <span class="error"></span>
           </div>
 
@@ -91,9 +90,9 @@
             <span class="error"></span>
           </div>
 
-          <div class="hours">
+          <div class="input-hours">
             <label for="Number" class="float-label float-Hours">Estimated Hours</label>
-            <input type="number" id="hours-input" class="number" name="Number" value="0">
+            <input type="number" id="hours-input" class="number" name="Number" placeholder="0">
             <span class="error"></span>
           </div>
 
@@ -114,43 +113,39 @@
             <span class="error"></span>
           </div>
 
-          <div class="task-color">
+          <!-- <div class="task-color">
             <label for="color" class="color-label">Task Color</label> <br>
             <input type="color" id="color-input" class="color-pick" name="color">
-          </div>
+          </div> -->
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type</label> <br>
-            <input type="checkbox" class="check" id="Bug"> <label for="Bug" class="check-label">Bug Fix</label>
-            <input type="checkbox" class="check" id="Feature"> <label for="Feature" class="check-label">Feature</label>
+            <input type="checkbox" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug Fix</label>
+            <input type="checkbox" class="check" value="Feature" id="Feature"> <label for="Feature" class="check-label">Feature</label>
             <br class="check-radio-br">
-            <input type="checkbox" class="check" id="Enhancement"> <label for="Enhancement"
-              class="check-label">Enhancement</label>
+            <input type="checkbox" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement" class="check-label">Enhancement</label> <br>
             <span class="error"></span>
           </div>
 
           <div class="status">
             <label for="" class="status-label">Status</label> <br>
-            <input type="radio" name="Status" class="radio" value="Pending" id="Pending"> <label for="Pending"
-              class="radio-label">Pending</label>
-            <input type="radio" name="Status" class="radio in-progress-radio" value="In Progress" id="In Progress">
-            <label for="In Progress" class="radio-label in-progress-label">In Progress</label> <br
-              class="check-radio-br">
-            <input type="radio" name="Status" class="radio" id="Completed" value="Completed"> <label for="Completed"
-              class="radio-label">Completed</label>
+            <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending" class="radio-label">Pending</label>
+            <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress"> <label for="In Progress" class="radio-label in-progress-label">In Progress</label> 
+            <br class="check-radio-br">
+            <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed" class="radio-label">Completed</label> <br>
             <span class="error"></span>
           </div>
 
-          <div class="upload-file">
+          <!-- <div class="upload-file">
             <label class="upload-box">
               <p><i class="fa-solid fa-paperclip"></i> Click to upload attachments</p>
               <small>Supported: PDF, DOC, Images</small>
               <input type="file" id="upload-input" class="input-upload" accept=".pdf,.doc,.docx,image/*">
             </label>
-          </div>
+          </div> -->
 
           <div class="buttons">
-            <button type="submit" id="create-button" class="create-button"> <span>&#10003</span> Create Task</button>
+            <button type="submit" id="create-button" class="create-button"> <span>&#10003;</span> Create Task</button>
             <button type="reset" id="reset-button" class="reset-button"> <span>&#10006;</span> <br> Reset</button>
           </div>
         </form>
@@ -164,32 +159,18 @@
             <h3>&#9989 Active Tasks</h3>
           </div>
 
-          <div class="task-card-links">
-            <input type="radio" name="priority" id="all" checked>
-            <label for="all" class="task-card-active">All</label>
-
-            <input type="radio" name="priority" id="high">
-            <label for="high" class="task-card-inactive">High</label>
-
-            <input type="radio" name="priority" id="medium">
-            <label for="medium" class="task-card-inactive">Medium</label>
-
-            <input type="radio" name="priority" id="low">
-            <label for="low" class="task-card-inactive">Low</label>
+          <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="all">All</button>
+            <button class="filter-btn" data-filter="high">High</button>
+            <button class="filter-btn" data-filter="medium">Medium</button>
+            <button class="filter-btn" data-filter="low">Low</button>
           </div>
         </div>
-
-        <!-- <div class="filter-buttons">
-          <button id="filter-all" class="filter-btn active">All</button>
-          <button id="filter-high" class="filter-btn">High</button>
-          <button id="filter-medium" class="filter-btn">Medium</button>
-          <button id="filter-low" class="filter-btn">Low</button>
-        </div> -->
 
         <!-- TASK-CARD -->
 
         <div class="task-card-container">
-          <div class="task-card task-card-1">
+          <div class="task-card task-card-1" data-priority="high">
             <h4>Designing Homepage Mockup</h4>
             <p>Create wireframes and high-fidelity mockups for the new homepage redesign project with modern Ul
               elements.</p>
@@ -202,7 +183,7 @@
             </div>
           </div>
 
-          <div class="task-card task-card-2">
+          <div class="task-card task-card-2" data-priority="high">
             <h4>Fix Login Authentication Bug</h4>
             <p>Resolve the issue where users are logged out unexpectedly after 5 minutes of inactivity.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 15, 2025</p>
@@ -214,7 +195,7 @@
             </div>
           </div>
 
-          <div class="task-card task-card-3">
+          <div class="task-card task-card-3" data-priority="medium">
             <h4>Update Documentation</h4>
             <p>Review and update the API documentation with the latest endpoint changes and examples.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 25, 2025</p>
@@ -226,7 +207,7 @@
             </div>
           </div>
 
-          <div class="task-card task-card-4">
+          <div class="task-card task-card-4" data-priority="medium">
             <h4>Database Performance Optimization</h4>
             <p>Analyze and optimize slow-running queries to improve overall database performance by 30%.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 30, 2025</p>
@@ -238,7 +219,7 @@
             </div>
           </div>
 
-          <div class="task-card task-card-5">
+          <div class="task-card task-card-5" data-priority="low">
             <h4>Implement Dark Mode</h4>
             <p>Add dark mode theme support across the application with user preference persistence</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 05, 2025</p>
@@ -250,7 +231,7 @@
             </div>
           </div>
 
-          <div class="task-card task-card-6">
+          <div class="task-card task-card-6" data-priority="high">
             <h4>User Testing Session</h4>
             <p>Conduct user testing sessions with 10 participants to gather feedback on the new interface.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 28, 2025</p>
