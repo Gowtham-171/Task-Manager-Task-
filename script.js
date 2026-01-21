@@ -245,6 +245,142 @@ function showToast(message) {
 }
 
 
+// Local Storage 
+
+function getTasks() {
+    return JSON.parse(localStorage.getItem("tasks")) || [];
+}
+
+function saveTasks(tasks) {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}
+
+// Creating new Task
+
+function createTask() {
+    const tasks = getTasks();
+
+    const task = {
+        id: Date.now(),
+        username: inputUsername.value,
+        name: inputName.value,
+        email: inputEmail.value,
+        date: inputDate.value,
+        time: inputTime.value,
+        priority: selectPriority.value,
+        hours: inputHours.value,
+        url: inputUrl.value,
+        description: inputDescription.value,
+        progress: inputProgress.value,
+        type: [...document.querySelectorAll('.check:checked')]
+                .map((checkbox) => checkbox.value),
+        status: document.querySelector('.radio:checked')?.value || "Pending"
+    };
+
+    tasks.push(task);
+    saveTasks(tasks);
+
+    renderTasks();
+}
+
+function renderTasks() {
+    //   taskCardContainer.innerHTML = "";
+
+    const tasks = getTasks();
+
+    tasks.forEach(task => {
+
+        const newDate = new Date(task.date).toLocaleDateString("en-US", {
+            month: "short",
+            day: "2-digit",
+            year: "numeric"
+        });
+
+        const taskCard = document.createElement("div");
+        taskCard.className = "task-card";
+        taskCard.dataset.id = task.id;                  // for Popup
+        taskCard.dataset.priority = task.priority;      // for button filter
+
+        taskCard.innerHTML =
+        `<h4 class="task-card-name">${task.name}</h4>
+        <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+        </div>
+        <p>${task.description}</p>
+        <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due:${newDate}</p>
+        <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">${task.username}</p>
+        
+        <div class="priority-container">
+        <label class="${task.priority}"><span>&#9679;</span>${task.priority}</label>
+        <label class="${task.status.toLowerCase()}"><small>&#9679;</small>${task.status}</label>
+        </div>`;
+
+        taskCardContainer.appendChild(taskCard);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    renderTasks();
+});
+
+// Full Task-card Details (Popup)
+
+const fullTaskcard = document.querySelector('.full-task-card');
+const closeBtn = document.querySelector('.popup-close');
+const popupOverlay = document.querySelector('.popup-overlay');
+
+taskCardContainer.addEventListener('click', (e) => {
+    const card = e.target.closest('.task-card');
+    if (!card) return;
+
+    const taskId = Number(card.dataset.id);
+    openFullTaskPopup(taskId);
+});
+
+function openFullTaskPopup(taskId) {
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id === taskId);
+    console.log(task)
+
+    if (!task) return;
+
+    document.querySelector('#popupTitle').textContent = task.name;
+    document.querySelector('#popupDescription').textContent = task.description;
+    document.querySelector('#popupUser').textContent = task.username;
+    document.querySelector('#popupEmail').textContent = task.email;
+    document.querySelector('#popupDate').textContent = task.date;
+    document.querySelector('#popupTime').textContent = task.time;
+    document.querySelector('#popupHours').textContent = task.hours;
+    document.querySelector('#popupPriority').textContent = task.priority;
+    document.querySelector('#popupStatus').textContent = task.status;
+    document.querySelector('#popupUrl').href = task.url;
+    
+    
+
+    fullTaskcard.style.display = 'block';
+    popupOverlay.style.display = 'block';
+}
+
+closeBtn.addEventListener('click', () => {
+    fullTaskcard.style.display = 'none';
+    popupOverlay.style.display = 'none';
+});
+
+// Task card delete and edit option
+
+document.addEventListener("click", (event) => {
+  const deleteBtn = event.target.closest(".delete-btn");
+
+  if (deleteBtn) {
+    deleteBtn.closest(".task-card").remove();
+  }
+});
+
 // Input Range Control
 
 const progressPercent = document.querySelector('.task-progress-label');
@@ -290,71 +426,4 @@ filterButtons.forEach((button) => {
     });
 });
 
-
-// Local Storage 
-
-function getTasks() {
-    return JSON.parse(localStorage.getItem("tasks")) || [];
-}
-
-function saveTasks(tasks) {
-    localStorage.setItem("tasks", JSON.stringify(tasks));
-}
-
-// Creating new Task
-
-function createTask() {
-    const tasks = getTasks();
-
-    const task = {
-        id: Date.now(),
-        name: inputName.value,
-        description: inputDescription.value,
-        date: inputDate.value,
-        username: inputUsername.value,
-        priority: selectPriority.value,
-        status: document.querySelector('.radio:checked')?.value || "Pending"
-    };
-
-    tasks.push(task);
-    saveTasks(tasks);
-
-    renderTasks();
-}
-
-function renderTasks() {
-    //   taskCardContainer.innerHTML = "";
-
-    const tasks = getTasks();
-
-    tasks.forEach(task => {
-
-        const newDate = new Date(task.date).toLocaleDateString("en-US", {
-            month: "short",
-            day: "2-digit",
-            year: "numeric"
-        });
-
-        const taskCard = document.createElement("div");
-        taskCard.className = "task-card";
-        taskCard.dataset.priority = task.priority;
-
-        taskCard.innerHTML =
-            `<h4>${task.name}</h4>
-      <p>${task.description}</p>
-      <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due:${newDate}</p>
-      <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">${task.username}</p>
-
-      <div class="priority-container">
-        <label class="${task.priority}"><span>&#9679;</span>${task.priority}</label>
-        <label class="${task.status.toLowerCase()}"><small>&#9679;</small>${task.status}</label>
-      </div>`;
-
-        taskCardContainer.appendChild(taskCard);
-    });
-}
-
-document.addEventListener("DOMContentLoaded", () => {
-    renderTasks();
-});
 

@@ -63,7 +63,7 @@
           </div>
 
           <div class="input-email">
-            <input type="email" class="email" id="email-input" placeholder="Assignee Email *" />
+            <input type="text" class="email" id="email-input" placeholder="Assignee Email *" />
             <span class="error"></span>
           </div>
 
@@ -120,19 +120,25 @@
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type</label> <br>
-            <input type="checkbox" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug Fix</label>
-            <input type="checkbox" class="check" value="Feature" id="Feature"> <label for="Feature" class="check-label">Feature</label>
+            <input type="checkbox" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug
+              Fix</label>
+            <input type="checkbox" class="check" value="Feature" id="Feature"> <label for="Feature"
+              class="check-label">Feature</label>
             <br class="check-radio-br">
-            <input type="checkbox" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement" class="check-label">Enhancement</label> <br>
+            <input type="checkbox" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement"
+              class="check-label">Enhancement</label> <br>
             <span class="error"></span>
           </div>
 
           <div class="status">
             <label for="" class="status-label">Status</label> <br>
-            <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending" class="radio-label">Pending</label>
-            <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress"> <label for="In Progress" class="radio-label in-progress-label">In Progress</label> 
+            <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending"
+              class="radio-label">Pending</label>
+            <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
+            <label for="In Progress" class="radio-label in-progress-label">In Progress</label>
             <br class="check-radio-br">
-            <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed" class="radio-label">Completed</label> <br>
+            <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed"
+              class="radio-label">Completed</label> <br>
             <span class="error"></span>
           </div>
 
@@ -171,7 +177,19 @@
 
         <div class="task-card-container">
           <div class="task-card task-card-1" data-priority="high">
-            <h4>Designing Homepage Mockup</h4>
+            <div class="task-card-title">
+              <h4>Designing Homepage Mockup</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+              </div>
+            </div>
+
             <p>Create wireframes and high-fidelity mockups for the new homepage redesign project with modern Ul
               elements.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 20, 2025</p>
@@ -184,7 +202,19 @@
           </div>
 
           <div class="task-card task-card-2" data-priority="high">
-            <h4>Fix Login Authentication Bug</h4>
+            <div class="task-card-title">
+              <h4>Fix Login Authentication Bug</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+              </div>
+            </div>
+
             <p>Resolve the issue where users are logged out unexpectedly after 5 minutes of inactivity.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 15, 2025</p>
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Michael Chen</p>
@@ -196,7 +226,20 @@
           </div>
 
           <div class="task-card task-card-3" data-priority="medium">
-            <h4>Update Documentation</h4>
+            <div class="task-card-title">
+              <h4>Update Documentation</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+
+              </div>
+            </div>
+
             <p>Review and update the API documentation with the latest endpoint changes and examples.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 25, 2025</p>
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Emily Rodriguez</p>
@@ -208,7 +251,20 @@
           </div>
 
           <div class="task-card task-card-4" data-priority="medium">
-            <h4>Database Performance Optimization</h4>
+            <div class="task-card-title">
+              <h4>Database Performance Optimization</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+
+              </div>
+            </div>
+
             <p>Analyze and optimize slow-running queries to improve overall database performance by 30%.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 30, 2025</p>
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">David Kim</p>
@@ -220,7 +276,20 @@
           </div>
 
           <div class="task-card task-card-5" data-priority="low">
-            <h4>Implement Dark Mode</h4>
+            <div class="task-card-title">
+              <h4>Implement Dark Mode</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+
+              </div>
+            </div>
+
             <p>Add dark mode theme support across the application with user preference persistence</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 05, 2025</p>
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Alex Thompson</p>
@@ -232,7 +301,19 @@
           </div>
 
           <div class="task-card task-card-6" data-priority="high">
-            <h4>User Testing Session</h4>
+            <div class="task-card-title">
+              <h4>User Testing Session</h4>
+
+              <div class="task-actions">
+                <span class="action-icon-outline edit-btn">
+                  <i class="fa-solid fa-pen"></i>
+                </span>
+                <span class="action-icon-outline delete-btn">
+                  <i class="fa-solid fa-trash"></i>
+                </span>
+
+              </div>
+            </div>
             <p>Conduct user testing sessions with 10 participants to gather feedback on the new interface.</p>
             <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 28, 2025</p>
             <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Lisa Anderson</p>
@@ -243,6 +324,73 @@
             </div>
           </div>
 
+        </div>
+
+        <!-- FULL TASK-CARD -->
+
+      </section>
+
+      <div class="popup-overlay"></div>
+
+      <section class="full-task-card">
+        <div class="full-taskcard-datas">
+
+        <button class="popup-close" label="Close popup">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+
+          <h3 class="task-title" id="popupTitle">Designing Homepage Mockup</h3>
+          <p class="task-desc" id="popupDescription">
+            Create wireframes and high-fidelity mockups for the new homepage redesign
+            project with modern UI elements.
+          </p>
+          <div class="full-taskcard-grid">
+            <div class="grid-item">
+              <span class="label">👤 Assigned To</span>
+              <span class="value" id="popupUser">Sarah Johnson</span>
+            </div>
+
+            <div class="grid-item">
+              <span class="label">📧 Email</span>
+              <span class="value" id="popupEmail">sarah@mail.com</span>
+            </div>
+
+            <div class="grid-item">
+              <span class="label">📅 Due Date</span>
+              <span class="value" id="popupDate">Oct 20, 2025</span>
+            </div>
+
+            <div class="grid-item">
+              <span class="label">⏰ Due Time</span>
+              <span class="value" id="popupTime">10:30 AM</span>
+            </div>
+
+            <div class="grid-item">
+              <span class="label">⏳ Estimated Hours</span>
+              <span class="value" id="popupHours">6 hrs</span>
+            </div>
+
+            <div class="grid-item">
+              <span class="label">🔗 Project URL</span>
+              <a class="value link" href="#" id="popupUrl">View URL</a>
+            </div>
+          </div>
+
+          <div class="progress-section">
+            <div class="progress-label">
+              <span>Progress</span>
+              <span id="popupProgressText">0%</span>
+            </div>
+            <div class="progress-bar" >
+              <div class="progress-fill" id="popupProgressBar"  style="width: 60%"></div>
+            </div>
+          </div>
+
+          <div class="priority-container">
+            <label class="medium"  id="popupPriority"><span>&#9679</span>Medium</label>
+            <span class="badge type" >Bug Fix, Feature</span>
+            <label class="progress" id="popupStatus"><small>&#9679</small>In Progress</label>
+          </div>
         </div>
       </section>
     </section>
