@@ -10,8 +10,6 @@ const inputHours = document.querySelector('#hours-input');
 const inputUrl = document.querySelector('#url-input');
 const inputDescription = document.querySelector('#description-input');
 const inputProgress = document.querySelector('#progress-input');
-const inputtaskTypes = document.querySelector('.check:checked');
-const inputRadio = document.querySelector('.radio:checked');
 const createButton = document.querySelector('#create-button');
 const resetButton = document.querySelector('#reset-button');
 
@@ -142,6 +140,8 @@ function validateInputs() {
     }
 
     // Validate Task Type
+
+    const inputtaskTypes = document.querySelector('.check:checked');
     const firstCheckbox = document.querySelector('.check');
 
     if (!inputtaskTypes) {
@@ -152,6 +152,8 @@ function validateInputs() {
     }
 
     // Validate Task Status
+
+    const inputRadio = document.querySelector('.radio:checked');
     const firstRadio = document.querySelector('.radio');
 
     if (!inputRadio) {
@@ -179,7 +181,7 @@ const mandatoryFields = [inputName, inputEmail, inputDate, selectPriority];
 function setError(element, message) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector('.error');
-    errorElement.innerHTML = `<i class="fa-solid fa-triangle-exclamation fa-" style="color: #c0392b;"></i>  ${message}`;
+    errorElement.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: #c0392b;"></i>  ${message}`;
     // errorElement.style.visibility = "visible";
 
     if (mandatoryFields.includes(element)) {
@@ -212,11 +214,11 @@ requiredFields.forEach((field) => {
 });
 
 checkboxes.forEach((checkbox) => {
-  checkbox.addEventListener("change", () => clearError(checkbox));
+    checkbox.addEventListener("change", () => clearError(checkbox));
 });
 
 radios.forEach((radio) => {
-  radio.addEventListener("change", () => clearError(radio));
+    radio.addEventListener("change", () => clearError(radio));
 });
 
 
@@ -265,7 +267,6 @@ hamburger.addEventListener('click', () => {
 // Filtering Buttons
 
 const filterButtons = document.querySelectorAll(".filter-btn");
-
 
 filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
