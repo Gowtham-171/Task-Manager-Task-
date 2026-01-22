@@ -391,7 +391,7 @@ select {
   margin-top: 25px;
 }
 
-.task-panel-section .create-button {
+.create-button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   background-color: rgb(84, 98, 232);
@@ -408,12 +408,12 @@ select {
   flex-basis: 70%;
 }
 
-.task-panel-section .create-button:hover {
+.create-button:hover {
   background-color: #4252cc;
   box-shadow: 0 4px 12px rgba(84, 104, 255, 0.4);
 }
 
-.task-panel-section .reset-button {
+.reset-button {
   font-family: Arial, Helvetica, sans-serif;
   font-weight: 600;
   background-color: rgb(242, 243, 245);
@@ -431,7 +431,7 @@ select {
   flex-basis: 25%;
 }
 
-.task-panel-section .reset-button:hover {
+.reset-button:hover {
   background-color: #ffe3e3;
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
@@ -555,7 +555,7 @@ select {
   transform: scale(1.1);
 }
 
-.task-card .task-card-name {
+.task-card h4 {
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
@@ -636,21 +636,36 @@ select {
   color: rgb(0, 186, 133);
 }
 
-/* Full Task card */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+/* FULL TASK-CARD */
 
 .full-task-card {
-  position: fixed;
-  margin: auto;
-  left: 33%;
-  display: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 90%;
+  height: 100vh;
+  position: absolute;
   z-index: 2;
+  /* left: 33%; */
+  /* display: none; */
 }
 
 .full-taskcard-datas {
-  width: 480px;
+  width: 100%;
+  max-width: 550px;
   background: #fff;
   border-radius: 16px;
-  padding: 50px;
+  padding: 40px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-family: Inter, sans-serif;
   border: 2px solid rgb(232, 234, 237);
@@ -724,18 +739,15 @@ select {
 }
 
 .popup-close {
-  position: absolute;
-  top: 16px;
-  right: 20px;
+  /* position: absolute; */
+  /* top: 16px; */
+  /* right: 20px; */
   background: none;
   border: none;
   font-size: 18px;
   cursor: pointer;
   color: #999;
   transition: color 0.2s ease, transform 0.2s ease;
-  /* border: 1px solid rgb(232, 234, 237); */
-  /* border-radius: 50%; */
-  padding: 0px 5px;
 }
 
 .popup-close:hover {
@@ -743,18 +755,137 @@ select {
   transform: scale(1.1);
 }
 
-.popup-overlay {
-  background-color: black;
-  opacity: 0.7;
-  width: 100%;
-  height: 100%;
-  position: fixed;
-  top: 0;
-  z-index: 1;
+/* EDIT TASK POPUP */
+
+.edit-popup {
+  /* width: 100%; */
+  margin: 0 auto;
+  left: 0;
+  padding: 20px 35px 20px 20px;
+  background-color: white;
+  border-radius: 13px;
+  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.15);
+  position: absolute;
+  top: 20vh;
+  left: 31%;
   display: none;
+  z-index: 1;
 }
 
 
+.edit-popup input,
+.edit-popup select {
+  font-size: 14px;
+  margin: 10px 10px 13px 8px;
+  padding: 10px;
+  width: 100%;
+  border-radius: 6.5px;
+  border: 2px solid rgba(0, 0, 0, 0.168);
+  outline-color: rgb(93, 95, 239);
+}
+
+.edit-popup .float-label {
+  color: rgb(87, 104, 235);
+  background-color: white;
+  padding: 0% 1%;
+  font-size: 10.5px;
+  position: absolute;
+  top: 4px;
+  left: 20px;
+}
+
+/* Textarea */
+
+.edit-popup textarea {
+  width: 100%;
+  height: 100px;
+  margin: 10px 10px;
+  border: 2px solid rgba(0, 0, 0, 0.168);
+  border-radius: 6.5px;
+  font-family: Arial, Helvetica, sans-serif;
+  padding: 10px;
+  outline-color: rgb(93, 95, 239);
+  font-size: 14px;
+}
+
+.edit-popup textarea::placeholder {
+  padding: 1.5rem 0rem;
+  font-size: 14px;
+}
+
+.edit-popup .progress-label {
+  font-size: 14px;
+  left: 12px;
+  color: rgba(0, 0, 0, 0.564);
+}
+
+.edit-popup .input-range {
+  cursor: pointer;
+  padding: 0%;
+}
+
+.edit-popup .checkbox-label,
+.status-label,
+.color-label,
+.progress-label {
+  position: relative;
+  left: 2.5%;
+}
+
+/* Checkbox */
+
+.edit-popup .task-type {
+  margin-bottom: 20px;
+}
+
+.edit-popup .checkbox-label {
+  font-size: 14px;
+  left: 12px;
+}
+
+.edit-popup .check {
+  /* margin-left: 15px; */
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 3px;
+  left: 1px;
+  cursor: pointer;
+}
+
+.edit-popup .check-label {
+  font-size: 14px;
+  margin-left: 65px;
+  position: relative;
+  left: -65px;
+}
+
+.edit-popup .check-radio-br {
+  display: none;
+}
+
+/* Radio-button */
+
+.edit-popup .status-label {
+  font-size: 14px;
+  left: 12px;
+}
+
+.edit-popup .radio {
+  /* margin-left: 15px; */
+  width: 19px;
+  height: 19px;
+  position: relative;
+  top: 3px;
+  left: 1px;
+  cursor: pointer;
+}
+
+.edit-popup .radio-label {
+  font-size: 14px;
+  /* margin-left: 55px; */
+  left: -65px;
+}
 
 /*----------FOOTER-----------*/
 
@@ -1008,6 +1139,20 @@ footer {
 
   .task-card p {
     font-size: 16px;
+  }
+
+  /* FULL TASK-CARD */
+
+  .full-taskcard-datas {
+    padding: 24px;
+  }
+
+  .full-taskcard-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .task-title {
+    font-size: 18px;
   }
 
   /*----------FOOTER-----------*/
@@ -1337,6 +1482,39 @@ footer {
     font-size: 16px;
     line-height: 25px;
   }
+
+  /* FULL TASK-CARD */
+
+  .full-taskcard-datas {
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .full-taskcard-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .task-title {
+    font-size: 16px;
+  }
+
+  .task-desc {
+    font-size: 13px;
+  }
+
+  .grid-item .value {
+    font-size: 13px;
+  }
+
+  .progress-label {
+    font-size: 12px;
+  }
+
+  /* .priority-container {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  } */
 
   /* FOOTER */
 

@@ -163,7 +163,6 @@ function validateInputs() {
         setSuccess(firstRadio);
     }
 
-
     // Auto scroll
     if (firstError) {
         firstError.scrollIntoView({
@@ -273,7 +272,7 @@ function createTask() {
         description: inputDescription.value,
         progress: inputProgress.value,
         type: [...document.querySelectorAll('.check:checked')]
-                .map((checkbox) => checkbox.value),
+            .map((checkbox) => checkbox.value),
         status: document.querySelector('.radio:checked')?.value || "Pending"
     };
 
@@ -284,7 +283,7 @@ function createTask() {
 }
 
 function renderTasks() {
-    //   taskCardContainer.innerHTML = "";
+    taskCardContainer.innerHTML = "";
 
     const tasks = getTasks();
 
@@ -301,15 +300,14 @@ function renderTasks() {
         taskCard.dataset.id = task.id;                  // for Popup
         taskCard.dataset.priority = task.priority;      // for button filter
 
-        taskCard.innerHTML =
-        `<h4 class="task-card-name">${task.name}</h4>
+        taskCard.innerHTML = `<h4>${task.name}</h4>
         <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
+            <span class="action-icon-outline edit-btn">
+              <i class="fa-solid fa-pen"></i>
+            </span>
+            <span class="action-icon-outline delete-btn">
                   <i class="fa-solid fa-trash"></i>
-                </span>
+            </span>
         </div>
         <p>${task.description}</p>
         <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due:${newDate}</p>
@@ -331,21 +329,27 @@ document.addEventListener("DOMContentLoaded", () => {
 // Full Task-card Details (Popup)
 
 const fullTaskcard = document.querySelector('.full-task-card');
-const closeBtn = document.querySelector('.popup-close');
+const fulltaskCloseButton = document.querySelector('#fulltask-popup-close');
 const popupOverlay = document.querySelector('.popup-overlay');
 
 taskCardContainer.addEventListener('click', (e) => {
+
+    if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) {
+        return;
+    }
+
     const card = e.target.closest('.task-card');
     if (!card) return;
 
     const taskId = Number(card.dataset.id);
-    openFullTaskPopup(taskId);
+    fullTaskPopup(taskId);
 });
 
-function openFullTaskPopup(taskId) {
+
+function fullTaskPopup(taskId) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id === taskId);
-    console.log(task)
+    // console.log(task)
 
     if (!task) return;
 
@@ -359,26 +363,136 @@ function openFullTaskPopup(taskId) {
     document.querySelector('#popupPriority').textContent = task.priority;
     document.querySelector('#popupStatus').textContent = task.status;
     document.querySelector('#popupUrl').href = task.url;
-    
-    
 
-    fullTaskcard.style.display = 'block';
-    popupOverlay.style.display = 'block';
+    fullTaskcard.style.display = 'flex';
+    popupOverlay.style.display = 'flex';
 }
 
-closeBtn.addEventListener('click', () => {
+fulltaskCloseButton.addEventListener('click', () => {
     fullTaskcard.style.display = 'none';
     popupOverlay.style.display = 'none';
+    // editTask.style.display = 'none';
 });
 
-// Task card delete and edit option
+
+// Edit Task (Popup)
+
+let isEditMode = false;
+let editTaskId = null;
+
+taskCardContainer.addEventListener("click", (e) => {
+    if (e.target.closest(".edit-btn")) {
+        const card = e.target.closest(".task-card");
+
+        editTaskId = card.dataset.id;
+        isEditMode = true;
+
+        editTaskPopup(editTaskId);
+    }
+});
+
+const editTask = document.querySelector(".edit-popup");
+const usernameInput = document.querySelector("#taskUsername");
+const nameInput = document.querySelector("#taskName");
+const emailInput = document.querySelector("#taskEmail");
+const dateInput = document.querySelector("#taskDate");
+const timeInput = document.querySelector("#taskTime");
+const prioritySelect = document.querySelector("#taskPriority");
+const hoursInput = document.querySelector("#taskHours");
+const urlInput = document.querySelector("#taskUrl");
+const descriptionInput = document.querySelector("#taskDescription");
+const progressInput = document.querySelector("#taskProgress");
+const progressLabel = document.querySelector(".task-progress-label");
+const checkboxe = document.querySelectorAll(".check");
+const radio = document.querySelectorAll(".radio");
+const cancelButton = document.querySelector('#cancel-button');
+const updateButton = document.querySelector("#update-button");
+const taskEditCloseButton = document.querySelector("#edittask-popup-close");
+ 
+
+
+function editTaskPopup(taskId) {
+    const tasks = getTasks();
+    const task = tasks.find(t => t.id == taskId);
+
+    if (!task) return;
+
+    editTask.style.display = "block";
+    popupOverlay.style.display = "block";
+
+    usernameInput.value = task.username || "";
+    nameInput.value = task.name || "";
+    emailInput.value = task.email || "";
+    dateInput.value = task.date || "";
+    timeInput.value = task.time || "";
+    prioritySelect.value = task.priority || "";
+    hoursInput.value = task.hours || "";
+    urlInput.value = task.url || "";
+    descriptionInput.value = task.description || "";
+
+    progressInput.value = task.progress || 0;
+    progressLabel.textContent = `${task.progress || 0}%`;
+
+    checkboxes.forEach(cb => {
+        cb.checked = task.taskTypes?.includes(cb.value);
+    });
+
+    radios.forEach(r => {
+        r.checked = r.value === task.status;
+    });
+}
+function closeEditPopup() {
+    editTask.style.display = "none";
+    popupOverlay.style.display = "none";
+    editTaskId = null;
+    isEditMode = false;
+}
+
+taskEditCloseButton.addEventListener('click', closeEditPopup);
+
+cancelButton.addEventListener('click', closeEditPopup);
+
+updateButton.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const tasks = getTasks();
+    const index = tasks.findIndex(t => t.id == editTaskId);
+
+    if (index === -1) return;
+
+    tasks[index] = {
+        ...tasks[index], // keep id
+        username: usernameInput.value.trim(),
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        date: dateInput.value,
+        time: timeInput.value,
+        priority: prioritySelect.value,
+        hours: hoursInput.value,
+        url: urlInput.value,
+        description: descriptionInput.value,
+        progress: progressInput.value,
+        taskTypes: [...checkboxe].filter(cb => cb.checked).map(cb => cb.value),
+        status: document.querySelector(".radio:checked")?.value || ""
+    };
+
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+
+    console.log(tasks[index]);
+
+    closeEditPopup();
+    renderTasks(); // refresh cards
+});
+
+
+// Task card delete button
 
 document.addEventListener("click", (event) => {
-  const deleteBtn = event.target.closest(".delete-btn");
+    const deleteBtn = event.target.closest(".delete-btn");
 
-  if (deleteBtn) {
-    deleteBtn.closest(".task-card").remove();
-  }
+    if (deleteBtn) {
+        deleteBtn.closest(".task-card").remove();
+    }
 });
 
 // Input Range Control
@@ -425,5 +539,3 @@ filterButtons.forEach((button) => {
         });
     });
 });
-
-

@@ -53,12 +53,12 @@
 
         <form id="form">
           <div class="input-username">
-            <input type="text" id="username-input" placeholder="User Name" />
+            <input type="text" class="username" id="username-input" placeholder="User Name" />
             <span class="error"></span>
           </div>
 
           <div class="input-name">
-            <input type="text" class="username" id="name-input" placeholder="Task Name *" />
+            <input type="text" class="name" id="name-input" placeholder="Task Name *" />
             <span class="error"></span>
           </div>
 
@@ -325,73 +325,174 @@
           </div>
 
         </div>
-
-        <!-- FULL TASK-CARD -->
-
       </section>
 
-      <div class="popup-overlay"></div>
+      <!-- FULL TASK-CARD POPUP-->
 
-      <section class="full-task-card">
-        <div class="full-taskcard-datas">
+      <section class="popup-overlay">
+        <div class="full-task-card">
+          <div class="full-taskcard-datas">
 
-        <button class="popup-close" label="Close popup">
+            <button class="popup-close" id="fulltask-popup-close">
+              <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <h3 class="task-title" id="popupTitle">Designing Homepage Mockup</h3>
+            <p class="task-desc" id="popupDescription">
+              Create wireframes and high-fidelity mockups for the new homepage redesign
+              project with modern UI elements.
+            </p>
+            <div class="full-taskcard-grid">
+              <div class="grid-item">
+                <span class="label">👤 Assigned To</span>
+                <span class="value" id="popupUser">Sarah Johnson</span>
+              </div>
+
+              <div class="grid-item">
+                <span class="label">📧 Email</span>
+                <span class="value" id="popupEmail">sarah@mail.com</span>
+              </div>
+
+              <div class="grid-item">
+                <span class="label">📅 Due Date</span>
+                <span class="value" id="popupDate">Oct 20, 2025</span>
+              </div>
+
+              <div class="grid-item">
+                <span class="label">⏰ Due Time</span>
+                <span class="value" id="popupTime">10:30 AM</span>
+              </div>
+
+              <div class="grid-item">
+                <span class="label">⏳ Estimated Hours</span>
+                <span class="value" id="popupHours">6 hrs</span>
+              </div>
+
+              <div class="grid-item">
+                <span class="label">🔗 Project URL</span>
+                <a class="value link" href="#" id="popupUrl">View URL</a>
+              </div>
+            </div>
+
+            <div class="progress-section">
+              <div class="progress-label">
+                <span>Progress</span>
+                <span id="popupProgressText">0%</span>
+              </div>
+              <div class="progress-bar">
+                <div class="progress-fill" id="popupProgressBar" style="width: 60%"></div>
+              </div>
+            </div>
+
+            <div class="priority-container">
+              <label class="medium" id="popupPriority"><span>&#9679</span>Medium</label>
+              <span class="badge type">Bug Fix, Feature</span>
+              <label class="progress" id="popupStatus"><small>&#9679</small>In Progress</label>
+            </div>
+          </div>
+      </section>
+
+      <!-- EDIT TASK POPUP -->
+
+      <section class="edit-popup">
+        <div class="task-panel-title">
+          <h3>Edit Task</h3>
+        </div>
+
+        <button class="popup-close" id="edittask-popup-close">
           <i class="fa-solid fa-xmark"></i>
         </button>
 
-          <h3 class="task-title" id="popupTitle">Designing Homepage Mockup</h3>
-          <p class="task-desc" id="popupDescription">
-            Create wireframes and high-fidelity mockups for the new homepage redesign
-            project with modern UI elements.
-          </p>
-          <div class="full-taskcard-grid">
-            <div class="grid-item">
-              <span class="label">👤 Assigned To</span>
-              <span class="value" id="popupUser">Sarah Johnson</span>
-            </div>
-
-            <div class="grid-item">
-              <span class="label">📧 Email</span>
-              <span class="value" id="popupEmail">sarah@mail.com</span>
-            </div>
-
-            <div class="grid-item">
-              <span class="label">📅 Due Date</span>
-              <span class="value" id="popupDate">Oct 20, 2025</span>
-            </div>
-
-            <div class="grid-item">
-              <span class="label">⏰ Due Time</span>
-              <span class="value" id="popupTime">10:30 AM</span>
-            </div>
-
-            <div class="grid-item">
-              <span class="label">⏳ Estimated Hours</span>
-              <span class="value" id="popupHours">6 hrs</span>
-            </div>
-
-            <div class="grid-item">
-              <span class="label">🔗 Project URL</span>
-              <a class="value link" href="#" id="popupUrl">View URL</a>
-            </div>
-          </div>
-
-          <div class="progress-section">
-            <div class="progress-label">
-              <span>Progress</span>
-              <span id="popupProgressText">0%</span>
-            </div>
-            <div class="progress-bar" >
-              <div class="progress-fill" id="popupProgressBar"  style="width: 60%"></div>
-            </div>
-          </div>
-
-          <div class="priority-container">
-            <label class="medium"  id="popupPriority"><span>&#9679</span>Medium</label>
-            <span class="badge type" >Bug Fix, Feature</span>
-            <label class="progress" id="popupStatus"><small>&#9679</small>In Progress</label>
-          </div>
+        <div class="input-username">
+          <input type="text" id="taskUsername" placeholder="User Name" />
+          <span class="error"></span>
         </div>
+
+        <div class="input-name">
+          <input type="text" id="taskName" placeholder="Task Name *" />
+          <span class="error"></span>
+        </div>
+
+        <div class="input-email">
+          <input type="email" id="taskEmail" placeholder="Assignee Email *" />
+          <span class="error"></span>
+        </div>
+
+        <div class="input-date">
+          <label for="Date" class="float-label">Due Date *</label>
+          <input type="date" id="taskDate" name="Date" />
+          <span class="error"></span>
+        </div>
+
+        <div class="input-time">
+          <label for="Time" class="float-label">Due Time</label>
+          <input type="time" id="taskTime">
+          <span class="error"></span>
+        </div>
+
+        <div class="select-priority">
+          <label for="select" class="float-label">Priority Level *</label>
+          <select id="taskPriority">
+            <option value="" disabled selected>-- Select priority --</option>
+            <option value="low">Low Priority</option>
+            <option value="medium">Medium Priority</option>
+            <option value="high">High Priority</option>
+          </select>
+          <span class="error"></span>
+        </div>
+
+        <div class="input-hours">
+          <label for="Number" class="float-label float-Hours">Estimated Hours</label>
+          <input type="number" id="taskHours" name="Number" placeholder="0">
+          <span class="error"></span>
+        </div>
+
+        <div class="project-url">
+          <input type="url" id="taskUrl" placeholder="Project URL">
+          <span class="error"></span>
+        </div>
+
+        <div class="task-description">
+          <textarea id="taskDescription" placeholder="Task-Description"></textarea>
+          <span class="error"></span>
+        </div>
+
+        <div class="task-progress">
+          <label for="range" class="progress-label">Task Progress</label> <br>
+          <input type="range" id="taskProgress" min="0" max="100" value="0"> <br>
+          <p class="task-progress-label">0%</p>
+          <span class="error"></span>
+        </div>
+
+        <div class="task-type">
+          <label for="" class="checkbox-label">Task Type</label> <br>
+          <input type="checkbox" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug
+            Fix</label>
+          <input type="checkbox" class="check" value="Feature" id="Feature"> <label for="Feature"
+            class="check-label">Feature</label>
+          <br class="check-radio-br">
+          <input type="checkbox" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement"
+            class="check-label">Enhancement</label> <br>
+          <span class="error"></span>
+        </div>
+
+        <div class="status">
+          <label for="" class="status-label">Status</label> <br>
+          <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending"
+            class="radio-label">Pending</label>
+          <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
+          <label for="In Progress" class="radio-label in-progress-label">In Progress</label>
+          <br class="check-radio-br">
+          <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed"
+            class="radio-label">Completed</label> <br>
+          <span class="error"></span>
+        </div>
+
+        <div class="buttons">
+          <button type="submit" id="update-button" class="create-button"> <span>&#10003;</span> Update Task</button>
+          <button type="reset" id="cancel-button" class="reset-button"> <span>&#10006;</span> <br> Cancel</button>
+        </div>
+
       </section>
     </section>
   </main>
