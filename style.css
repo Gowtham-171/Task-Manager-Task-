@@ -636,10 +636,10 @@ select {
   color: rgb(0, 186, 133);
 }
 
-.popup-overlay {
+.fulltask-overlay {
   position: fixed;
   inset: 0;
-  background-color: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.6);
   display: none;
   align-items: center;
   justify-content: center;
@@ -656,8 +656,14 @@ select {
   height: 100vh;
   position: absolute;
   z-index: 2;
-  /* left: 33%; */
-  /* display: none; */
+  padding: 30px;
+  display: none;
+}
+
+.full-task-card-border {
+  border: 2px solid rgb(232, 234, 237);
+  border-radius: 16px;
+  padding: 10px 40px 40px 40px;
 }
 
 .full-taskcard-datas {
@@ -665,7 +671,7 @@ select {
   max-width: 550px;
   background: #fff;
   border-radius: 16px;
-  padding: 40px;
+  padding: 25px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-family: Inter, sans-serif;
   border: 2px solid rgb(232, 234, 237);
@@ -678,21 +684,22 @@ select {
 }
 
 .task-desc {
-  font-size: 14px;
+  font-size: 15px;
   color: #666;
   line-height: 1.5;
-  margin-bottom: 18px;
+  margin: 25px 0px 18px 0px;
 }
 
 .full-taskcard-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  /* grid-template-columns: repeat(2, 1fr); */
   gap: 14px;
   margin-bottom: 18px;
+  margin-left: 90px;
 }
 
 .grid-item .label {
-  font-size: 12px;
+  font-size: 13px;
   color: #888;
 }
 
@@ -707,6 +714,7 @@ select {
 }
 
 .progress-section {
+  margin-top: 20px;
   margin-bottom: 18px;
 }
 
@@ -721,6 +729,7 @@ select {
   height: 8px;
   background: #eee;
   border-radius: 10px;
+  margin-left: 8px;
 }
 
 .progress-fill {
@@ -733,15 +742,15 @@ select {
   background: #f1f3f5;
   color: #444;
   padding: 6px 12px;
-  font-size: 12px;
+  font-size: 14px;
   border-radius: 20px;
   font-weight: 600;
 }
 
 .popup-close {
-  /* position: absolute; */
-  /* top: 16px; */
-  /* right: 20px; */
+  position: relative;
+  left: 100%;
+  top: 10px;
   background: none;
   border: none;
   font-size: 18px;
@@ -758,20 +767,45 @@ select {
 /* EDIT TASK POPUP */
 
 .edit-popup {
-  /* width: 100%; */
-  margin: 0 auto;
-  left: 0;
-  padding: 20px 35px 20px 20px;
-  background-color: white;
-  border-radius: 13px;
-  box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.15);
-  position: absolute;
-  top: 20vh;
-  left: 31%;
+  position: fixed;
+  inset: 0;
   display: none;
-  z-index: 1;
+  z-index: 999;
 }
 
+.edit-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+}
+
+.edit-popop-box {
+  position: relative;
+  margin: auto;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  background: #fff;
+  border: 2px solid rgb(232, 234, 237);
+  border-radius: 16px;
+  padding: 24px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  z-index: 1000;
+  top: 50%;
+  transform: translateY(-50%);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+}
+
+.edit-popop-box::-webkit-scrollbar {
+  display: none;
+}
+
+.edit-task-border{
+  border: 2px solid rgb(232, 234, 237);
+  border-radius: 16px;
+  padding: 10px 40px 40px 40px;
+}
 
 .edit-popup input,
 .edit-popup select {
@@ -784,7 +818,12 @@ select {
   outline-color: rgb(93, 95, 239);
 }
 
-.edit-popup .float-label {
+.edit-row{
+  display: flex;
+  gap: 14px;
+}
+
+/* .edit-popup .float-label {
   color: rgb(87, 104, 235);
   background-color: white;
   padding: 0% 1%;
@@ -792,6 +831,13 @@ select {
   position: absolute;
   top: 4px;
   left: 20px;
+} */
+
+.edit-form label{
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 6px;
+  /* color: rgb(87, 104, 235); */
 }
 
 /* Textarea */
@@ -1148,7 +1194,7 @@ footer {
   }
 
   .full-taskcard-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr;
   }
 
   .task-title {
@@ -1488,10 +1534,16 @@ footer {
   .full-taskcard-datas {
     padding: 20px;
     border-radius: 12px;
+    padding: 15px;
+  }
+
+  .full-task-card-border {
+    padding: 0px 20px 10px 20px;
   }
 
   .full-taskcard-grid {
     grid-template-columns: 1fr;
+    margin-left: 0px;
   }
 
   .task-title {
@@ -1578,5 +1630,13 @@ footer {
 
   .task-panel-section .reset-button {
     flex-basis: 10%;
+  }
+
+  .full-task-card-border {
+    padding: 10px;
+  }
+
+  .full-taskcard-datas {
+    padding: 15px;
   }
 }

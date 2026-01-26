@@ -330,7 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const fullTaskcard = document.querySelector('.full-task-card');
 const fulltaskCloseButton = document.querySelector('#fulltask-popup-close');
-const popupOverlay = document.querySelector('.popup-overlay');
+const popupOverlay = document.querySelector('.fulltask-overlay');
 
 taskCardContainer.addEventListener('click', (e) => {
 
@@ -360,10 +360,13 @@ function fullTaskPopup(taskId) {
     document.querySelector('#popupDate').textContent = task.date;
     document.querySelector('#popupTime').textContent = task.time;
     document.querySelector('#popupHours').textContent = task.hours;
-    document.querySelector('#popupPriority').textContent = task.priority;
-    document.querySelector('#popupStatus').textContent = task.status;
+    document.querySelector('#popupPriority').innerHTML = `<span>&#9679</span>${task.priority}`;
+    document.querySelector('#popupStatus').innerHTML = `<small>&#9679</small>${task.status}`;
     document.querySelector('#popupUrl').href = task.url;
-
+    document.querySelector('#popupProgressBar').style.width =  task.progress + '%';
+    document.querySelector('#popupProgressText').textContent = task.progress + '%';
+    document.querySelector('#popupType').textContent = task.type;
+    
     fullTaskcard.style.display = 'flex';
     popupOverlay.style.display = 'flex';
 }
@@ -371,7 +374,6 @@ function fullTaskPopup(taskId) {
 fulltaskCloseButton.addEventListener('click', () => {
     fullTaskcard.style.display = 'none';
     popupOverlay.style.display = 'none';
-    // editTask.style.display = 'none';
 });
 
 
@@ -418,7 +420,6 @@ function editTaskPopup(taskId) {
     if (!task) return;
 
     editTask.style.display = "block";
-    popupOverlay.style.display = "block";
 
     usernameInput.value = task.username || "";
     nameInput.value = task.name || "";
