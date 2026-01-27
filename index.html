@@ -37,7 +37,6 @@
     </nav>
   </header>
 
-
   <main>
     <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
     <div id="toast" class="toast"></div>
@@ -48,7 +47,7 @@
 
       <section class="task-panel-section">
         <div class="task-panel-title">
-          <h3>📝Create New Task</h3>
+          <h3>&#x1F4DD;Create New Task</h3>
         </div>
 
         <form id="form">
@@ -120,12 +119,12 @@
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type</label> <br>
-            <input type="checkbox" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug
+            <input type="checkbox" name="taskType" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug
               Fix</label>
-            <input type="checkbox" class="check" value="Feature" id="Feature"> <label for="Feature"
+            <input type="checkbox" name="taskType" class="check" value="Feature" id="Feature"> <label for="Feature"
               class="check-label">Feature</label>
             <br class="check-radio-br">
-            <input type="checkbox" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement"
+            <input type="checkbox" name="taskType" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement"
               class="check-label">Enhancement</label> <br>
             <span class="error"></span>
           </div>
@@ -173,10 +172,21 @@
           </div>
         </div>
 
-        <!-- TASK-CARD -->
+        <!-- EMPTY TASK CONTAINER -->
+
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon">📝</div>
+          <h3>No tasks yet</h3>
+          <p>Start adding tasks and manage your work efficiently</p>
+          <button class="add-task-btn" id="addTaskBtn">+ Add Task</button>
+        </div>
 
         <div class="task-card-container">
-          <!-- <div class="task-card task-card-1" data-priority="high">
+
+          <!-- TASK-CARDS -->
+
+          <div class="task-list" id="taskList">
+            <!-- <div class="task-card task-card-1" data-priority="high">
             <div class="task-card-title">
               <h4>Designing Homepage Mockup</h4>
 
@@ -199,7 +209,7 @@
               <label class="high"><span>&#9679</span>High</label>
               <label class="progress"><small>&#9679</small>In Progress</label>
             </div>
-          </div> -->
+          </div>
 
           <div class="task-card task-card-2" data-priority="high">
             <div class="task-card-title">
@@ -322,8 +332,8 @@
               <label class="high"><span>&#9679</span>High</label>
               <label class="completed"><small>&#9679</small>Completed</label>
             </div>
+          </div> -->
           </div>
-
         </div>
       </section>
 
@@ -404,7 +414,7 @@
               <button class="popup-close" id="edittask-popup-close">
                 <i class="fa-solid fa-xmark"></i>
               </button>
-              <h3>Edit Task</h3>
+              <h3>&#128221;Edit Task</h3>
             </div>
 
             <form class="edit-form">
@@ -442,21 +452,21 @@
 
               <div class="edit-row">
                 <div class="select-priority">
-                <label>Priority</label>
-                <select id="taskPriority">
-                  <option value="" disabled selected>-- Select priority --</option>
-                  <option value="low">Low Priority</option>
-                  <option value="medium">Medium Priority</option>
-                  <option value="high">High Priority</option>
-                </select>
-                <span class="error"></span>
-              </div>
+                  <label>Priority</label>
+                  <select id="taskPriority">
+                    <option value="" disabled selected>-- Select priority --</option>
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                  </select>
+                  <span class="error"></span>
+                </div>
 
-              <div class="input-hours">
-                <label>Estimated Hours</label>
-                <input type="number" id="taskHours" name="Number" placeholder="0">
-                <span class="error"></span>
-              </div>
+                <div class="input-hours">
+                  <label>Estimated Hours</label>
+                  <input type="number" id="taskHours" name="Number" placeholder="0">
+                  <span class="error"></span>
+                </div>
               </div>
 
               <div class="project-url">
@@ -473,160 +483,63 @@
 
               <div class="task-progress">
                 <label>Task Progress</label> <br>
-                <input type="range" id="taskProgress" min="0" max="100" value="0"> <br>
-                <p class="task-progress-label">0%</p>
+                <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100"
+                  value="0"><br>
+                <p class="task-progress-label" id="taskProgresslabel">0%</p>
                 <span class="error"></span>
               </div>
 
               <div class="task-type">
-                <label for="" class="checkbox-label">Task Type</label> <br>
-                <input type="checkbox" class="check" value="Bug" id="bug"> <label for="bug" class="check-label">Bug
-                  Fix</label>
-                <input type="checkbox" class="check" value="Feature" id="feature"> <label for="feature"
-                  class="check-label">Feature</label>
-                <br class="check-radio-br">
-                <input type="checkbox" class="check" value="Enhancement" id="enhancement"> <label for="enhancement"
-                  class="check-label">Enhancement</label> <br>
-                <span class="error"></span>
+                <label class="checkbox-label">Task Type</label>
+
+                <div class="options-grid">
+                  <label class="option">
+                    <input type="checkbox" name="taskType" class="check" value="Bug" id="bug">
+                    <span>Bug Fix</span>
+                  </label>
+
+                  <label class="option">
+                    <input type="checkbox" name="taskType" class="check" value="Feature" id="feature">
+                    <span>Feature</span>
+                  </label>
+
+                  <label class="option">
+                    <input type="checkbox" name="taskType" class="check" value="Enhancement" id="enhancement">
+                    <span>Enhancement</span>
+                  </label>
+                </div>
               </div>
 
               <div class="status">
-                <label for="" class="status-label">Status</label> <br>
-                <input type="radio" name="status" class="radio" value="Pending" id="Pending">
-                <label for="pending" class="radio-label">Pending</label>
-                <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
-                <label for="in Progress" class="radio-label in-progress-label">In Progress</label> <br class="check-radio-br">
-                <input type="radio" name="status" class="radio" id="completed" value="Completed"> 
-                <label for="completed" class="radio-label">Completed</label> <br>
-                <span class="error"></span>
-              </div>
+                <label class="status-label">Status</label>
 
-              <div class="buttons">
-                <button type="submit" id="update-button" class="create-button"> <span>&#10003;</span> Update
-                  Task</button>
-                <button type="reset" id="cancel-button" class="reset-button"> <span>&#10006;</span> <br> Cancel</button>
+                <div class="options-grid">
+                  <label class="option">
+                    <input type="radio" name="status" class="radio" value="Pending" id="Pending">
+                    <span>Pending</span>
+                  </label>
+
+                  <label class="option">
+                    <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
+                    <span>In Progress</span>
+                  </label>
+
+                  <label class="option">
+                    <input type="radio" name="status" class="radio" id="completed" value="Completed">
+                    <span>Completed</span>
+                  </label>
+                </div>
+              </div>
+              
+              <div class="edit-popup-buttons">
+                <button class="button primary" id="update-button">Update Task</button>
+                <button class="button cancel" id="cancel-button">Cancel</button>
               </div>
 
             </form>
           </div>
         </div>
       </section>
-      <!-- 
-      <section class="modal-overlay">
-        <div class="edit-task-popup">
-
-          <div class="modal-header">
-            <h2>Edit Task</h2>
-            <button class="popup-close" id="edittask-popup-close">
-              <i class="fa-solid fa-xmark"></i>
-            </button>
-          </div>
-
-          <form id="editForm" class="modal-body">
-
-            <div class="form-grid">
-
-              <div class="input-username">
-                <label>User Name</label>
-                <input type="text" id="taskUsername" placeholder="User Name" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-name">
-                <label>Task Name</label>
-                <input type="text" id="taskName" placeholder="Task Name *" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-email">
-                <label>Email</label>
-                <input type="email" id="taskEmail" placeholder="Assignee Email *" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-date">
-                <label>Due Date</label>
-                <input type="date" id="taskDate" name="Date" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-time">
-                <label>Due Time</label>
-                <input type="time" id="taskTime">
-                <span class="error"></span>
-              </div>
-
-              <div class="select-priority">
-                <label>Priority</label>
-                <select id="taskPriority">
-                  <option value="" disabled selected>-- Select priority --</option>
-                  <option value="low">Low Priority</option>
-                  <option value="medium">Medium Priority</option>
-                  <option value="high">High Priority</option>
-                </select>
-                <span class="error"></span>
-              </div>
-
-              <div class="input-hours">
-                <label>Estimated Hours</label>
-                <input type="number" id="taskHours" name="Number" placeholder="0">
-                <span class="error"></span>
-              </div>
-
-              <div class="project-url">
-                <label>Project URL</label>
-                <input type="url" id="taskUrl" placeholder="Project URL">
-                <span class="error"></span>
-              </div>
-
-              <div class="task-description">
-                <label>Task Description</label>
-                <textarea id="taskDescription" placeholder="Task-Description"></textarea>
-                <span class="error"></span>
-              </div>
-
-              <div class="task-progress">
-                <label>Task Progress</label> <br>
-                <input type="range" id="taskProgress" min="0" max="100" value="0"> <br>
-                <p class="task-progress-label">0%</p>
-                <span class="error"></span>
-              </div>
-
-              <div class="task-type">
-                <label>Task Type</label>
-                <div class="task-type-modal" id="editTaskType">
-                  <div><label><input type="checkbox" class="task-check-modal" value="Bug Fix"> Bug Fix</label></div>
-                  <div><label><input type="checkbox" class="task-check-modal" value="Feature"> Feature</label></div>
-                  <div><label><input type="checkbox" class="task-check-modal" value="Enhancement"> Enhancement</label>
-                  </div>
-                </div>
-              </div>
-
-              <div class="status">
-                <label>Status</label>
-                <div class="task-status-modal" id="editTaskStatus">
-                  <div><label><input type="radio" name="editStatus" class="task-check-modal" value="Pending">
-                      Pending</label></div>
-                  <div><label><input type="radio" name="editStatus" class="task-check-modal" value="In Progress"> In
-                      Progress</label></div>
-                  <div><label><input type="radio" name="editStatus" class="task-check-modal" value="Completed">
-                      Completed</label></div>
-                </div>
-              </div>
-            </div>
-
-            <!-- <div class="modal-footer">
-              <button type="submit" class="btn-save" id="saveEdit">Save Changes</button>
-              <button type="button" class="btn-cancel" id="cancelEdit">Cancel</button>
-            </div> -->
-
-      <!-- <div class="buttons">
-              <button type="submit" id="update-button" class="create-button"> <span>&#10003;</span> Update Task</button>
-              <button type="reset" id="cancel-button" class="reset-button"> <span>&#10006;</span> <br> Cancel</button>
-            </div> -->
-
-      </form>
-      </div>
     </section>
     </section>
   </main>

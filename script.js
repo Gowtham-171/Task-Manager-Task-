@@ -225,8 +225,9 @@ function clearError(element) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector(".error");
 
-    errorElement.innerText = "";
-    // errorElement.style.visibility = "hidden";
+    if (errorElement) {
+        errorElement.innerText = "";
+    }
     element.style.border = "";
 }
 
@@ -256,6 +257,8 @@ function saveTasks(tasks) {
 
 // Creating new Task
 
+const taskList = document.getElementById("taskList");
+
 function createTask() {
     const tasks = getTasks();
 
@@ -271,7 +274,7 @@ function createTask() {
         url: inputUrl.value,
         description: inputDescription.value,
         progress: inputProgress.value,
-        type: [...document.querySelectorAll('.check:checked')]
+        taskTypes: [...document.querySelectorAll('.check:checked')]
             .map((checkbox) => checkbox.value),
         status: document.querySelector('.radio:checked')?.value || "Pending"
     };
@@ -283,7 +286,7 @@ function createTask() {
 }
 
 function renderTasks() {
-    taskCardContainer.innerHTML = "";
+    taskList.innerHTML = "";
 
     const tasks = getTasks();
 
@@ -318,13 +321,34 @@ function renderTasks() {
         <label class="${task.status.toLowerCase()}"><small>&#9679;</small>${task.status}</label>
         </div>`;
 
-        taskCardContainer.appendChild(taskCard);
+        taskList.appendChild(taskCard);
     });
+
+    toggleEmptyState();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
 });
+
+// Empty Task Container 
+
+const addTaskBtn = document.getElementById("addTaskBtn");
+const emptyState = document.getElementById("emptyState");
+
+addTaskBtn.addEventListener("click", () => {
+    inputUsername.focus();
+});
+
+function toggleEmptyState() {
+    if (taskList.children.length === 0) {
+        emptyState.style.display = "flex";
+    } else {
+        emptyState.style.display = "none";
+    }
+}
+
+toggleEmptyState();
 
 // Full Task-card Details (Popup)
 
@@ -363,10 +387,10 @@ function fullTaskPopup(taskId) {
     document.querySelector('#popupPriority').innerHTML = `<span>&#9679</span>${task.priority}`;
     document.querySelector('#popupStatus').innerHTML = `<small>&#9679</small>${task.status}`;
     document.querySelector('#popupUrl').href = task.url;
-    document.querySelector('#popupProgressBar').style.width =  task.progress + '%';
+    document.querySelector('#popupProgressBar').style.width = task.progress + '%';
     document.querySelector('#popupProgressText').textContent = task.progress + '%';
-    document.querySelector('#popupType').textContent = task.type;
-    
+    document.querySelector('#popupType').textContent = task.taskTypes?.join(", ");
+
     fullTaskcard.style.display = 'flex';
     popupOverlay.style.display = 'flex';
 }
@@ -404,13 +428,11 @@ const hoursInput = document.querySelector("#taskHours");
 const urlInput = document.querySelector("#taskUrl");
 const descriptionInput = document.querySelector("#taskDescription");
 const progressInput = document.querySelector("#taskProgress");
-const progressLabel = document.querySelector(".task-progress-label");
-const checkboxe = document.querySelectorAll(".check");
-const radio = document.querySelectorAll(".radio");
+const progressLabel = document.querySelector("#taskProgresslabel");
+const taskTypeCheckboxes = document.querySelectorAll(".check");
 const cancelButton = document.querySelector('#cancel-button');
 const updateButton = document.querySelector("#update-button");
 const taskEditCloseButton = document.querySelector("#edittask-popup-close");
- 
 
 
 function editTaskPopup(taskId) {
@@ -430,17 +452,20 @@ function editTaskPopup(taskId) {
     hoursInput.value = task.hours || "";
     urlInput.value = task.url || "";
     descriptionInput.value = task.description || "";
-
     progressInput.value = task.progress || 0;
-    progressLabel.textContent = `${task.progress || 0}%`;
+    progressLabel.textContent = `${task.progress}%`;
 
-    checkboxes.forEach(cb => {
-        cb.checked = task.taskTypes?.includes(cb.value);
+    taskTypeCheckboxes.forEach(checkbox => {
+        checkbox.checked = task.taskTypes?.includes(checkbox.value);
     });
 
     radios.forEach(r => {
         r.checked = r.value === task.status;
     });
+
+    progressInput.addEventListener('input', () => {
+        progressLabel.innerHTML = `${progressInput.value}%`;
+    })
 }
 function closeEditPopup() {
     editTask.style.display = "none";
@@ -473,7 +498,9 @@ updateButton.addEventListener("click", (e) => {
         url: urlInput.value,
         description: descriptionInput.value,
         progress: progressInput.value,
-        taskTypes: [...checkboxe].filter(cb => cb.checked).map(cb => cb.value),
+        taskTypes: [...taskTypeCheckboxes]
+            .filter(cb => cb.checked)
+            .map(cb => cb.value),
         status: document.querySelector(".radio:checked")?.value || ""
     };
 
