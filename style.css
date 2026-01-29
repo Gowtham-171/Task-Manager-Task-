@@ -217,10 +217,6 @@ select {
 /* Form Validation */
 
 .error {
-  /* position: absolute; */
-  /* left: 12px; */
-  /* bottom: -7px; */
-  /* visibility: hidden; */
   position: relative;
   left: 3px;
   bottom: 8px;
@@ -457,33 +453,43 @@ select {
   margin-right: 8px;
 }
 
-.task-card-heading {
-  display: flex;
-  justify-content: space-between;
-  padding: 0.75rem 0.8rem;
-}
-
 .task-card-heading .active-panel-title {
   font-size: 19px;
 }
 
+.task-card-heading {
+  display: flex;
+  /* grid-template-columns: auto 1fr; */
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  padding: 0.75rem 0.8rem;
+}
+
+.filter-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: flex-start; /* important */
+}
+
 /* Default button style */
 
-.filter-buttons .filter-btn {
-  margin-left: clamp(0.5rem, 2vw, 1rem);
-  padding: 0.3rem 0.75rem;
-  color: black;
+.filter-buttons .filter-button {
+  padding: clamp(6px, 1.5vw, 8px) clamp(12px, 3vw, 17px);
+  font-size: clamp(12px, 3.5vw, 14px);
+  color: #000;
   border: 2px solid rgb(232, 234, 237);
-  border-radius: 0.9rem;
-  font-size: clamp(0.7rem, 2vw, 0.9rem);
+  border-radius: 999px;
+  background-color: #fff;
   cursor: pointer;
-  background-color: white;
-  transition: background-color 0.2s, color 0.2s;
+  /* white-space: nowrap; */
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s;
 }
 
 /* Active button style */
 
-.filter-buttons .filter-btn.active {
+.filter-buttons .filter-button.active {
   background-color: rgb(93, 95, 239);
   color: white;
   border: 1px solid rgb(93, 95, 239);
@@ -491,45 +497,57 @@ select {
 
 /* EMPTY TASK CONTAINER */
 
-.empty-state {
+.empty-task {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #555;
-  position: relative;
-  top: 10%;
+  text-align: center;
+  padding: 20px;
+  margin-top: 5vh;
 }
 
-.empty-icon {
-  font-size: 52px;
-  margin-bottom: 16px;
+.empty-task span {
+  font-size: 24px;
+  vertical-align: middle;
 }
 
-.empty-state h3 {
-  font-size: 22px;
+.empty-task .add-task-image {
+  width: min(180px, 50%);
+  margin-bottom: 10px;
+}
+
+.add-task-image img {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.empty-task h3 {
+  font-size: clamp(18px, 4vw, 22px);
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.empty-state p {
-  font-size: 14px;
+.empty-task p {
+  font-size: clamp(13px, 3.5vw, 14px);
   color: #777;
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  max-width: 320px;
 }
 
-.add-task-btn {
+.add-task-button {
   padding: 12px 20px;
   border-radius: 10px;
   border: none;
   background: #6366f1;
   color: #fff;
-  font-size: 14px;
+  font-size: clamp(14px, 4vw, 16px);
   cursor: pointer;
-  transition: 0.2s ease;
+  transition: background 0.2s ease;
 }
 
-.add-task-btn:hover {
+.add-task-button:hover {
   background: #4f46e5;
 }
 
@@ -683,6 +701,9 @@ select {
   color: rgb(0, 186, 133);
 }
 
+
+/* FULL TASK-CARD POPUP */
+
 .fulltask-overlay {
   position: fixed;
   inset: 0;
@@ -692,8 +713,6 @@ select {
   justify-content: center;
   z-index: 1;
 }
-
-/* FULL TASK-CARD */
 
 .full-task-card {
   display: flex;
@@ -1000,6 +1019,83 @@ select {
   box-shadow: 0 4px 12px rgba(255, 0, 0, 0.1);
 }
 
+/* DELETE CONFIRMATION POPUP */
+
+.delete-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: min(90vw, 340px);
+  background: #ffffff;
+  border-radius: 22px;
+  padding: 28px 24px 26px;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  display: none;
+  z-index: 999;
+}
+
+.delete-popup .icon {
+  width: 56px;
+  height: 56px;
+  color: #e53935;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 35px;
+  margin: 0 auto 18px;
+}
+
+.delete-popup h2 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 10px;
+}
+
+.delete-popup p {
+  font-size: 15px;
+  color: #777;
+  line-height: 1.5;
+  margin-bottom: 26px;
+}
+
+.actions {
+  display: flex;
+  gap: 14px;
+}
+
+.actions button {
+  flex: 1;
+  height: 44px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.cancel-button {
+  background: #f1f1f1;
+  color: #111;
+}
+
+.cancel-button:hover {
+  background: #e5e5e5;
+}
+
+.confirm-delete-button {
+  background: #e53935;
+  color: #fff;
+}
+
+.confirm-delete-button:hover {
+  background: #d32f2f;
+  box-shadow: 0 10px 20px rgba(229, 57, 53, 0.35);
+}
+
 /*----------FOOTER-----------*/
 
 footer {
@@ -1056,7 +1152,7 @@ footer {
 
 /*----------TABLET-VIEW-----------*/
 
-@media (min-width: 601px) and (max-width: 1067px) {
+@media (min-width: 601px) and (max-width: 1100px) {
 
   /* HEADER */
 
@@ -1546,16 +1642,22 @@ footer {
     border-radius: 16px;
   }
 
-  .active-task-section img {
+  .task-list img {
     top: 2.5px;
     height: 18px;
     width: 18px;
   }
 
   .task-card-heading {
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 1fr;
     padding: 12px 5px;
   }
+
+  /* .task-card-heading {
+    flex-direction: column;
+    padding: 12px 5px;
+  } */
 
   .task-card-heading .active-panel-title {
     font-size: 19px;
@@ -1563,27 +1665,43 @@ footer {
   }
 
   .filter-buttons {
-    /* flex-wrap: wrap; */
+    justify-content: flex-end;
+  }
+
+  .filter-buttons .filter-button {
+    flex: 0 0 auto;
+  }
+
+  .filter-buttons {
+    flex-wrap: wrap;
     position: relative;
-    right: 7px;
+    /* right: 7px; */
     top: 12px;
     margin-bottom: 15px;
     margin-top: 10px;
     width: 100%;
   }
 
-  .filter-buttons .filter-btn {
+  .filter-buttons .filter-button {
     padding: 0.5rem 1rem;
     font-size: clamp(0.9rem, 3.5vw, 1rem);
     margin-left: clamp(0.5rem, 1vw, 0.7rem);
     border-radius: 18px;
   }
 
-  label.task-card-inactive {
-    margin-left: 11px;
+  /* EMPTY TASK CONTAINER */
+
+  .empty-task {
+    margin-top: 0vh;
   }
 
-  .task-list{
+  .empty-task p {
+    max-width: 90%;
+  }
+
+  /* TASK-CARD */
+
+  .task-list {
     grid-template-columns: 1fr;
     gap: 1.2rem;
     padding: 0.5rem;
@@ -1638,6 +1756,30 @@ footer {
     flex-direction: column;
     gap: 8px;
   } */
+
+  /* DELETE CONFIRMATION POPUP */
+
+  .delete-popup {
+    padding: 22px 18px 20px;
+    border-radius: 18px;
+  }
+
+  .delete-popup h2 {
+    font-size: 20px;
+  }
+
+  .delete-popup p {
+    font-size: 14px;
+  }
+
+  .actions {
+    gap: 10px;
+  }
+
+  .actions button {
+    height: 42px;
+    font-size: 15px;
+  }
 
   /* FOOTER */
 

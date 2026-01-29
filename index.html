@@ -119,13 +119,14 @@
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type</label> <br>
-            <input type="checkbox" name="taskType" class="check" value="Bug" id="Bug"> <label for="Bug" class="check-label">Bug
+            <input type="checkbox" name="taskType" class="check" value="Bug" id="Bug"> <label for="Bug"
+              class="check-label">Bug
               Fix</label>
             <input type="checkbox" name="taskType" class="check" value="Feature" id="Feature"> <label for="Feature"
               class="check-label">Feature</label>
             <br class="check-radio-br">
-            <input type="checkbox" name="taskType" class="check" value="Enhancement" id="Enhancement"> <label for="Enhancement"
-              class="check-label">Enhancement</label> <br>
+            <input type="checkbox" name="taskType" class="check" value="Enhancement" id="Enhancement"> <label
+              for="Enhancement" class="check-label">Enhancement</label> <br>
             <span class="error"></span>
           </div>
 
@@ -165,20 +166,20 @@
           </div>
 
           <div class="filter-buttons">
-            <button class="filter-btn active" data-filter="all">All</button>
-            <button class="filter-btn" data-filter="high">High</button>
-            <button class="filter-btn" data-filter="medium">Medium</button>
-            <button class="filter-btn" data-filter="low">Low</button>
+            <button class="filter-button active" data-filter="all">All (<span id="all-button-count">0</span>)</button>
+            <button class="filter-button" data-filter="high">High (<span id="high-button-count">0</span>)</button>
+            <button class="filter-button" data-filter="medium">Medium (<span id="medium">0</span>)</button>
+            <button class="filter-button" data-filter="low">Low (<span id="low">0</span>)</button>
           </div>
         </div>
 
         <!-- EMPTY TASK CONTAINER -->
 
-        <div class="empty-state" id="emptyState">
-          <div class="empty-icon">📝</div>
+        <div class="empty-task" id="empty-task">
+          <div class="add-task-image"><img src="images/Add-task-image.png " alt="add-task-image"></div>
           <h3>No tasks yet</h3>
           <p>Start adding tasks and manage your work efficiently</p>
-          <button class="add-task-btn" id="addTaskBtn">+ Add Task</button>
+          <button class="add-task-button" id="add-task-button"><span>&#43;</span>  Add Task</button>
         </div>
 
         <div class="task-card-container">
@@ -335,6 +336,23 @@
           </div> -->
           </div>
         </div>
+
+        <!-- DELETE CONFIRMATION POPUP -->
+
+        <div class="delete-popup">
+          <div class="icon">
+            <i class="fa-solid fa-trash-can"></i>
+          </div>
+
+          <h2>Delete Task</h2>
+          <p>This task will be deleted<br> permanently</p>
+
+          <div class="actions">
+            <button class="cancel-button">Cancel</button>
+            <button class="confirm-delete-button">Delete</button>
+          </div>
+        </div>
+
       </section>
 
       <!-- FULL TASK-CARD POPUP-->
@@ -483,8 +501,7 @@
 
               <div class="task-progress">
                 <label>Task Progress</label> <br>
-                <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100"
-                  value="0"><br>
+                <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100" value="0"><br>
                 <p class="task-progress-label" id="taskProgresslabel">0%</p>
                 <span class="error"></span>
               </div>
@@ -520,7 +537,8 @@
                   </label>
 
                   <label class="option">
-                    <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
+                    <input type="radio" name="status" class="radio in-progress-radio" value="In Progress"
+                      id="In Progress">
                     <span>In Progress</span>
                   </label>
 
@@ -530,7 +548,7 @@
                   </label>
                 </div>
               </div>
-              
+
               <div class="edit-popup-buttons">
                 <button class="button primary" id="update-button">Update Task</button>
                 <button class="button cancel" id="cancel-button">Cancel</button>

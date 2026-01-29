@@ -308,8 +308,8 @@ function renderTasks() {
             <span class="action-icon-outline edit-btn">
               <i class="fa-solid fa-pen"></i>
             </span>
-            <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
+            <span class="action-icon-outline delete-btn" data-id="${task.id}">
+              <i class="fa-solid fa-trash"></i>
             </span>
         </div>
         <p>${task.description}</p>
@@ -333,18 +333,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Empty Task Container 
 
-const addTaskBtn = document.getElementById("addTaskBtn");
-const emptyState = document.getElementById("emptyState");
+const addTaskButton = document.querySelector('.add-task-button');
+const emptyTask = document.querySelector('.empty-task');
 
-addTaskBtn.addEventListener("click", () => {
+addTaskButton.addEventListener("click", () => {
     inputUsername.focus();
 });
 
 function toggleEmptyState() {
     if (taskList.children.length === 0) {
-        emptyState.style.display = "flex";
+        emptyTask.style.display = "flex";
     } else {
-        emptyState.style.display = "none";
+        emptyTask.style.display = "none";
     }
 }
 
@@ -510,18 +510,61 @@ updateButton.addEventListener("click", (e) => {
 
     closeEditPopup();
     renderTasks(); // refresh cards
+
+    showToast("Task updated successfully ✅");
+
+        // setTimeout(() => {
+        //     ;
+        // }, 400);
 });
 
 
-// Task card delete button
+// Task card Delete button option
 
-document.addEventListener("click", (event) => {
-    const deleteBtn = event.target.closest(".delete-btn");
+const deletePopup = document.querySelector('.delete-popup ');
+const cancelDelete = document.querySelector('.cancel-button');
+const confirmDelete = document.querySelector('.confirm-delete-button');
+let taskToDeleteId = null;
 
-    if (deleteBtn) {
-        deleteBtn.closest(".task-card").remove();
-    }
+taskList.addEventListener("click", (e) => {
+  const deleteButton = e.target.closest(".delete-btn");
+  if (!deleteButton) return;
+
+  taskToDeleteId = deleteButton.dataset.id;
+
+  deletePopup.style.display = 'block';
+  popupOverlay.style.display = 'block';
+
 });
+
+function deleteTask(id) {
+  let tasks = getTasks();
+
+  tasks = tasks.filter(task => Number(task.id) !== Number(id));
+  
+  saveTasks(tasks);
+  renderTasks();
+}
+
+confirmDelete.addEventListener("click", () => {
+  if (!taskToDeleteId) return;
+
+  showToast("Task deleted successfully ✅");
+
+        setTimeout(() => {
+            deleteTask(taskToDeleteId);
+        }, 400);
+
+  deletePopup.style.display = 'none';
+  popupOverlay.style.display = 'none';
+});
+
+cancelDelete.addEventListener("click", () => {
+  taskToDeleteId = null;
+  deletePopup.style.display = 'none';
+  popupOverlay.style.display = 'none';
+});
+
 
 // Input Range Control
 
@@ -544,7 +587,7 @@ hamburger.addEventListener('click', () => {
 
 // Filtering Buttons
 
-const filterButtons = document.querySelectorAll(".filter-btn");
+const filterButtons = document.querySelectorAll(".filter-button");
 
 filterButtons.forEach((button) => {
     button.addEventListener("click", () => {
