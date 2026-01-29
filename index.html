@@ -82,9 +82,9 @@
             <label for="select" class="float-label">Priority Level *</label>
             <select class="priority-selection" id="priority-select">
               <option value="" disabled selected>-- Select priority --</option>
-              <option value="low">Low Priority</option>
-              <option value="medium">Medium Priority</option>
-              <option value="high">High Priority</option>
+              <option value="Low">Low Priority</option>
+              <option value="Medium">Medium Priority</option>
+              <option value="High">High Priority</option>
             </select>
             <span class="error"></span>
           </div>
@@ -168,8 +168,8 @@
           <div class="filter-buttons">
             <button class="filter-button active" data-filter="all">All (<span id="all-button-count">0</span>)</button>
             <button class="filter-button" data-filter="high">High (<span id="high-button-count">0</span>)</button>
-            <button class="filter-button" data-filter="medium">Medium (<span id="medium">0</span>)</button>
-            <button class="filter-button" data-filter="low">Low (<span id="low">0</span>)</button>
+            <button class="filter-button" data-filter="medium">Medium (<span id="medium-button-count">0</span>)</button>
+            <button class="filter-button" data-filter="low">Low (<span id="low-button-count">0</span>)</button>
           </div>
         </div>
 
@@ -179,162 +179,15 @@
           <div class="add-task-image"><img src="images/Add-task-image.png " alt="add-task-image"></div>
           <h3>No tasks yet</h3>
           <p>Start adding tasks and manage your work efficiently</p>
-          <button class="add-task-button" id="add-task-button"><span>&#43;</span>  Add Task</button>
+          <button class="add-task-button" id="add-task-button"><span>&#43;</span> Add Task</button>
         </div>
 
         <div class="task-card-container">
 
           <!-- TASK-CARDS -->
 
-          <div class="task-list" id="taskList">
-            <!-- <div class="task-card task-card-1" data-priority="high">
-            <div class="task-card-title">
-              <h4>Designing Homepage Mockup</h4>
+          <div class="task-list" id="taskList"></div>
 
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-              </div>
-            </div>
-
-            <p>Create wireframes and high-fidelity mockups for the new homepage redesign project with modern Ul
-              elements.</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 20, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Sarah Johnson</p>
-
-            <div class="priority-container">
-              <label class="high"><span>&#9679</span>High</label>
-              <label class="progress"><small>&#9679</small>In Progress</label>
-            </div>
-          </div>
-
-          <div class="task-card task-card-2" data-priority="high">
-            <div class="task-card-title">
-              <h4>Fix Login Authentication Bug</h4>
-
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-              </div>
-            </div>
-
-            <p>Resolve the issue where users are logged out unexpectedly after 5 minutes of inactivity.</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 15, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Michael Chen</p>
-
-            <div class="priority-container">
-              <label class="high"><span>&#9679</span>High</label>
-              <label class="pending"><small>&#9679</small>Pending</label>
-            </div>
-          </div>
-
-          <div class="task-card task-card-3" data-priority="medium">
-            <div class="task-card-title">
-              <h4>Update Documentation</h4>
-
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-
-              </div>
-            </div>
-
-            <p>Review and update the API documentation with the latest endpoint changes and examples.</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 25, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Emily Rodriguez</p>
-
-            <div class="priority-container">
-              <label class="medium"><span>&#9679</span>Medium</label>
-              <label class="progress"><small>&#9679</small>In Progress</label>
-            </div>
-          </div>
-
-          <div class="task-card task-card-4" data-priority="medium">
-            <div class="task-card-title">
-              <h4>Database Performance Optimization</h4>
-
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-
-              </div>
-            </div>
-
-            <p>Analyze and optimize slow-running queries to improve overall database performance by 30%.</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 30, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">David Kim</p>
-
-            <div class="priority-container">
-              <label class="medium"><span>&#9679</span>Medium</label>
-              <label class="pending"><small>&#9679</small>Pending</label>
-            </div>
-          </div>
-
-          <div class="task-card task-card-5" data-priority="low">
-            <div class="task-card-title">
-              <h4>Implement Dark Mode</h4>
-
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-
-              </div>
-            </div>
-
-            <p>Add dark mode theme support across the application with user preference persistence</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 05, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Alex Thompson</p>
-
-            <div class="priority-container">
-              <label class="low"><span>&#9679</span>Low</label>
-              <label class="pending"><small>&#9679</small>Pending</label>
-            </div>
-          </div>
-
-          <div class="task-card task-card-6" data-priority="high">
-            <div class="task-card-title">
-              <h4>User Testing Session</h4>
-
-              <div class="task-actions">
-                <span class="action-icon-outline edit-btn">
-                  <i class="fa-solid fa-pen"></i>
-                </span>
-                <span class="action-icon-outline delete-btn">
-                  <i class="fa-solid fa-trash"></i>
-                </span>
-
-              </div>
-            </div>
-            <p>Conduct user testing sessions with 10 participants to gather feedback on the new interface.</p>
-            <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: Oct 28, 2025</p>
-            <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">Lisa Anderson</p>
-
-            <div class="priority-container">
-              <label class="high"><span>&#9679</span>High</label>
-              <label class="completed"><small>&#9679</small>Completed</label>
-            </div>
-          </div> -->
-          </div>
         </div>
 
         <!-- DELETE CONFIRMATION POPUP -->
@@ -367,8 +220,8 @@
               </button>
 
               <h3 class="task-title" id="popupTitle"></h3>
-              <p class="task-desc" id="popupDescription">
-              </p>
+              <p class="task-desc" id="popupDescription"></p>
+
               <div class="full-taskcard-grid">
                 <div class="grid-item">
                   <span class="label">&#128100; User : </span>
@@ -396,7 +249,7 @@
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#128279; Project URL</span>
+                  <span class="label">&#128279; Project URL : </span>
                   <a class="value link" href="#" id="popupUrl">View Link</a>
                 </div>
               </div>
@@ -414,7 +267,7 @@
               <div class="priority-container">
                 <label class="medium" id="popupPriority"><span>&#9679</span>Medium</label>
                 <span class="badge type" id="popupType">Bug Fix, Feature</span>
-                <label class="progress" id="popupStatus"><small>&#9679</small>In Progress</label>
+                <label class="progress fill" id="popupStatus"><small>&#9679</small>In Progress</label>
               </div>
             </div>
           </div>
@@ -473,9 +326,9 @@
                   <label>Priority</label>
                   <select id="taskPriority">
                     <option value="" disabled selected>-- Select priority --</option>
-                    <option value="low">Low Priority</option>
-                    <option value="medium">Medium Priority</option>
-                    <option value="high">High Priority</option>
+                    <option value="Low">Low Priority</option>
+                    <option value="Medium">Medium Priority</option>
+                    <option value="High">High Priority</option>
                   </select>
                   <span class="error"></span>
                 </div>

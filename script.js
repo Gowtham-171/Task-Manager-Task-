@@ -60,6 +60,10 @@ function validateInputs() {
         setError(inputName, 'Task Name is required');
         firstError ??= inputName;
     }
+    else if (isDuplicateTask(nameVal)) {
+        setError(inputName, "Task name already exists");
+        firstError ??= inputName;
+    }
     else {
         setSuccess(inputName);
     }
@@ -197,6 +201,14 @@ function setSuccess(element) {
     parent.classList.remove('error');
 }
 
+function isDuplicateTask(taskName) {
+    const tasks = getTasks();
+
+    return tasks.some(task =>
+        task.name.toLowerCase() === taskName.toLowerCase()
+    );
+}
+
 const validateEmail = (emailVal) => {
     return String(emailVal)
         .toLowerCase()
@@ -283,6 +295,7 @@ function createTask() {
     saveTasks(tasks);
 
     renderTasks();
+    taskcardsCount();
 }
 
 function renderTasks() {
@@ -299,14 +312,14 @@ function renderTasks() {
         });
 
         const taskCard = document.createElement("div");
-        taskCard.className = "task-card";
+        taskCard.classList.add("task-card", task.priority);
         taskCard.dataset.id = task.id;                  // for Popup
-        taskCard.dataset.priority = task.priority;      // for button filter
+        taskCard.dataset.priority = task.priority.toLowerCase();      // for button filter
 
         taskCard.innerHTML = `<h4>${task.name}</h4>
         <div class="task-actions">
             <span class="action-icon-outline edit-btn">
-              <i class="fa-solid fa-pen"></i>
+              <i class="fas fa-edit"></i>
             </span>
             <span class="action-icon-outline delete-btn" data-id="${task.id}">
               <i class="fa-solid fa-trash"></i>
@@ -317,7 +330,7 @@ function renderTasks() {
         <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">${task.username}</p>
         
         <div class="priority-container">
-        <label class="${task.priority}"><span>&#9679;</span>${task.priority}</label>
+        <label class="${task.priority.toLowerCase()}"><span>&#9679;</span>${task.priority}</label>
         <label class="${task.status.toLowerCase()}"><small>&#9679;</small>${task.status}</label>
         </div>`;
 
@@ -325,10 +338,12 @@ function renderTasks() {
     });
 
     toggleEmptyState();
+    taskcardsCount();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
+    taskcardsCount();
 });
 
 // Empty Task Container 
@@ -356,24 +371,22 @@ const fullTaskcard = document.querySelector('.full-task-card');
 const fulltaskCloseButton = document.querySelector('#fulltask-popup-close');
 const popupOverlay = document.querySelector('.fulltask-overlay');
 
-taskCardContainer.addEventListener('click', (e) => {
+taskCardContainer.addEventListener('click', (event) => {
 
-    if (e.target.closest(".edit-btn") || e.target.closest(".delete-btn")) {
+    if (event.target.closest(".edit-btn") || event.target.closest(".delete-btn")) {
         return;
     }
 
-    const card = e.target.closest('.task-card');
+    const card = event.target.closest('.task-card');
     if (!card) return;
 
     const taskId = Number(card.dataset.id);
     fullTaskPopup(taskId);
 });
 
-
 function fullTaskPopup(taskId) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id === taskId);
-    // console.log(task)
 
     if (!task) return;
 
@@ -383,13 +396,16 @@ function fullTaskPopup(taskId) {
     document.querySelector('#popupEmail').textContent = task.email;
     document.querySelector('#popupDate').textContent = task.date;
     document.querySelector('#popupTime').textContent = task.time;
-    document.querySelector('#popupHours').textContent = task.hours;
+    document.querySelector('#popupHours').textContent = `${task.hours} Hours`;
     document.querySelector('#popupPriority').innerHTML = `<span>&#9679</span>${task.priority}`;
-    document.querySelector('#popupStatus').innerHTML = `<small>&#9679</small>${task.status}`;
+    document.querySelector('#popupStatus').innerHTML = `${task.status}`;
+
     document.querySelector('#popupUrl').href = task.url;
     document.querySelector('#popupProgressBar').style.width = task.progress + '%';
     document.querySelector('#popupProgressText').textContent = task.progress + '%';
     document.querySelector('#popupType').textContent = task.taskTypes?.join(", ");
+
+    document.querySelector('#popupPriority').className = task.priority.toLowerCase();
 
     fullTaskcard.style.display = 'flex';
     popupOverlay.style.display = 'flex';
@@ -406,9 +422,9 @@ fulltaskCloseButton.addEventListener('click', () => {
 let isEditMode = false;
 let editTaskId = null;
 
-taskCardContainer.addEventListener("click", (e) => {
-    if (e.target.closest(".edit-btn")) {
-        const card = e.target.closest(".task-card");
+taskCardContainer.addEventListener("click", (event) => {
+    if (event.target.closest(".edit-btn")) {
+        const card = event.target.closest(".task-card");
 
         editTaskId = card.dataset.id;
         isEditMode = true;
@@ -434,12 +450,13 @@ const cancelButton = document.querySelector('#cancel-button');
 const updateButton = document.querySelector("#update-button");
 const taskEditCloseButton = document.querySelector("#edittask-popup-close");
 
-
 function editTaskPopup(taskId) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id == taskId);
 
-    if (!task) return;
+    if (!task) {
+        return;
+    }
 
     editTask.style.display = "block";
 
@@ -459,8 +476,8 @@ function editTaskPopup(taskId) {
         checkbox.checked = task.taskTypes?.includes(checkbox.value);
     });
 
-    radios.forEach(r => {
-        r.checked = r.value === task.status;
+    radios.forEach(radio => {
+        radio.checked = radio.value === task.status;
     });
 
     progressInput.addEventListener('input', () => {
@@ -478,16 +495,18 @@ taskEditCloseButton.addEventListener('click', closeEditPopup);
 
 cancelButton.addEventListener('click', closeEditPopup);
 
-updateButton.addEventListener("click", (e) => {
-    e.preventDefault();
+updateButton.addEventListener("click", (event) => {
+    event.preventDefault();
 
     const tasks = getTasks();
-    const index = tasks.findIndex(t => t.id == editTaskId);
+    const ivalue = tasks.findIndex(t => t.id == editTaskId);
 
-    if (index === -1) return;
+    if (ivalue === -1) {
+        return;
+    }
 
-    tasks[index] = {
-        ...tasks[index], // keep id
+    tasks[ivalue] = {
+        ...tasks[ivalue],
         username: usernameInput.value.trim(),
         name: nameInput.value.trim(),
         email: emailInput.value.trim(),
@@ -506,18 +525,11 @@ updateButton.addEventListener("click", (e) => {
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
 
-    console.log(tasks[index]);
-
     closeEditPopup();
-    renderTasks(); // refresh cards
+    renderTasks();
 
     showToast("Task updated successfully ✅");
-
-        // setTimeout(() => {
-        //     ;
-        // }, 400);
 });
-
 
 // Task card Delete button option
 
@@ -527,42 +539,42 @@ const confirmDelete = document.querySelector('.confirm-delete-button');
 let taskToDeleteId = null;
 
 taskList.addEventListener("click", (e) => {
-  const deleteButton = e.target.closest(".delete-btn");
-  if (!deleteButton) return;
+    const deleteButton = e.target.closest(".delete-btn");
+    if (!deleteButton) return;
 
-  taskToDeleteId = deleteButton.dataset.id;
+    taskToDeleteId = deleteButton.dataset.id;
 
-  deletePopup.style.display = 'block';
-  popupOverlay.style.display = 'block';
+    deletePopup.style.display = 'block';
+    popupOverlay.style.display = 'block';
 
 });
 
 function deleteTask(id) {
-  let tasks = getTasks();
+    let tasks = getTasks();
 
-  tasks = tasks.filter(task => Number(task.id) !== Number(id));
-  
-  saveTasks(tasks);
-  renderTasks();
+    tasks = tasks.filter(task => Number(task.id) !== Number(id));
+
+    saveTasks(tasks);
+    renderTasks();
 }
 
 confirmDelete.addEventListener("click", () => {
-  if (!taskToDeleteId) return;
+    if (!taskToDeleteId) return;
 
-  showToast("Task deleted successfully ✅");
+    showToast("Task deleted successfully ✅");
 
-        setTimeout(() => {
-            deleteTask(taskToDeleteId);
-        }, 400);
+    setTimeout(() => {
+        deleteTask(taskToDeleteId);
+    }, 400);
 
-  deletePopup.style.display = 'none';
-  popupOverlay.style.display = 'none';
+    deletePopup.style.display = 'none';
+    popupOverlay.style.display = 'none';
 });
 
 cancelDelete.addEventListener("click", () => {
-  taskToDeleteId = null;
-  deletePopup.style.display = 'none';
-  popupOverlay.style.display = 'none';
+    taskToDeleteId = null;
+    deletePopup.style.display = 'none';
+    popupOverlay.style.display = 'none';
 });
 
 
@@ -610,3 +622,23 @@ filterButtons.forEach((button) => {
         });
     });
 });
+
+// Taskcards count
+
+function taskcardsCount() {
+    const allCountEl = document.getElementById('all-button-count');
+    const highCountEl = document.getElementById('high-button-count');
+    const mediumCountEl = document.getElementById('medium-button-count');
+    const lowCountEl = document.getElementById('low-button-count');
+
+    const highCount = document.querySelectorAll('.High').length;
+    const mediumCount = document.querySelectorAll('.Medium').length;
+    const lowCount = document.querySelectorAll('.Low').length;
+
+    // if (!allCountEl || !highCountEl || !mediumCountEl || !lowCountEl) return;
+
+    allCountEl.textContent = highCount + mediumCount + lowCount;
+    highCountEl.textContent = highCount;
+    mediumCountEl.textContent = mediumCount;
+    lowCountEl.textContent = lowCount;
+}
