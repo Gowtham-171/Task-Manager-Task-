@@ -52,7 +52,7 @@
 
         <form id="form">
           <div class="input-username">
-            <input type="text" class="username" id="username-input" placeholder="User Name" />
+            <input type="text" class="username" id="username-input" placeholder="User Name *" />
             <span class="error"></span>
           </div>
 
@@ -73,7 +73,7 @@
           </div>
 
           <div class="input-time">
-            <label for="Time" class="float-label">Due Time</label>
+            <label for="Time" class="float-label">Due Time *</label>
             <input type="time" class="time" id="time-input">
             <span class="error"></span>
           </div>
@@ -90,27 +90,27 @@
           </div>
 
           <div class="input-hours">
-            <label for="Number" class="float-label float-Hours">Estimated Hours</label>
+            <label for="Number" class="float-label float-Hours">Estimated Hours *</label>
             <input type="number" id="hours-input" class="number" name="Number" placeholder="0">
             <span class="error"></span>
           </div>
 
           <div class="project-url">
-            <input type="url" id="url-input" placeholder="Project URL">
+            <input type="url" id="url-input" placeholder="Project URL *">
             <span class="error"></span>
           </div>
 
           <div class="task-description">
-            <textarea id="description-input" placeholder="Task-Description"></textarea>
+            <textarea id="description-input" placeholder="Task-Description *"></textarea>
             <span class="error"></span>
           </div>
 
-          <div class="task-progress">
+          <!-- <div class="task-progress">
             <label for="range" class="progress-label">Task Progress</label> <br>
             <input type="range" id="progress-input" class="input-range" name="range" min="0" max="100" value="0"> <br>
             <p class="task-progress-label">0%</p>
             <span class="error"></span>
-          </div>
+          </div> -->
 
           <!-- <div class="task-color">
             <label for="color" class="color-label">Task Color</label> <br>
@@ -118,7 +118,7 @@
           </div> -->
 
           <div class="task-type">
-            <label for="" class="checkbox-label">Task Type</label> <br>
+            <label for="" class="checkbox-label">Task Type *</label> <br>
             <input type="checkbox" name="taskType" class="check" value="Bug" id="Bug"> <label for="Bug"
               class="check-label">Bug
               Fix</label>
@@ -131,7 +131,7 @@
           </div>
 
           <div class="status">
-            <label for="" class="status-label">Status</label> <br>
+            <label for="" class="status-label">Status *</label> <br>
             <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending"
               class="radio-label">Pending</label>
             <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
@@ -198,7 +198,7 @@
           </div>
 
           <h2>Delete Task</h2>
-          <p>This task will be deleted<br> permanently</p>
+          <p><span id="delete-task-name"></span> will be deleted permanently</p>
 
           <div class="actions">
             <button class="cancel-button">Cancel</button>
@@ -257,7 +257,7 @@
               <div class="progress-section">
                 <div class="progress-label">
                   <span>Progress</span>
-                  <span id="popupProgressText">0%</span>
+                  <span class="value" id="popupProgressText">0%</span>
                 </div>
                 <div class="progress-bar">
                   <div class="progress-fill" id="popupProgressBar" style="width: 60%"></div>
@@ -364,17 +364,17 @@
 
                 <div class="options-grid">
                   <label class="option">
-                    <input type="checkbox" name="taskType" class="check" value="Bug" id="bug">
+                    <input type="checkbox" name="taskType" class="edit-check" value="Bug" id="edit-bug">
                     <span>Bug Fix</span>
                   </label>
 
                   <label class="option">
-                    <input type="checkbox" name="taskType" class="check" value="Feature" id="feature">
+                    <input type="checkbox" name="taskType" class="edit-check" value="Feature" id="edit-feature">
                     <span>Feature</span>
                   </label>
 
                   <label class="option">
-                    <input type="checkbox" name="taskType" class="check" value="Enhancement" id="enhancement">
+                    <input type="checkbox" name="taskType" class="edit-check" value="Enhancement" id="edit-enhancement">
                     <span>Enhancement</span>
                   </label>
                 </div>
@@ -385,18 +385,17 @@
 
                 <div class="options-grid">
                   <label class="option">
-                    <input type="radio" name="status" class="radio" value="Pending" id="Pending">
+                    <input type="radio" name="edit-status" class="edit-radio" value="Pending" id="edit-pending">
                     <span>Pending</span>
                   </label>
 
                   <label class="option">
-                    <input type="radio" name="status" class="radio in-progress-radio" value="In Progress"
-                      id="In Progress">
+                    <input type="radio" name="edit-status" class="edit-radio" value="In Progress" id="edit-inProgress">
                     <span>In Progress</span>
                   </label>
 
                   <label class="option">
-                    <input type="radio" name="status" class="radio" id="completed" value="Completed">
+                    <input type="radio" name="edit-status" class="edit-radio" value="Completed" id="edit-completed">
                     <span>Completed</span>
                   </label>
                 </div>
@@ -421,7 +420,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <h4>TaskManager</h4>
-        <p>Organize your work and life, finally.</p>
+        <a href="#">Organize your work and life, finally.</a>
       </div>
       <div class="footer-content">
         <h4>Features</h4>
@@ -454,14 +453,13 @@
 
     <div class="footer-bottom">
       <div class="footer-copyrights">
-        <p>© 2025 TaskManager. All rights reserved. Built with ❤️ for productivity.</p>
+        <p>© <span id="copyright-year"></span> TaskManager. All rights reserved. Built with ❤️ for productivity.</p>
       </div>
     </div>
   </footer>
 
-  <script src="script.js">
+  <script src="script.js"></script>
 
-  </script>
 </body>
 
 </html>

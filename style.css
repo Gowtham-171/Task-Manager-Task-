@@ -553,11 +553,6 @@ select {
 
 /* TASK-CARD */
 
-.task-card-container {
-  overflow-y: auto;
-  height: 1100px;
-}
-
 .task-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -585,6 +580,11 @@ select {
 .task-card-title {
   display: flex;
   justify-content: space-between;
+}
+
+.task-card-title h4{
+  margin: 0;
+  padding-right: 44px;
 }
 
 .task-actions {
@@ -776,7 +776,7 @@ p {
 }
 
 .grid-item .label {
-  font-size: 13px;
+  font-size: 13.5px;
   color: #888;
 }
 
@@ -802,11 +802,17 @@ p {
   margin-bottom: 17px;
 }
 
+.progress-label .value{
+  font-size: 14px;
+  color: black;
+  font-weight: 500;
+}
+
 .progress-bar {
   height: 8px;
   background: #eee;
   border-radius: 10px;
-  margin-left: 8px;
+  margin-left: 9px;
 }
 
 .progress-fill {
@@ -1146,11 +1152,12 @@ footer {
 .footer-content a {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.544);
+  transition: all 0.2s;
 }
 
-.footer-content p {
-  color: rgba(0, 0, 0, 0.544);
-  cursor: pointer;
+.footer-content a:hover{
+  text-decoration: underline;
+  color: rgba(0, 0, 0, 0.674);
 }
 
 .footer-content ul {
@@ -1541,7 +1548,7 @@ footer {
   .task-panel-section select,
   .task-panel-section textarea {
     width: 100%;
-    font-size: 17px;
+    font-size: 16px;
     margin: 13px 0;
     border-radius: 8px;
     padding: 12px 10px 12px 19px;

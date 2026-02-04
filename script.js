@@ -9,7 +9,7 @@ const selectPriority = document.querySelector('#priority-select');
 const inputHours = document.querySelector('#hours-input');
 const inputUrl = document.querySelector('#url-input');
 const inputDescription = document.querySelector('#description-input');
-const inputProgress = document.querySelector('#progress-input');
+
 const createButton = document.querySelector('#create-button');
 const resetButton = document.querySelector('#reset-button');
 
@@ -28,6 +28,7 @@ form.addEventListener('submit', (event) => {
 
         setTimeout(() => {
             createTask();
+            form.reset();
         }, 400);
     }
 });
@@ -42,7 +43,6 @@ function validateInputs() {
     const hoursVal = inputHours.value;
     const urlVal = inputUrl.value.trim();
     const descriptionVal = inputDescription.value.trim();
-    const progressVal = Number(inputProgress.value);
 
     let firstError = null;
 
@@ -135,14 +135,6 @@ function validateInputs() {
         setSuccess(inputDescription)
     }
 
-    // Validate Task Progress
-    if (progressVal === 0) {
-        setError(inputProgress, "Task Progress is required");
-        firstError ??= inputProgress;
-    } else {
-        setSuccess(inputProgress);
-    }
-
     // Validate Task Type
 
     const inputtaskTypes = document.querySelector('.check:checked');
@@ -167,7 +159,7 @@ function validateInputs() {
         setSuccess(firstRadio);
     }
 
-    // Auto scroll
+    // First Error Focus
     if (firstError) {
         firstError.scrollIntoView({
             behavior: "smooth",
@@ -179,26 +171,17 @@ function validateInputs() {
     return true;
 }
 
-const mandatoryFields = [inputName, inputEmail, inputDate, selectPriority];
-
 function setError(element, message) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector('.error');
     errorElement.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: #c0392b;"></i>  ${message}`;
-    // errorElement.style.visibility = "visible";
-
-    if (mandatoryFields.includes(element)) {
-        element.style.border = "2px solid red";
-    }
+    element.style.border = "2px solid red";
 }
 
 function setSuccess(element) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector('.error');
-
     errorElement.innerText = '';
-    // errorElement.style.visibility = "hidden";
-    parent.classList.remove('error');
 }
 
 function isDuplicateTask(taskName) {
@@ -218,7 +201,7 @@ const validateEmail = (emailVal) => {
 const checkboxes = document.querySelectorAll('.check');
 const radios = document.querySelectorAll('.radio');
 
-const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription, inputProgress];
+const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription];
 
 requiredFields.forEach((field) => {
     field.addEventListener("input", () => clearError(field));
@@ -285,7 +268,7 @@ function createTask() {
         hours: inputHours.value,
         url: inputUrl.value,
         description: inputDescription.value,
-        progress: inputProgress.value,
+        progress: "0",
         taskTypes: [...document.querySelectorAll('.check:checked')]
             .map((checkbox) => checkbox.value),
         status: document.querySelector('.radio:checked')?.value || "Pending"
@@ -312,18 +295,20 @@ function renderTasks() {
         });
 
         const taskCard = document.createElement("div");
-        taskCard.classList.add("task-card", task.priority);
-        taskCard.dataset.id = task.id;                  // for Popup
+        taskCard.classList.add("task-card", task.priority);           // task card count
+        taskCard.dataset.id = task.id;                                // for Popup for all 
         taskCard.dataset.priority = task.priority.toLowerCase();      // for button filter
 
-        taskCard.innerHTML = `<h4>${task.name}</h4>
-        <div class="task-actions">
+        taskCard.innerHTML = `<div class = task-card-title>
+          <h4>${task.name}</h4>
+          <div class="task-actions">
             <span class="action-icon-outline edit-btn">
               <i class="fas fa-edit"></i>
             </span>
-            <span class="action-icon-outline delete-btn" data-id="${task.id}">
+            <span class="action-icon-outline delete-btn" data-id="${task.id}" data-name="${task.name}">
               <i class="fa-solid fa-trash"></i>
             </span>
+          </div>
         </div>
         <p>${task.description}</p>
         <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due:${newDate}</p>
@@ -334,7 +319,7 @@ function renderTasks() {
         <label class="${task.status.toLowerCase()}"><small>&#9679;</small>${task.status}</label>
         </div>`;
 
-        taskList.appendChild(taskCard);
+        taskList.prepend(taskCard);
     });
 
     toggleEmptyState();
@@ -356,10 +341,16 @@ addTaskButton.addEventListener("click", () => {
 });
 
 function toggleEmptyState() {
+
     if (taskList.children.length === 0) {
         emptyTask.style.display = "flex";
-    } else {
+        // taskCardContainer.style.height = "auto";
+        // taskCardContainer.style.overflowY = "visible";
+    }
+    else {
         emptyTask.style.display = "none";
+        taskCardContainer.style.height = "1000px";
+        taskCardContainer.style.overflowY = "auto";
     }
 }
 
@@ -384,28 +375,41 @@ taskCardContainer.addEventListener('click', (event) => {
     fullTaskPopup(taskId);
 });
 
+const popupTaskname = document.querySelector('#popupTitle');
+const popupDescription  = document.querySelector('#popupDescription');
+const popupUser = document.querySelector('#popupUser');
+const popupEmail = document.querySelector('#popupEmail');
+const popupDate = document.querySelector('#popupDate');
+const popupTime = document.querySelector('#popupTime');
+const popupHours = document.querySelector('#popupHours');
+const popupPriority = document.querySelector('#popupPriority')
+const popupStatus = document.querySelector('#popupStatus');
+const popupUrl = document.querySelector('#popupUrl');
+const popupProgressBar = document.querySelector('#popupProgressBar');
+const popupProgressText = document.querySelector('#popupProgressText');
+const popupType = document.querySelector('#popupType');
+
 function fullTaskPopup(taskId) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id === taskId);
 
     if (!task) return;
 
-    document.querySelector('#popupTitle').textContent = task.name;
-    document.querySelector('#popupDescription').textContent = task.description;
-    document.querySelector('#popupUser').textContent = task.username;
-    document.querySelector('#popupEmail').textContent = task.email;
-    document.querySelector('#popupDate').textContent = task.date;
-    document.querySelector('#popupTime').textContent = task.time;
-    document.querySelector('#popupHours').textContent = `${task.hours} Hours`;
-    document.querySelector('#popupPriority').innerHTML = `<span>&#9679</span>${task.priority}`;
-    document.querySelector('#popupStatus').innerHTML = `${task.status}`;
+    popupTaskname.textContent = task.name;
+    popupDescription.textContent = task.description;
+    popupUser.textContent = task.username;
+    popupEmail.textContent = task.email;
+    popupDate.textContent = task.date;
+    popupTime.textContent = task.time;
+    popupHours.textContent = `${task.hours} Hours`;
+    popupPriority.innerHTML = `<span>&#9679</span>${task.priority}`;
+    popupStatus.innerHTML = `${task.status}`;
+    popupUrl.href = task.url;
+    popupProgressBar.style.width = task.progress + '%';
+    popupProgressText.textContent = task.progress + '%';
+    popupType.textContent = task.taskTypes?.join(", ");
 
-    document.querySelector('#popupUrl').href = task.url;
-    document.querySelector('#popupProgressBar').style.width = task.progress + '%';
-    document.querySelector('#popupProgressText').textContent = task.progress + '%';
-    document.querySelector('#popupType').textContent = task.taskTypes?.join(", ");
-
-    document.querySelector('#popupPriority').className = task.priority.toLowerCase();
+    popupPriority.className = task.priority.toLowerCase();
 
     fullTaskcard.style.display = 'flex';
     popupOverlay.style.display = 'flex';
@@ -445,7 +449,10 @@ const urlInput = document.querySelector("#taskUrl");
 const descriptionInput = document.querySelector("#taskDescription");
 const progressInput = document.querySelector("#taskProgress");
 const progressLabel = document.querySelector("#taskProgresslabel");
-const taskTypeCheckboxes = document.querySelectorAll(".check");
+
+const checkboxInput = document.querySelectorAll(".edit-check");
+const radioInput = document.querySelectorAll('.edit-radio');
+
 const cancelButton = document.querySelector('#cancel-button');
 const updateButton = document.querySelector("#update-button");
 const taskEditCloseButton = document.querySelector("#edittask-popup-close");
@@ -472,11 +479,11 @@ function editTaskPopup(taskId) {
     progressInput.value = task.progress || 0;
     progressLabel.textContent = `${task.progress}%`;
 
-    taskTypeCheckboxes.forEach(checkbox => {
+    checkboxInput.forEach(checkbox => {
         checkbox.checked = task.taskTypes?.includes(checkbox.value);
     });
 
-    radios.forEach(radio => {
+    radioInput.forEach(radio => {
         radio.checked = radio.value === task.status;
     });
 
@@ -517,10 +524,10 @@ updateButton.addEventListener("click", (event) => {
         url: urlInput.value,
         description: descriptionInput.value,
         progress: progressInput.value,
-        taskTypes: [...taskTypeCheckboxes]
+        taskTypes: [...checkboxInput]
             .filter(cb => cb.checked)
             .map(cb => cb.value),
-        status: document.querySelector(".radio:checked")?.value || ""
+        status: document.querySelector(".edit-radio:checked")?.value || ""
     };
 
     localStorage.setItem("tasks", JSON.stringify(tasks));
@@ -536,6 +543,8 @@ updateButton.addEventListener("click", (event) => {
 const deletePopup = document.querySelector('.delete-popup ');
 const cancelDelete = document.querySelector('.cancel-button');
 const confirmDelete = document.querySelector('.confirm-delete-button');
+const deleteTaskName = document.querySelector('#delete-task-name');
+
 let taskToDeleteId = null;
 
 taskList.addEventListener("click", (e) => {
@@ -543,6 +552,9 @@ taskList.addEventListener("click", (e) => {
     if (!deleteButton) return;
 
     taskToDeleteId = deleteButton.dataset.id;
+    const taskName = deleteButton.dataset.name;
+
+    deleteTaskName.textContent = taskName;
 
     deletePopup.style.display = 'block';
     popupOverlay.style.display = 'block';
@@ -576,15 +588,6 @@ cancelDelete.addEventListener("click", () => {
     deletePopup.style.display = 'none';
     popupOverlay.style.display = 'none';
 });
-
-
-// Input Range Control
-
-const progressPercent = document.querySelector('.task-progress-label');
-
-inputProgress.addEventListener('input', () => {
-    progressPercent.innerHTML = `${inputProgress.value}%`;
-})
 
 
 // Nav-bar Transitions
@@ -635,10 +638,29 @@ function taskcardsCount() {
     const mediumCount = document.querySelectorAll('.Medium').length;
     const lowCount = document.querySelectorAll('.Low').length;
 
-    // if (!allCountEl || !highCountEl || !mediumCountEl || !lowCountEl) return;
-
     allCountEl.textContent = highCount + mediumCount + lowCount;
     highCountEl.textContent = highCount;
     mediumCountEl.textContent = mediumCount;
     lowCountEl.textContent = lowCount;
 }
+
+
+// Auto Update Year in Footer
+
+const copyrightYear = document.getElementById("copyright-year");
+const currentYear = new Date().getFullYear();
+copyrightYear.textContent = currentYear;
+
+
+// Prevent <a> tag reload 
+
+const footer = document.querySelector(".footer-container");
+
+footer.addEventListener("click", (e) => {
+    const link = e.target.closest("a");
+    if (!link) {
+        return
+    }
+    e.preventDefault();
+});
+
