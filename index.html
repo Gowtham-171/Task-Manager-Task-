@@ -198,7 +198,7 @@
           </div>
 
           <h2>Delete Task</h2>
-          <p><span id="delete-task-name"></span> will be deleted permanently</p>
+          <p><span id="delete-task-name"></span> <br> will be deleted permanently</p>
 
           <div class="actions">
             <button class="cancel-button">Cancel</button>
@@ -224,32 +224,38 @@
 
               <div class="full-taskcard-grid">
                 <div class="grid-item">
-                  <span class="label">&#128100; User : </span>
+                  <span class="label">&#128100; User </span>
+                  <span class="colon">:</span>
                   <span class="value" id="popupUser"></span>
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#128231; Email : </span>
+                  <span class="label">&#128231; Email </span>
+                  <span class="colon">:</span>
                   <span class="value" id="popupEmail"></span>
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#128197; Due Date :</span>
+                  <span class="label">&#128197; Due Date</span>
+                  <span class="colon">:</span>
                   <span class="value" id="popupDate"></span>
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#9200; Due Time : </span>
+                  <span class="label">&#9200; Due Time</span>
+                  <span class="colon">:</span>
                   <span class="value" id="popupTime"></span>
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#9203; Estimated Hours : </span>
+                  <span class="label">&#9203; Estimated Hours</span>
+                  <span class="colon">:</span>
                   <span class="value" id="popupHours"></span>
                 </div>
 
                 <div class="grid-item">
-                  <span class="label">&#128279; Project URL : </span>
+                  <span class="label">&#128279; Project URL </span>
+                  <span class="colon">:</span>
                   <a class="value link" href="#" id="popupUrl">View Link</a>
                 </div>
               </div>
@@ -359,8 +365,8 @@
                 <span class="error"></span>
               </div>
 
-              <div class="task-type">
-                <label class="checkbox-label">Task Type</label>
+              <div class="task-types">
+                <label class="edit-checkbox-label">Task Type</label>
 
                 <div class="options-grid">
                   <label class="option">
@@ -378,6 +384,8 @@
                     <span>Enhancement</span>
                   </label>
                 </div>
+
+                <span class="error edit-check-error"></span>
               </div>
 
               <div class="status">
@@ -399,6 +407,8 @@
                     <span>Completed</span>
                   </label>
                 </div>
+
+                <span class="error"></span>
               </div>
 
               <div class="edit-popup-buttons">

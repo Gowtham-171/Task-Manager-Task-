@@ -175,13 +175,14 @@ function setError(element, message) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector('.error');
     errorElement.innerHTML = `<i class="fa-solid fa-triangle-exclamation" style="color: #c0392b;"></i>  ${message}`;
-    element.style.border = "2px solid red";
+    element.style.borderColor = 'red';
 }
 
 function setSuccess(element) {
     const parent = element.parentElement;
     const errorElement = parent.querySelector('.error');
     errorElement.innerText = '';
+    element.style.border = "";
 }
 
 function isDuplicateTask(taskName) {
@@ -198,34 +199,15 @@ const validateEmail = (emailVal) => {
         .match(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
 };
 
-const checkboxes = document.querySelectorAll('.check');
-const radios = document.querySelectorAll('.radio');
+// function clearError(element) {
+//     const parent = element.parentElement;
+//     const errorElement = parent.querySelector(".error");
 
-const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription];
-
-requiredFields.forEach((field) => {
-    field.addEventListener("input", () => clearError(field));
-});
-
-checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener("change", () => clearError(checkbox));
-});
-
-radios.forEach((radio) => {
-    radio.addEventListener("change", () => clearError(radio));
-});
-
-
-function clearError(element) {
-    const parent = element.parentElement;
-    const errorElement = parent.querySelector(".error");
-
-    if (errorElement) {
-        errorElement.innerText = "";
-    }
-    element.style.border = "";
-}
-
+//     if (errorElement) {
+//         errorElement.innerText = "";
+//     }
+//     element.style.border = "";
+// }
 
 // Toast Message
 
@@ -344,8 +326,8 @@ function toggleEmptyState() {
 
     if (taskList.children.length === 0) {
         emptyTask.style.display = "flex";
-        // taskCardContainer.style.height = "auto";
-        // taskCardContainer.style.overflowY = "visible";
+        taskCardContainer.style.height = "auto";
+        taskCardContainer.style.overflowY = "visible";
     }
     else {
         emptyTask.style.display = "none";
@@ -420,6 +402,179 @@ fulltaskCloseButton.addEventListener('click', () => {
     popupOverlay.style.display = 'none';
 });
 
+// Edit Task Validation 
+
+const editTask = document.querySelector(".edit-popup");
+const usernameEdit = document.querySelector("#taskUsername");
+const tasknameEdit = document.querySelector("#taskName");
+const emailEdit = document.querySelector("#taskEmail");
+const dateEdit = document.querySelector("#taskDate");
+const timeEdit = document.querySelector("#taskTime");
+const selectPriorityEdit = document.querySelector("#taskPriority");
+const hoursEdit = document.querySelector("#taskHours");
+const urlEdit = document.querySelector("#taskUrl");
+const descriptionEdit = document.querySelector("#taskDescription");
+const progressEdit = document.querySelector("#taskProgress");
+const progressLabel = document.querySelector("#taskProgresslabel");
+const checkboxEdit = document.querySelectorAll(".edit-check");
+const radioEdit = document.querySelectorAll('.edit-radio');
+
+const cancelButton = document.querySelector('#cancel-button');
+const updateButton = document.querySelector("#update-button");
+const taskEditCloseButton = document.querySelector("#edittask-popup-close");
+
+function validateEditInputs() {
+    const usernameVal = usernameEdit.value.trim();
+    const tasknameVal = tasknameEdit.value.trim();
+    const emailVal = emailEdit.value.trim();
+    const dateVal = dateEdit.value;
+    const timeVal = timeEdit.value;
+    const hoursVal = hoursEdit.value;
+    const urlVal = urlEdit.value.trim();
+    const descriptionVal = descriptionEdit.value.trim();
+
+    let firstError = null;
+
+    // Validate User name
+    if (usernameVal === '') {
+        setError(usernameEdit, 'User Name is required');
+        firstError ??= usernameEdit;
+    }
+    else {
+        setSuccess(usernameEdit);
+    }
+
+    // Validate Task name
+    if (tasknameVal === '') {
+        setError(tasknameEdit, 'Task Name is required');
+        firstError ??= tasknameEdit;
+    }
+    else {
+        setSuccess(tasknameEdit);
+    }
+
+    // Validate Email
+    if (emailVal === '') {
+        setError(emailEdit, 'Email is required');
+        firstError ??= emailEdit;
+    }
+    else if (!validateEmail(emailVal)) {
+        setError(emailEdit, 'Please enter a valid email');
+        firstError ??= emailEdit;
+    }
+    else {
+        setSuccess(emailEdit);
+    }
+
+    // Validate Date
+    if (dateVal === '') {
+        setError(dateEdit, 'Due Date is required');
+        firstError ??= dateEdit;
+    }
+    else {
+        setSuccess(dateEdit);
+    }
+
+    // Validate Time
+    if (timeVal === '') {
+        setError(timeEdit, 'Due Time is required');
+        firstError ??= timeEdit;
+    }
+    else {
+        setSuccess(timeEdit);
+    }
+
+    // Validate Estimated Hours
+    if (hoursVal === '') {
+        setError(hoursEdit, 'Estimated Hours are required');
+        firstError ??= hoursEdit;
+    }
+    else {
+        setSuccess(hoursEdit);
+    }
+
+    // Validate Project URL
+    if (urlVal === '') {
+        setError(urlEdit, 'Project URL is required');
+        firstError ??= urlEdit;
+    }
+    else {
+        setSuccess(urlEdit);
+    }
+
+    // Validate Task Description
+    if (descriptionVal === '') {
+        setError(descriptionEdit, 'Task Description is required');
+        firstError ??= descriptionEdit;
+    }
+    else {
+        setSuccess(descriptionEdit);
+    }
+
+    // // Validate Task Type
+
+    const taskTypesEdit = document.querySelector('.edit-check:checked');
+    const firstCheckbox = document.querySelector('.edit-checkbox-label');
+
+    if (!taskTypesEdit) {
+        setError(firstCheckbox, "Please select at least one task type");
+        firstError ??= firstCheckbox;
+    } else {
+        setSuccess(firstCheckbox);
+    }
+
+    // First Error Focus
+    if (firstError) {
+        firstError.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+        firstError.focus();
+        return false;
+    }
+    return true;
+}
+
+// Clear Error on Input
+
+const checkboxes = document.querySelectorAll('.check');
+const radios = document.querySelectorAll('.radio');
+
+const checkboxesEdit = document.querySelectorAll('.edit-check');
+const editCheckError = document.querySelector('.edit-check-error')
+
+const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription,usernameEdit,tasknameEdit,emailEdit,dateEdit,timeEdit,selectPriorityEdit,hoursEdit,urlEdit,descriptionEdit];
+
+requiredFields.forEach((field) => {
+    field.addEventListener("input", () => setSuccess(field));
+});
+
+checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => setSuccess(checkbox));
+});
+
+radios.forEach((radio) => {
+    radio.addEventListener("change", () => setSuccess(radio));
+});
+
+checkboxesEdit.forEach((checkbox) => {
+    checkbox.addEventListener("change", () => editCheckError.textContent = "");
+});
+
+const editForm = document.querySelector('.edit-form');
+
+editForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const isValid = validateEditInputs();
+
+    if (isValid) {
+        showToast("Task updated successfully ✅");
+
+        setTimeout(() => {
+            updateTask();
+        }, 400);
+    }
+});
 
 // Edit Task (Popup)
 
@@ -437,26 +592,6 @@ taskCardContainer.addEventListener("click", (event) => {
     }
 });
 
-const editTask = document.querySelector(".edit-popup");
-const usernameInput = document.querySelector("#taskUsername");
-const nameInput = document.querySelector("#taskName");
-const emailInput = document.querySelector("#taskEmail");
-const dateInput = document.querySelector("#taskDate");
-const timeInput = document.querySelector("#taskTime");
-const prioritySelect = document.querySelector("#taskPriority");
-const hoursInput = document.querySelector("#taskHours");
-const urlInput = document.querySelector("#taskUrl");
-const descriptionInput = document.querySelector("#taskDescription");
-const progressInput = document.querySelector("#taskProgress");
-const progressLabel = document.querySelector("#taskProgresslabel");
-
-const checkboxInput = document.querySelectorAll(".edit-check");
-const radioInput = document.querySelectorAll('.edit-radio');
-
-const cancelButton = document.querySelector('#cancel-button');
-const updateButton = document.querySelector("#update-button");
-const taskEditCloseButton = document.querySelector("#edittask-popup-close");
-
 function editTaskPopup(taskId) {
     const tasks = getTasks();
     const task = tasks.find(t => t.id == taskId);
@@ -467,28 +602,28 @@ function editTaskPopup(taskId) {
 
     editTask.style.display = "block";
 
-    usernameInput.value = task.username || "";
-    nameInput.value = task.name || "";
-    emailInput.value = task.email || "";
-    dateInput.value = task.date || "";
-    timeInput.value = task.time || "";
-    prioritySelect.value = task.priority || "";
-    hoursInput.value = task.hours || "";
-    urlInput.value = task.url || "";
-    descriptionInput.value = task.description || "";
-    progressInput.value = task.progress || 0;
+    usernameEdit.value = task.username || "";
+    tasknameEdit.value = task.name || "";
+    emailEdit.value = task.email || "";
+    dateEdit.value = task.date || "";
+    timeEdit.value = task.time || "";
+    selectPriorityEdit.value = task.priority || "";
+    hoursEdit.value = task.hours || "";
+    urlEdit.value = task.url || "";
+    descriptionEdit.value = task.description || "";
+    progressEdit.value = task.progress || 0;
     progressLabel.textContent = `${task.progress}%`;
 
-    checkboxInput.forEach(checkbox => {
+    checkboxEdit.forEach(checkbox => {
         checkbox.checked = task.taskTypes?.includes(checkbox.value);
     });
 
-    radioInput.forEach(radio => {
+    radioEdit.forEach(radio => {
         radio.checked = radio.value === task.status;
     });
 
-    progressInput.addEventListener('input', () => {
-        progressLabel.innerHTML = `${progressInput.value}%`;
+    progressEdit.addEventListener('input', () => {
+        progressLabel.innerHTML = `${progressEdit.value}%`;
     })
 }
 function closeEditPopup() {
@@ -502,9 +637,7 @@ taskEditCloseButton.addEventListener('click', closeEditPopup);
 
 cancelButton.addEventListener('click', closeEditPopup);
 
-updateButton.addEventListener("click", (event) => {
-    event.preventDefault();
-
+function updateTask(){
     const tasks = getTasks();
     const ivalue = tasks.findIndex(t => t.id == editTaskId);
 
@@ -514,17 +647,17 @@ updateButton.addEventListener("click", (event) => {
 
     tasks[ivalue] = {
         ...tasks[ivalue],
-        username: usernameInput.value.trim(),
-        name: nameInput.value.trim(),
-        email: emailInput.value.trim(),
-        date: dateInput.value,
-        time: timeInput.value,
-        priority: prioritySelect.value,
-        hours: hoursInput.value,
-        url: urlInput.value,
-        description: descriptionInput.value,
-        progress: progressInput.value,
-        taskTypes: [...checkboxInput]
+        username: usernameEdit.value.trim(),
+        name: tasknameEdit.value.trim(),
+        email: emailEdit.value.trim(),
+        date: dateEdit.value,
+        time: timeEdit.value,
+        priority: selectPriorityEdit.value,
+        hours: hoursEdit.value,
+        url: urlEdit.value,
+        description: descriptionEdit.value,
+        progress: progressEdit.value,
+        taskTypes: [...checkboxEdit]
             .filter(cb => cb.checked)
             .map(cb => cb.value),
         status: document.querySelector(".edit-radio:checked")?.value || ""
@@ -534,9 +667,8 @@ updateButton.addEventListener("click", (event) => {
 
     closeEditPopup();
     renderTasks();
+}
 
-    showToast("Task updated successfully ✅");
-});
 
 // Task card Delete button option
 
@@ -662,5 +794,18 @@ footer.addEventListener("click", (e) => {
         return
     }
     e.preventDefault();
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const dateInput = document.getElementById("date-input");
+    const today = new Date().toISOString().split("T")[0];
+
+    dateInput.min = today;
+
+    // extra safety if some old value already exists
+    if (dateInput.value && dateInput.value < today) {
+        dateInput.value = "";
+    }
 });
 
