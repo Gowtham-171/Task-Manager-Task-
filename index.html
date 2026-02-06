@@ -30,9 +30,9 @@
 
     <nav class="nav-container">
       <ul class="nav-links">
-        <li><a href="#" class="active-nav">Dashboard</a></li>
-        <li><a href="#" class="non-active-nav">Tasks</a></li>
-        <li><a href="#" class="non-active-nav">Profile</a></li>
+        <li><a href="#dashboard" class="active-nav">Dashboard</a></li>
+        <li><a href="#tasks" class="non-active-nav">Tasks</a></li>
+        <li><a href="#profile" class="non-active-nav">Profile</a></li>
       </ul>
     </nav>
   </header>
@@ -137,8 +137,8 @@
             <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
             <label for="In Progress" class="radio-label in-progress-label">In Progress</label>
             <br class="check-radio-br">
-            <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed"
-              class="radio-label">Completed</label> <br>
+            <!-- <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed"
+              class="radio-label">Completed</label> <br> -->
             <span class="error"></span>
           </div>
 
@@ -175,14 +175,24 @@
 
         <!-- EMPTY TASK CONTAINER -->
 
-        <div class="empty-task" id="empty-task">
-          <div class="add-task-image"><img src="images/Add-task-image.png " alt="add-task-image"></div>
-          <h3>No tasks yet</h3>
-          <p>Start adding tasks and manage your work efficiently</p>
+        <div class="empty-task hidden" id="empty-task">
+          <div class="task-image">
+            <img src="images/add-task-image.png " alt="add-task-image" id="empty-image">
+          </div>
+          <h3 id="empty-title">No tasks yet</h3>
+          <p id="empty-description">Start adding tasks and manage your work efficiently</p>
           <button class="add-task-button" id="add-task-button"><span>&#43;</span> Add Task</button>
         </div>
 
         <div class="task-card-container">
+
+          <div id="priority-empty-ui" class="empty-task priority-empty hidden">
+            <div class="task-image">
+              <img src="images/no-task-image.png" alt="no-task-image" id="empty-image">
+            </div>
+            <h3 id="priority-empty-title">No tasks</h3>
+            <p>Try adding a task or switch priority</p>
+          </div>
 
           <!-- TASK-CARDS -->
 
@@ -430,33 +440,33 @@
     <div class="footer-container">
       <div class="footer-content">
         <h4>TaskManager</h4>
-        <a href="#">Organize your work and life, finally.</a>
+        <p href="#">Organize your work and life, finally.</a>
       </div>
       <div class="footer-content">
         <h4>Features</h4>
         <ul>
-          <li><a href="#">Task Management</a></li>
-          <li><a href="#">Team Collaboration</a></li>
-          <li><a href="#">Analytics</a></li>
-          <li><a href="#">Integrations</a></li>
+          <li><p href="#">Task Management</p></li>
+          <li><p href="#">Team Collaboration</p></li>
+          <li><p href="#">Analytics</p></li>
+          <li><p href="#">Integrations</p></li>
         </ul>
       </div>
       <div class="footer-content">
         <h4>Resources</h4>
         <ul>
-          <li><a href="#">Documentation</a></li>
-          <li><a href="#">Tutorials</a></li>
-          <li><a href="#">API Reference</a></li>
-          <li><a href="#">Support</a></li>
+          <li><p href="#">Documentation</p></li>
+          <li><p href="#">Tutorials</p></li>
+          <li><p href="#">API Reference</p></li>
+          <li><p href="#">Support</p></li>
         </ul>
       </div>
       <div class="footer-content">
         <h4>Company</h4>
         <ul>
-          <li><a href="#">About Us</a></li>
-          <li><a href="#">Careers</a></li>
-          <li><a href="#">Privacy Policy</a></li>
-          <li><a href="#">Terms of Service</a></li>
+          <li><p href="#">About Us</p></li>
+          <li><p href="#">Careers</p></li>
+          <li><p href="#">Privacy Policy</p></li>
+          <li><p href="#">Terms of Service</p></li>
         </ul>
       </div>
     </div>

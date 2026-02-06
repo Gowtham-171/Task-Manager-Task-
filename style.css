@@ -483,7 +483,7 @@ select {
   text-decoration: none;
 }
 
-.filter-buttons .filter-button span{
+.filter-buttons .filter-button span {
   font-size: 11px;
 }
 
@@ -512,12 +512,12 @@ select {
   vertical-align: middle;
 }
 
-.empty-task .add-task-image {
+.task-image {
   width: min(180px, 50%);
   margin-bottom: 10px;
 }
 
-.add-task-image img {
+.task-image img {
   width: 100%;
   height: auto;
   object-fit: contain;
@@ -551,6 +551,18 @@ select {
   background: #4f46e5;
 }
 
+.priority-empty {
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.hidden {
+  display: none;
+}
+
 /* TASK-CARD */
 
 .task-list {
@@ -582,7 +594,7 @@ select {
   justify-content: space-between;
 }
 
-.task-card-title h4{
+.task-card-title h4 {
   margin: 0;
   padding-right: 44px;
 }
@@ -620,21 +632,32 @@ select {
 }
 
 .task-card h4 {
+  display: -webkit-box;
   margin-top: 0.5rem;
   margin-bottom: 1.5rem;
   font-size: 1.1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 .task-card p {
+  display: -webkit-box;
   color: rgba(0, 0, 0, 0.544);
   margin: 1.2rem 0.2rem;
   font-size: 0.9rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
+  line-clamp: 2;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* height: 30px; */
 }
 
 .priority-container {
@@ -653,8 +676,8 @@ select {
 }
 
 .priority-container .high,
-.medium,
-.low {
+.priority-container .low,
+.priority-container .medium {
   text-transform: uppercase;
   border-radius: 1rem;
   padding: 0rem 1rem;
@@ -665,17 +688,17 @@ select {
   align-items: center;
 }
 
-.high {
+.priority-container .high {
   color: rgb(245, 66, 69);
   background-color: rgb(255, 237, 237);
 }
 
-.medium {
+.priority-container .medium {
   color: rgb(250, 158, 45);
   background-color: rgb(255, 245, 235);
 }
 
-.low {
+.priority-container .low {
   color: rgb(0, 185, 133);
   background-color: rgb(228, 247, 242);
 }
@@ -729,6 +752,7 @@ select {
   z-index: 2;
   padding: 30px;
   display: none;
+  /* overflow: hidden; */
 }
 
 .full-task-card-border {
@@ -745,6 +769,7 @@ select {
   padding: 25px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
   font-family: Inter, sans-serif;
+
 }
 
 .task-title {
@@ -802,7 +827,7 @@ p {
   margin-bottom: 17px;
 }
 
-.progress-label .value{
+.progress-label .value {
   font-size: 14px;
   color: black;
   font-weight: 500;
@@ -830,13 +855,13 @@ p {
   font-weight: 600;
 }
 
-.fill{
-  background-color: #eef2ff; 
+.fill {
+  background-color: #eef2ff;
   color: #2563eb;
   padding: 6px 12px;
   font-size: 12px;
   border-radius: 20px;
-  font-weight: 600; 
+  font-weight: 600;
 }
 
 .popup-close {
@@ -1092,7 +1117,7 @@ p {
   margin-bottom: 26px;
 }
 
-#delete-task-name{
+#delete-task-name {
   font-weight: 550;
 }
 
@@ -1153,13 +1178,14 @@ footer {
   margin-bottom: 10%;
 }
 
-.footer-content a {
+.footer-content p {
   text-decoration: none;
   color: rgba(0, 0, 0, 0.544);
   transition: all 0.2s;
+  cursor: pointer;
 }
 
-.footer-content a:hover{
+.footer-content p:hover {
   text-decoration: underline;
   color: rgba(0, 0, 0, 0.674);
 }

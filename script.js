@@ -276,8 +276,11 @@ function renderTasks() {
             year: "numeric"
         });
 
+        const taskPriority = task.priority.toLowerCase();
+        console.log(taskPriority);
+
         const taskCard = document.createElement("div");
-        taskCard.classList.add("task-card", task.priority);           // task card count
+        taskCard.classList.add("task-card", taskPriority);           // task card count
         taskCard.dataset.id = task.id;                                // for Popup for all 
         taskCard.dataset.priority = task.priority.toLowerCase();      // for button filter
 
@@ -304,39 +307,16 @@ function renderTasks() {
         taskList.prepend(taskCard);
     });
 
-    toggleEmptyState();
     taskcardsCount();
+
+    const activeFilter = getActiveFilter();
+    applyFilter(activeFilter);
 }
 
 document.addEventListener("DOMContentLoaded", () => {
     renderTasks();
     taskcardsCount();
 });
-
-// Empty Task Container 
-
-const addTaskButton = document.querySelector('.add-task-button');
-const emptyTask = document.querySelector('.empty-task');
-
-addTaskButton.addEventListener("click", () => {
-    inputUsername.focus();
-});
-
-function toggleEmptyState() {
-
-    if (taskList.children.length === 0) {
-        emptyTask.style.display = "flex";
-        taskCardContainer.style.height = "auto";
-        taskCardContainer.style.overflowY = "visible";
-    }
-    else {
-        emptyTask.style.display = "none";
-        taskCardContainer.style.height = "1000px";
-        taskCardContainer.style.overflowY = "auto";
-    }
-}
-
-toggleEmptyState();
 
 // Full Task-card Details (Popup)
 
@@ -358,7 +338,7 @@ taskCardContainer.addEventListener('click', (event) => {
 });
 
 const popupTaskname = document.querySelector('#popupTitle');
-const popupDescription  = document.querySelector('#popupDescription');
+const popupDescription = document.querySelector('#popupDescription');
 const popupUser = document.querySelector('#popupUser');
 const popupEmail = document.querySelector('#popupEmail');
 const popupDate = document.querySelector('#popupDate');
@@ -541,9 +521,9 @@ const checkboxes = document.querySelectorAll('.check');
 const radios = document.querySelectorAll('.radio');
 
 const checkboxesEdit = document.querySelectorAll('.edit-check');
-const editCheckError = document.querySelector('.edit-check-error')
+const editCheckError = document.querySelector('.edit-check-error');
 
-const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription,usernameEdit,tasknameEdit,emailEdit,dateEdit,timeEdit,selectPriorityEdit,hoursEdit,urlEdit,descriptionEdit];
+const requiredFields = [inputName, inputEmail, inputUsername, inputDate, inputTime, selectPriority, inputHours, inputUrl, inputDescription, usernameEdit, tasknameEdit, emailEdit, dateEdit, timeEdit, selectPriorityEdit, hoursEdit, urlEdit, descriptionEdit];
 
 requiredFields.forEach((field) => {
     field.addEventListener("input", () => setSuccess(field));
@@ -637,7 +617,7 @@ taskEditCloseButton.addEventListener('click', closeEditPopup);
 
 cancelButton.addEventListener('click', closeEditPopup);
 
-function updateTask(){
+function updateTask() {
     const tasks = getTasks();
     const ivalue = tasks.findIndex(t => t.id == editTaskId);
 
@@ -722,7 +702,7 @@ cancelDelete.addEventListener("click", () => {
 });
 
 
-// Nav-bar Transitions
+// Nav-bar Transitions in mobile
 
 const hamburger = document.querySelector('.hamburger');
 const navContainer = document.querySelector('.nav-container');
@@ -732,7 +712,8 @@ hamburger.addEventListener('click', () => {
     navContainer.classList.toggle('active');
 })
 
-// Filtering Buttons
+
+// Priority Filtering Buttons
 
 const filterButtons = document.querySelectorAll(".filter-button");
 
@@ -743,37 +724,132 @@ filterButtons.forEach((button) => {
         filterButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
-        const taskCards = document.querySelectorAll(".task-card");
-
-        taskCards.forEach((card) => {
-            const priority = card.dataset.priority;
-
-            if (filterValue === "all" || priority === filterValue) {
-                card.style.display = "block";
-            }
-            else {
-                card.style.display = "none";
-            }
-        });
+        applyFilter(filterValue);
     });
 });
 
-// Taskcards count
+function applyFilter(filterValue) {
+    const taskCards = document.querySelectorAll(".task-card");
+
+    taskCards.forEach((card) => {
+        const priority = card.dataset.priority;
+
+        if (filterValue === "all" || priority === filterValue) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    togglePriorityUI(filterValue);
+}
+
+function getActiveFilter() {
+    return document.querySelector(".filter-button.active")?.dataset.filter || "all";
+}
+
+
+// Global Empty Task Container 
+
+const addTaskButton = document.querySelector('.add-task-button');
+const emptyTask = document.querySelector('.empty-task');
+
+addTaskButton.addEventListener("click", () => {
+    inputUsername.focus();
+});
+
+function toggleEmptyState() {
+
+    if (taskList.children.length === 0) {
+        emptyTask.style.display = "flex";
+        taskCardContainer.style.height = "auto";
+        taskCardContainer.style.overflowY = "visible";
+        taskList.style.display = "none";
+    }
+    else {
+        emptyTask.style.display = "none";
+        taskCardContainer.style.height = "1000px";
+        taskCardContainer.style.overflowY = "auto";
+        taskList.style.display = "grid";
+    }
+}
+
+
+// Priority Empty Container
+
+
+const priorityEmptyUI = document.getElementById("priority-empty-ui");
+const priorityEmptyTitle = document.getElementById("priority-empty-title");
+
+function togglePriorityUI(priority) {
+    const totalTasks = document.querySelectorAll(".task-card").length;
+    const filteredCount = priorityCount(priority);
+
+    if (totalTasks === 0) {
+        emptyTask.style.display = "flex";
+        priorityEmptyUI.classList.add("hidden");
+        taskList.style.display = "none";
+        return;
+    }
+
+    if (priority !== "all" && filteredCount === 0) {
+        emptyTask.style.display = "none";
+        priorityEmptyUI.classList.remove("hidden");
+        taskList.style.display = "none";
+
+        priorityEmptyTitle.textContent = `No ${priority} priority tasks`;
+        return;
+    }
+
+    emptyTask.style.display = "none";
+    priorityEmptyUI.classList.add("hidden");
+    taskList.style.display = "grid";
+}
+
+function priorityCount(priority) {
+    const taskcard = document.querySelectorAll(".task-card");
+    const hightaskCard = document.querySelectorAll(".task-card.high");
+    const mediumtaskCard = document.querySelectorAll(".task-card.medium");
+    const lowtaskCard = document.querySelectorAll(".task-card.low");
+
+    if (priority === "high") {
+        return hightaskCard.length;
+    }
+    if (priority === "medium") {
+        return mediumtaskCard.length;
+    }
+    if (priority === "low") {
+        return lowtaskCard.length;
+    }
+    return taskcard.length;
+}
+
+// Taskcards Count
 
 function taskcardsCount() {
-    const allCountEl = document.getElementById('all-button-count');
-    const highCountEl = document.getElementById('high-button-count');
-    const mediumCountEl = document.getElementById('medium-button-count');
-    const lowCountEl = document.getElementById('low-button-count');
+    const allButtonCount = document.getElementById("all-button-count");
+    const highbuttonCount = document.getElementById("high-button-count");
+    const mediumButtonCount = document.getElementById("medium-button-count");
+    const lowButtonCount = document.getElementById("low-button-count");
 
-    const highCount = document.querySelectorAll('.High').length;
-    const mediumCount = document.querySelectorAll('.Medium').length;
-    const lowCount = document.querySelectorAll('.Low').length;
+    const cards = document.querySelectorAll(".task-card");
 
-    allCountEl.textContent = highCount + mediumCount + lowCount;
-    highCountEl.textContent = highCount;
-    mediumCountEl.textContent = mediumCount;
-    lowCountEl.textContent = lowCount;
+    let high = 0;
+    let medium = 0;
+    let low = 0;
+
+    cards.forEach((card) => {
+        const priority = card.dataset.priority;
+
+        if (priority === "high") high++;
+        if (priority === "medium") medium++;
+        if (priority === "low") low++;
+    });
+
+    allButtonCount.textContent = cards.length;
+    highbuttonCount.textContent = high;
+    mediumButtonCount.textContent = medium;
+    lowButtonCount.textContent = low;
 }
 
 
@@ -784,18 +860,7 @@ const currentYear = new Date().getFullYear();
 copyrightYear.textContent = currentYear;
 
 
-// Prevent <a> tag reload 
-
-const footer = document.querySelector(".footer-container");
-
-footer.addEventListener("click", (e) => {
-    const link = e.target.closest("a");
-    if (!link) {
-        return
-    }
-    e.preventDefault();
-});
-
+// Date and Time Control (No Past)
 
 document.addEventListener("DOMContentLoaded", () => {
     const dateInput = document.getElementById("date-input");
@@ -803,9 +868,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
     dateInput.min = today;
 
-    // extra safety if some old value already exists
     if (dateInput.value && dateInput.value < today) {
         dateInput.value = "";
     }
 });
 
+
+// // Prevent <a> tag reload
+
+// const footer = document.querySelector(".footer-container");
+
+// footer.addEventListener("click", (e) => {
+//     const link = e.target.closest("a");
+//     if (!link) {
+//         return
+//     }
+//     e.preventDefault();
+// });
