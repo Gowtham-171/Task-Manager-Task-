@@ -24,7 +24,7 @@ form.addEventListener('submit', (event) => {
     const isValid = validateInputs();
 
     if (isValid) {
-        showToast("Task created successfully ✅");
+        showToast("Task Created Successfully");
 
         setTimeout(() => {
             createTask();
@@ -199,27 +199,26 @@ const validateEmail = (emailVal) => {
         .match(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
 };
 
-// function clearError(element) {
-//     const parent = element.parentElement;
-//     const errorElement = parent.querySelector(".error");
-
-//     if (errorElement) {
-//         errorElement.innerText = "";
-//     }
-//     element.style.border = "";
-// }
 
 // Toast Message
 
+const toast = document.querySelector('.toast');
+const toastClose = document.getElementById('toast-close');
+
 function showToast(message) {
-    const toast = document.getElementById("toast");
-    toast.textContent = message;
+    const toastMessage = document.querySelector(".toast-message");
+    toastMessage.textContent = message;
     toast.classList.add("show");
+    toast.style.display = "flex";
 
     setTimeout(() => {
         toast.classList.remove("show");
     }, 2000);
 }
+
+toastClose.addEventListener('click', () => {
+    toast.style.display = "none";
+})
 
 
 // Local Storage 
@@ -277,7 +276,6 @@ function renderTasks() {
         });
 
         const taskPriority = task.priority.toLowerCase();
-        console.log(taskPriority);
 
         const taskCard = document.createElement("div");
         taskCard.classList.add("task-card", taskPriority);           // task card count
@@ -548,7 +546,7 @@ editForm.addEventListener('submit', (event) => {
     const isValid = validateEditInputs();
 
     if (isValid) {
-        showToast("Task updated successfully ✅");
+        showToast("Task Updated Successfully");
 
         setTimeout(() => {
             updateTask();
@@ -674,9 +672,13 @@ taskList.addEventListener("click", (e) => {
 });
 
 function deleteTask(id) {
-    let tasks = getTasks();
+    const tasks = getTasks();
 
-    tasks = tasks.filter(task => Number(task.id) !== Number(id));
+    const deleteTaskIndex = tasks.findIndex(task => Number(task.id) === Number(id));
+
+    if (deleteTaskIndex !== -1) {
+        tasks.splice(deleteTaskIndex, 1);
+    }
 
     saveTasks(tasks);
     renderTasks();
@@ -685,7 +687,7 @@ function deleteTask(id) {
 confirmDelete.addEventListener("click", () => {
     if (!taskToDeleteId) return;
 
-    showToast("Task deleted successfully ✅");
+    showToast("Task Deleted Successfully");
 
     setTimeout(() => {
         deleteTask(taskToDeleteId);
@@ -777,7 +779,6 @@ function toggleEmptyState() {
 
 // Priority Empty Container
 
-
 const priorityEmptyUI = document.getElementById("priority-empty-ui");
 const priorityEmptyTitle = document.getElementById("priority-empty-title");
 
@@ -804,6 +805,8 @@ function togglePriorityUI(priority) {
     emptyTask.style.display = "none";
     priorityEmptyUI.classList.add("hidden");
     taskList.style.display = "grid";
+    taskCardContainer.style.height = "900px";
+    taskCardContainer.style.overflowY = "auto";
 }
 
 function priorityCount(priority) {
@@ -851,6 +854,71 @@ function taskcardsCount() {
     mediumButtonCount.textContent = medium;
     lowButtonCount.textContent = low;
 }
+
+// Page Navigation 
+
+const mainSection = document.querySelector('.main-section');
+const taskPanelSection = document.querySelector('.task-panel-section');
+const activeTaskSection = document.querySelector('.active-task-section');
+const mainTitle = document.querySelector('.main-title');
+const navLinks = document.querySelectorAll('.nav-links a');
+
+function resetUI() {
+    mainSection.classList.remove('active');
+    taskPanelSection.classList.remove('active');
+    activeTaskSection.classList.remove('active');
+    taskList.classList.remove('active');
+
+    navLinks.forEach(link => link.classList.remove('active-nav'));
+}
+
+function showDashboard() {
+    resetUI();
+    // taskCardContainer.style.height = "900px";    
+
+    mainTitle.innerHTML = `<span class="line"></span>Task Dashboard`;
+    document.querySelector('#dashboard-nav').classList.add('active-nav');
+}
+
+function showTasks() {
+    resetUI();
+
+    mainSection.classList.add('active');
+    taskPanelSection.classList.add('active');
+    activeTaskSection.classList.add('active');
+    taskList.classList.add('active');
+    taskCardContainer.style.height = "auto";
+
+    mainTitle.innerHTML = `<span class="line"></span>Tasks`;
+    document.querySelector('#tasks-nav').classList.add('active-nav');
+}
+
+function showProfile() {
+    resetUI();
+
+    mainTitle.innerHTML = `<span class="line"></span>Profile`;
+    document.querySelector('#profile-nav').classList.add('active-nav');
+}
+
+function handleNavigation() {
+    const page = location.hash.replace('#', '') || 'dashboard';
+
+    switch (page) {
+        case 'tasks':
+            showTasks();
+            break;
+
+        case 'profile':
+            showProfile();
+            break;
+
+        default:
+            showDashboard();
+    }
+}
+
+window.addEventListener('hashchange', handleNavigation);
+window.addEventListener('DOMContentLoaded', handleNavigation);
 
 
 // Auto Update Year in Footer

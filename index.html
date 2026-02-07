@@ -30,16 +30,20 @@
 
     <nav class="nav-container">
       <ul class="nav-links">
-        <li><a href="#dashboard" class="active-nav">Dashboard</a></li>
-        <li><a href="#tasks" class="non-active-nav">Tasks</a></li>
-        <li><a href="#profile" class="non-active-nav">Profile</a></li>
+        <li><a href="#dashboard" class="" id="dashboard-nav">Dashboard</a></li>
+        <li><a href="#tasks" class="" id="tasks-nav">Tasks</a></li>
+        <li><a href="#profile" class="" id="profile-nav">Profile</a></li>
       </ul>
     </nav>
   </header>
 
   <main>
     <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast">
+      <span class="toast-icon">✓</span>
+      <p class="toast-message"></p>
+      <i class="fa-solid fa-circle-xmark" id="toast-close"></i>
+    </div>
 
     <section class="main-section">
 
@@ -177,7 +181,7 @@
 
         <div class="empty-task hidden" id="empty-task">
           <div class="task-image">
-            <img src="images/add-task-image.png " alt="add-task-image" id="empty-image">
+            <img src="images/Add-task-image.png " alt="add-task-image" id="empty-image">
           </div>
           <h3 id="empty-title">No tasks yet</h3>
           <p id="empty-description">Start adding tasks and manage your work efficiently</p>
@@ -422,8 +426,8 @@
               </div>
 
               <div class="edit-popup-buttons">
-                <button class="button primary" id="update-button">Update Task</button>
-                <button class="button cancel" id="cancel-button">Cancel</button>
+                <button type="submit" class="button primary" id="update-button">Update Task</button>
+                <button type="button" class="button cancel" id="cancel-button">Cancel</button>
               </div>
 
             </form>
