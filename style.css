@@ -59,14 +59,14 @@ nav .nav-links {
   right: 8%;
 }
 
-.nav-links a{
+.nav-links a {
   text-decoration: none;
   padding: 10px;
   margin: 0px 20px;
   color: rgba(0, 0, 0, 0.6);
 }
 
-.nav-links a.active-nav{
+.nav-links a.active-nav {
   background-color: rgb(242, 243, 245);
   color: rgb(93, 95, 239);
   border-radius: 11px;
@@ -105,7 +105,7 @@ nav .nav-links {
   margin-top: 30px;
 }
 
-.main-section.active{
+.main-section.active {
   grid-template-columns: 1fr;
 }
 
@@ -157,7 +157,7 @@ main .line {
   font-weight: bold;
 }
 
-.toast i{
+.toast i {
   cursor: pointer;
   position: relative;
   top: 2px;
@@ -165,7 +165,7 @@ main .line {
   transition: color 0.2s ease, transform 0.2s ease;
 }
 
-.toast i:hover{
+.toast i:hover {
   transform: scale(1.2);
 }
 
@@ -188,7 +188,7 @@ main .line {
   left: 15px;
 }
 
-.task-panel-section.active{
+.task-panel-section.active {
   display: none;
 }
 
@@ -466,7 +466,7 @@ select {
   box-shadow: 0px 0px 10px rgb(0, 0, 0, 0.15);
 }
 
-.active-task-section.active{
+.active-task-section.active {
   margin-left: 100px;
 }
 
@@ -602,7 +602,7 @@ select {
   padding-top: 1.4%;
 }
 
-.task-list.active{
+.task-list.active {
   grid-template-columns: 1fr 1fr 1fr;
 }
 
@@ -936,38 +936,43 @@ p {
   max-width: 550px;
   max-height: 90vh;
   background: #fff;
-  border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
   padding: 20px;
-  overflow-y: auto;
-  overflow-x: hidden;
   z-index: 1000;
   top: 50%;
   transform: translateY(-50%);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
-.edit-popop-box::-webkit-scrollbar {
-  display: none;
+.edit-popup-body {
+  max-height: 65vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  overflow-x: hidden;
 }
 
 .edit-task-border {
   border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
-  padding: 10px 40px 20px 30px;
+  padding: 10px 20px 10px 30px;
 }
 
 .edit-task-border h3 {
   position: relative;
   bottom: 15px;
+  margin: 0px 0px 0px -5px;
+}
+
+.edit-popop-box .task-panel-title {
+  margin: 10px 0px 5px 2px;
 }
 
 .edit-popup input,
 .edit-popup select {
   font-size: 14px;
-  margin: 10px 10px 13px 4px;
+  margin: 10px 0px 13px 4px;
   padding: 10px;
-  width: 100%;
+  width: 95%;
   border-radius: 6.5px;
   border: 2px solid rgba(0, 0, 0, 0.168);
   outline-color: rgb(93, 95, 239);
@@ -979,18 +984,19 @@ p {
 }
 
 .edit-row .input-date {
-  flex-grow: 1;
-  width: 50%;
+  flex-basis: 47%;
+}
+
+.edit-row .input-time {
+  flex-basis: 47%;
 }
 
 .edit-row .select-priority {
-  flex-grow: 1;
-  width: 50%;
+  flex-basis: 47%;
 }
 
 .edit-row .input-hours {
-  flex-grow: 1;
-  width: 50%;
+  flex-basis: 47%;
 }
 
 .form-group {
@@ -1003,15 +1009,13 @@ p {
   font-size: 12px;
   color: #555;
   margin-bottom: 6px;
-  /* color: rgb(87, 104, 235); */
+  color: rgb(93, 95, 239);
 }
 
-/* Textarea */
-
 .edit-popup textarea {
-  width: 100%;
+  width: 95%;
   height: 100px;
-  margin: 10px 10px;
+  margin: 10px 0px 10px 5px;
   border: 2px solid rgba(0, 0, 0, 0.168);
   border-radius: 6.5px;
   font-family: Arial, Helvetica, sans-serif;
@@ -1067,8 +1071,6 @@ p {
   height: 18px;
   cursor: pointer;
 }
-
-/* Buttons */
 
 .edit-popup-buttons {
   padding: 18px 26px;
@@ -1430,8 +1432,8 @@ footer {
     margin: 0 auto;
     padding: 20px;
   }
-  
-  .active-task-section.active{
+
+  .active-task-section.active {
     margin-left: 0px;
   }
 
@@ -1441,7 +1443,7 @@ footer {
     padding: 18px;
   }
 
-  .task-list.active{
+  .task-list.active {
     grid-template-columns: 1fr 1fr;
   }
 
@@ -1745,7 +1747,7 @@ footer {
     border-radius: 16px;
   }
 
-  .active-task-section.active{
+  .active-task-section.active {
     margin-left: 0px;
   }
 
@@ -1801,7 +1803,7 @@ footer {
     padding: 0.5rem;
   }
 
-  .task-list.active{
+  .task-list.active {
     grid-template-columns: 1fr;
   }
 
@@ -1861,23 +1863,37 @@ footer {
 
   /* EDIT TASK POPUP */
 
+  .edit-popop-box {
+    height: 80vh;
+    padding: 15px;
+  }
+
+  .edit-popup-body {
+    height: 61.5vh;
+  }
+
+  .edit-task-border {
+    padding: 5px 10px 25px 20px;
+  }
+
+  .edit-task-border .task-panel-title {
+    margin: 10px 0px 5px 2px;
+  }
+
   .edit-row {
     display: block;
     gap: 14px;
   }
 
   .edit-row .input-date {
-    flex-grow: 1;
     width: 100%;
   }
 
   .edit-row .select-priority {
-    flex-grow: 1;
     width: 100%;
   }
 
   .edit-row .input-hours {
-    flex-grow: 1;
     width: 100%;
   }
 

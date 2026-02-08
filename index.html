@@ -308,129 +308,134 @@
               <h3>&#128221;Edit Task</h3>
             </div>
 
-            <form class="edit-form">
-              <div class="input-username">
-                <label>User Name</label>
-                <input type="text" id="taskUsername" placeholder="User Name" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-name">
-                <label>Task Name</label>
-                <input type="text" id="taskName" placeholder="Task Name *" />
-                <span class="error"></span>
-              </div>
-
-              <div class="input-email">
-                <label>Email</label>
-                <input type="email" id="taskEmail" placeholder="Assignee Email *" />
-                <span class="error"></span>
-              </div>
-
-              <div class="edit-row">
-                <div class="input-date">
-                  <label>Due Date</label>
-                  <input type="date" id="taskDate" name="Date" />
+            <div class="edit-popup-body">
+              <form class="edit-form">
+                <div class="input-username">
+                  <label>User Name</label>
+                  <input type="text" id="taskUsername" placeholder="User Name" />
                   <span class="error"></span>
                 </div>
 
-                <div class="input-time">
-                  <label>Due Time</label>
-                  <input type="time" id="taskTime">
-                  <span class="error"></span>
-                </div>
-              </div>
-
-              <div class="edit-row">
-                <div class="select-priority">
-                  <label>Priority</label>
-                  <select id="taskPriority">
-                    <option value="" disabled selected>-- Select priority --</option>
-                    <option value="Low">Low Priority</option>
-                    <option value="Medium">Medium Priority</option>
-                    <option value="High">High Priority</option>
-                  </select>
+                <div class="input-name">
+                  <label>Task Name</label>
+                  <input type="text" id="taskName" placeholder="Task Name *" />
                   <span class="error"></span>
                 </div>
 
-                <div class="input-hours">
-                  <label>Estimated Hours</label>
-                  <input type="number" id="taskHours" name="Number" placeholder="0">
+                <div class="input-email">
+                  <label>Email</label>
+                  <input type="email" id="taskEmail" placeholder="Assignee Email *" />
                   <span class="error"></span>
                 </div>
-              </div>
 
-              <div class="project-url">
-                <label>Project URL</label>
-                <input type="url" id="taskUrl" placeholder="Project URL">
-                <span class="error"></span>
-              </div>
+                <div class="edit-row">
+                  <div class="input-date">
+                    <label>Due Date</label>
+                    <input type="date" id="taskDate" name="Date" />
+                    <span class="error"></span>
+                  </div>
 
-              <div class="task-description">
-                <label>Task Description</label>
-                <textarea id="taskDescription" placeholder="Task-Description"></textarea>
-                <span class="error"></span>
-              </div>
-
-              <div class="task-progress">
-                <label>Task Progress</label> <br>
-                <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100" value="0"><br>
-                <p class="task-progress-label" id="taskProgresslabel">0%</p>
-                <span class="error"></span>
-              </div>
-
-              <div class="task-types">
-                <label class="edit-checkbox-label">Task Type</label>
-
-                <div class="options-grid">
-                  <label class="option">
-                    <input type="checkbox" name="taskType" class="edit-check" value="Bug" id="edit-bug">
-                    <span>Bug Fix</span>
-                  </label>
-
-                  <label class="option">
-                    <input type="checkbox" name="taskType" class="edit-check" value="Feature" id="edit-feature">
-                    <span>Feature</span>
-                  </label>
-
-                  <label class="option">
-                    <input type="checkbox" name="taskType" class="edit-check" value="Enhancement" id="edit-enhancement">
-                    <span>Enhancement</span>
-                  </label>
+                  <div class="input-time">
+                    <label>Due Time</label>
+                    <input type="time" id="taskTime">
+                    <span class="error"></span>
+                  </div>
                 </div>
 
-                <span class="error edit-check-error"></span>
-              </div>
+                <div class="edit-row">
+                  <div class="select-priority">
+                    <label>Priority</label>
+                    <select id="taskPriority">
+                      <option value="" disabled selected>-- Select priority --</option>
+                      <option value="Low">Low Priority</option>
+                      <option value="Medium">Medium Priority</option>
+                      <option value="High">High Priority</option>
+                    </select>
+                    <span class="error"></span>
+                  </div>
 
-              <div class="status">
-                <label class="status-label">Status</label>
-
-                <div class="options-grid">
-                  <label class="option">
-                    <input type="radio" name="edit-status" class="edit-radio" value="Pending" id="edit-pending">
-                    <span>Pending</span>
-                  </label>
-
-                  <label class="option">
-                    <input type="radio" name="edit-status" class="edit-radio" value="In Progress" id="edit-inProgress">
-                    <span>In Progress</span>
-                  </label>
-
-                  <label class="option">
-                    <input type="radio" name="edit-status" class="edit-radio" value="Completed" id="edit-completed">
-                    <span>Completed</span>
-                  </label>
+                  <div class="input-hours">
+                    <label>Estimated Hours</label>
+                    <input type="number" id="taskHours" name="Number" placeholder="0">
+                    <span class="error"></span>
+                  </div>
                 </div>
 
-                <span class="error"></span>
-              </div>
+                <div class="project-url">
+                  <label>Project URL</label>
+                  <input type="url" id="taskUrl" placeholder="Project URL">
+                  <span class="error"></span>
+                </div>
 
-              <div class="edit-popup-buttons">
-                <button type="submit" class="button primary" id="update-button">Update Task</button>
-                <button type="button" class="button cancel" id="cancel-button">Cancel</button>
-              </div>
+                <div class="task-description">
+                  <label>Task Description</label>
+                  <textarea id="taskDescription" placeholder="Task-Description"></textarea>
+                  <span class="error"></span>
+                </div>
 
-            </form>
+                <div class="task-progress">
+                  <label>Task Progress</label> <br>
+                  <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100"
+                    value="0"><br>
+                  <p class="task-progress-label" id="taskProgresslabel">0%</p>
+                  <span class="error"></span>
+                </div>
+
+                <div class="task-types">
+                  <label class="edit-checkbox-label">Task Type</label>
+
+                  <div class="options-grid">
+                    <label class="option">
+                      <input type="checkbox" name="taskType" class="edit-check" value="Bug" id="edit-bug">
+                      <span>Bug Fix</span>
+                    </label>
+
+                    <label class="option">
+                      <input type="checkbox" name="taskType" class="edit-check" value="Feature" id="edit-feature">
+                      <span>Feature</span>
+                    </label>
+
+                    <label class="option">
+                      <input type="checkbox" name="taskType" class="edit-check" value="Enhancement"
+                        id="edit-enhancement">
+                      <span>Enhancement</span>
+                    </label>
+                  </div>
+
+                  <span class="error edit-check-error"></span>
+                </div>
+
+                <div class="status">
+                  <label class="status-label">Status</label>
+
+                  <div class="options-grid">
+                    <label class="option">
+                      <input type="radio" name="edit-status" class="edit-radio" value="Pending" id="edit-pending">
+                      <span>Pending</span>
+                    </label>
+
+                    <label class="option">
+                      <input type="radio" name="edit-status" class="edit-radio" value="In Progress"
+                        id="edit-inProgress">
+                      <span>In Progress</span>
+                    </label>
+
+                    <label class="option">
+                      <input type="radio" name="edit-status" class="edit-radio" value="Completed" id="edit-completed">
+                      <span>Completed</span>
+                    </label>
+                  </div>
+
+                  <span class="error"></span>
+                </div>
+
+                <div class="edit-popup-buttons">
+                  <button type="submit" class="button primary" id="update-button">Update Task</button>
+                  <button type="button" class="button cancel" id="cancel-button">Cancel</button>
+                </div>
+
+              </form>
+            </div>
           </div>
         </div>
       </section>
@@ -449,28 +454,52 @@
       <div class="footer-content">
         <h4>Features</h4>
         <ul>
-          <li><p href="#">Task Management</p></li>
-          <li><p href="#">Team Collaboration</p></li>
-          <li><p href="#">Analytics</p></li>
-          <li><p href="#">Integrations</p></li>
+          <li>
+            <p href="#">Task Management</p>
+          </li>
+          <li>
+            <p href="#">Team Collaboration</p>
+          </li>
+          <li>
+            <p href="#">Analytics</p>
+          </li>
+          <li>
+            <p href="#">Integrations</p>
+          </li>
         </ul>
       </div>
       <div class="footer-content">
         <h4>Resources</h4>
         <ul>
-          <li><p href="#">Documentation</p></li>
-          <li><p href="#">Tutorials</p></li>
-          <li><p href="#">API Reference</p></li>
-          <li><p href="#">Support</p></li>
+          <li>
+            <p href="#">Documentation</p>
+          </li>
+          <li>
+            <p href="#">Tutorials</p>
+          </li>
+          <li>
+            <p href="#">API Reference</p>
+          </li>
+          <li>
+            <p href="#">Support</p>
+          </li>
         </ul>
       </div>
       <div class="footer-content">
         <h4>Company</h4>
         <ul>
-          <li><p href="#">About Us</p></li>
-          <li><p href="#">Careers</p></li>
-          <li><p href="#">Privacy Policy</p></li>
-          <li><p href="#">Terms of Service</p></li>
+          <li>
+            <p href="#">About Us</p>
+          </li>
+          <li>
+            <p href="#">Careers</p>
+          </li>
+          <li>
+            <p href="#">Privacy Policy</p>
+          </li>
+          <li>
+            <p href="#">Terms of Service</p>
+          </li>
         </ul>
       </div>
     </div>
