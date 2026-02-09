@@ -224,73 +224,80 @@
 
       <!-- FULL TASK-CARD POPUP-->
 
-      <section class="fulltask-overlay">
+      <section class="fulltask-popup">
+        <div class="full-task-overlay"></div>
+
         <div class="full-task-card">
-          <div class="full-taskcard-datas">
-            <div class="full-task-card-border">
+          <div class="full-task-card-border">
+
+            <div class="full-taskcard-datas">
 
               <button class="popup-close" id="fulltask-popup-close">
                 <i class="fa-solid fa-xmark"></i>
               </button>
 
               <h3 class="task-title" id="popupTitle"></h3>
-              <p class="task-desc" id="popupDescription"></p>
 
-              <div class="full-taskcard-grid">
-                <div class="grid-item">
-                  <span class="label">&#128100; User </span>
-                  <span class="colon">:</span>
-                  <span class="value" id="popupUser"></span>
+              <div class="fulltask-popup-body">
+                <p class="task-desc" id="popupDescription"></p>
+
+                <div class="full-taskcard-grid">
+                  <div class="grid-item">
+                    <span class="label">&#128100; User </span>
+                    <span class="colon">:</span>
+                    <span class="value" id="popupUser"></span>
+                  </div>
+
+                  <div class="grid-item">
+                    <span class="label">&#128231; Email </span>
+                    <span class="colon">:</span>
+                    <span class="value" id="popupEmail"></span>
+                  </div>
+
+                  <div class="grid-item">
+                    <span class="label">&#128197; Due Date</span>
+                    <span class="colon">:</span>
+                    <span class="value" id="popupDate"></span>
+                  </div>
+
+                  <div class="grid-item">
+                    <span class="label">&#9200; Due Time</span>
+                    <span class="colon">:</span>
+                    <span class="value" id="popupTime"></span>
+                  </div>
+
+                  <div class="grid-item">
+                    <span class="label">&#9203; Estimated Hours</span>
+                    <span class="colon">:</span>
+                    <span class="value" id="popupHours"></span>
+                  </div>
+
+                  <div class="grid-item">
+                    <span class="label">&#128279; Project URL </span>
+                    <span class="colon">:</span>
+                    <a class="value link" href="#" id="popupUrl" target="_blank">View Project</a>
+                  </div>
                 </div>
 
-                <div class="grid-item">
-                  <span class="label">&#128231; Email </span>
-                  <span class="colon">:</span>
-                  <span class="value" id="popupEmail"></span>
+                <div class="progress-section">
+                  <div class="progress-label">
+                    <span>Progress</span>
+                    <span class="value" id="popupProgressText">0%</span>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" id="popupProgressBar" style="width: 60%"></div>
+                  </div>
                 </div>
 
-                <div class="grid-item">
-                  <span class="label">&#128197; Due Date</span>
-                  <span class="colon">:</span>
-                  <span class="value" id="popupDate"></span>
+                <div class="priority-container">
+                  <label class="priority" id="popupPriority"></label>
+                  <span class="badge type" id="popupType"></span>
+                  <label class="status" id="popupStatus"></label>
                 </div>
-
-                <div class="grid-item">
-                  <span class="label">&#9200; Due Time</span>
-                  <span class="colon">:</span>
-                  <span class="value" id="popupTime"></span>
-                </div>
-
-                <div class="grid-item">
-                  <span class="label">&#9203; Estimated Hours</span>
-                  <span class="colon">:</span>
-                  <span class="value" id="popupHours"></span>
-                </div>
-
-                <div class="grid-item">
-                  <span class="label">&#128279; Project URL </span>
-                  <span class="colon">:</span>
-                  <a class="value link" href="#" id="popupUrl">View Link</a>
-                </div>
-              </div>
-
-              <div class="progress-section">
-                <div class="progress-label">
-                  <span>Progress</span>
-                  <span class="value" id="popupProgressText">0%</span>
-                </div>
-                <div class="progress-bar">
-                  <div class="progress-fill" id="popupProgressBar" style="width: 60%"></div>
-                </div>
-              </div>
-
-              <div class="priority-container">
-                <label class="medium" id="popupPriority"><span>&#9679</span>Medium</label>
-                <span class="badge type" id="popupType">Bug Fix, Feature</span>
-                <label class="progress fill" id="popupStatus"><small>&#9679</small>In Progress</label>
               </div>
             </div>
           </div>
+        </div>
       </section>
 
       <!-- EDIT TASK POPUP -->
@@ -311,32 +318,32 @@
             <div class="edit-popup-body">
               <form class="edit-form">
                 <div class="input-username">
-                  <label>User Name</label>
+                  <label class="float-label">User Name</label>
                   <input type="text" id="taskUsername" placeholder="User Name" />
                   <span class="error"></span>
                 </div>
 
                 <div class="input-name">
-                  <label>Task Name</label>
+                  <label class="float-label">Task Name</label>
                   <input type="text" id="taskName" placeholder="Task Name *" />
                   <span class="error"></span>
                 </div>
 
                 <div class="input-email">
-                  <label>Email</label>
+                  <label class="float-label">Email</label>
                   <input type="email" id="taskEmail" placeholder="Assignee Email *" />
                   <span class="error"></span>
                 </div>
 
                 <div class="edit-row">
                   <div class="input-date">
-                    <label>Due Date</label>
+                    <label class="float-label">Due Date</label>
                     <input type="date" id="taskDate" name="Date" />
                     <span class="error"></span>
                   </div>
 
                   <div class="input-time">
-                    <label>Due Time</label>
+                    <label class="float-label">Due Time</label>
                     <input type="time" id="taskTime">
                     <span class="error"></span>
                   </div>
@@ -344,7 +351,7 @@
 
                 <div class="edit-row">
                   <div class="select-priority">
-                    <label>Priority</label>
+                    <label class="float-label">Priority</label>
                     <select id="taskPriority">
                       <option value="" disabled selected>-- Select priority --</option>
                       <option value="Low">Low Priority</option>
@@ -355,26 +362,26 @@
                   </div>
 
                   <div class="input-hours">
-                    <label>Estimated Hours</label>
+                    <label class="float-label">Estimated Hours</label>
                     <input type="number" id="taskHours" name="Number" placeholder="0">
                     <span class="error"></span>
                   </div>
                 </div>
 
                 <div class="project-url">
-                  <label>Project URL</label>
+                  <label class="float-label">Project URL</label>
                   <input type="url" id="taskUrl" placeholder="Project URL">
                   <span class="error"></span>
                 </div>
 
                 <div class="task-description">
-                  <label>Task Description</label>
+                  <label class="float-label">Task Description</label>
                   <textarea id="taskDescription" placeholder="Task-Description"></textarea>
                   <span class="error"></span>
                 </div>
 
                 <div class="task-progress">
-                  <label>Task Progress</label> <br>
+                  <label class="float-label">Task Progress</label> <br>
                   <input type="range" id="taskProgress" class="input-range" name="range" min="0" max="100"
                     value="0"><br>
                   <p class="task-progress-label" id="taskProgresslabel">0%</p>
@@ -382,7 +389,7 @@
                 </div>
 
                 <div class="task-types">
-                  <label class="edit-checkbox-label">Task Type</label>
+                  <label class="edit-checkbox-label float-label">Task Type</label>
 
                   <div class="options-grid">
                     <label class="option">
@@ -406,7 +413,7 @@
                 </div>
 
                 <div class="status">
-                  <label class="status-label">Status</label>
+                  <label class="status-label float-label">Status</label>
 
                   <div class="options-grid">
                     <label class="option">
@@ -449,7 +456,7 @@
     <div class="footer-container">
       <div class="footer-content">
         <h4>TaskManager</h4>
-        <p href="#">Organize your work and life, finally.</a>
+        <p href="#" class="footer-p">Organize your work and life, finally.</a>
       </div>
       <div class="footer-content">
         <h4>Features</h4>

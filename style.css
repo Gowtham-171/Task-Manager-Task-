@@ -148,7 +148,7 @@ main .line {
   width: 20px;
   height: 20px;
   background: #22c55e;
-  color: #ffffff;
+  color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -235,7 +235,6 @@ select {
 .select-priority,
 .input-hours {
   position: relative;
-  /* margin-bottom: 10px; */
 }
 
 /* Form Validation */
@@ -281,18 +280,20 @@ select {
   font-size: 14px;
 }
 
-/* Range */
-
-.task-panel-section .input-range {
-  cursor: pointer;
-  padding: 0%;
+.task-progress-label {
+  text-align: center;
+  /* color: #5768eb; */
+  /* font-weight: 600; */
+  font-size: 14px;
+  position: relative;
+  bottom: 5px;
 }
 
-.task-panel-section .color-label,
-.progress-label {
-  color: rgba(0, 0, 0, 0.564);
-  position: relative;
-  top: 10px;
+/* Checkbox */
+
+.task-panel-section .task-type {
+  margin-top: 10px;
+  margin-bottom: 20px;
 }
 
 .task-panel-section .checkbox-label,
@@ -303,34 +304,6 @@ select {
   left: 2.5%;
 }
 
-.task-progress-label {
-  text-align: center;
-  color: #5768eb;
-  font-weight: 600;
-  font-size: 14px;
-  position: relative;
-  bottom: 10px;
-}
-
-/* Color-picker */
-
-.task-panel-section .task-color {
-  margin-bottom: 20px;
-}
-
-.task-panel-section .color-pick {
-  height: 35px;
-  padding: 2px;
-  cursor: pointer;
-}
-
-/* Checkbox */
-
-.task-panel-section .task-type {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-
 .task-panel-section .check {
   width: 19px;
   height: 19px;
@@ -338,6 +311,7 @@ select {
   top: 3px;
   left: 1px;
   cursor: pointer;
+  accent-color: rgb(93, 95, 239);
 }
 
 .task-panel-section .check-label {
@@ -356,6 +330,7 @@ select {
   top: 3px;
   left: 1px;
   cursor: pointer;
+  accent-color: rgb(93, 95, 239);
 }
 
 .task-panel-section .radio-label {
@@ -363,47 +338,6 @@ select {
   bottom: 1px;
   cursor: pointer;
   left: -5px;
-}
-
-/* Upload-File */
-
-.task-panel-section .upload-box {
-  width: 94%;
-  max-width: 100%;
-  height: 100px;
-  border: 2px dashed rgba(204, 204, 204, 0.836);
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  cursor: pointer;
-  transition: border-color 0.2s ease;
-  padding: 1rem 2rem;
-  margin-top: 1.5rem;
-  margin-bottom: 2.5rem;
-  margin-left: 10px;
-}
-
-.upload-box:hover {
-  border-color: #007bff;
-}
-
-.upload-box .input-upload {
-  display: none;
-}
-
-.upload-file p {
-  font-size: 14px;
-  font-weight: 500;
-  color: #333;
-}
-
-.upload-file small {
-  font-size: 12px;
-  color: #777;
-  margin-top: 13px;
 }
 
 /* Button */
@@ -762,47 +696,46 @@ select {
   color: rgb(0, 186, 133);
 }
 
-
 /* FULL TASK-CARD POPUP */
 
-.fulltask-overlay {
+.fulltask-popup {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.6);
   display: none;
+  z-index: 999;
   align-items: center;
   justify-content: center;
-  z-index: 1;
+}
+
+.full-task-overlay{
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .full-task-card {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  position: relative;
   width: 90%;
-  height: 100vh;
-  position: absolute;
-  z-index: 2;
-  padding: 30px;
-  display: none;
-  /* overflow: hidden; */
+  max-width: 550px;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 16px;
+  z-index: 1000;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
+  padding: 20px;
+}
+
+.fulltask-popup-body {
+  max-height: 64vh;
+  overflow-y: auto;
+  padding-right: 6px;
+  overflow-x: hidden;
 }
 
 .full-task-card-border {
   border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
   padding: 10px 40px 40px 40px;
-}
-
-.full-taskcard-datas {
-  width: 100%;
-  max-width: 550px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 25px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-  font-family: Inter, sans-serif;
-
 }
 
 .task-title {
@@ -820,10 +753,9 @@ select {
 
 .full-taskcard-grid {
   display: grid;
-  /* grid-template-columns: repeat(2, 1fr); */
   gap: 14px;
   margin-bottom: 18px;
-  margin-left: 90px;
+  margin-left: 40px;
 }
 
 .full-taskcard-datas h3,
@@ -833,14 +765,22 @@ p {
   white-space: normal;
 }
 
+.grid-item {
+  display: grid;
+  grid-template-columns: 130px 10px 1fr;
+  align-items: center;
+  column-gap: 8px;
+}
+
 .grid-item .label {
   font-size: 13.5px;
   color: #888;
 }
 
 .grid-item .value {
-  font-size: 14px;
+  font-size: 13.5px;
   font-weight: 500;
+  padding-left: 20px;
 }
 
 .link {
@@ -848,8 +788,12 @@ p {
   text-decoration: none;
 }
 
+.link:hover {
+  text-decoration: underline;
+}
+
 .progress-section {
-  margin-top: 20px;
+  margin-top: 30px;
   margin-bottom: 18px;
 }
 
@@ -857,13 +801,13 @@ p {
   display: flex;
   justify-content: space-between;
   font-size: 13px;
-  margin-bottom: 17px;
+  margin-bottom: 10px;
 }
 
 .progress-label .value {
-  font-size: 14px;
+  font-size: 13.5px;
   color: black;
-  font-weight: 500;
+  margin-right: 8px;
 }
 
 .progress-bar {
@@ -888,13 +832,24 @@ p {
   font-weight: 600;
 }
 
-.fill {
-  background-color: #eef2ff;
-  color: #2563eb;
-  padding: 6px 12px;
-  font-size: 12px;
+.priority-container #popupStatus {
+  background-color: #f1f3f5;
+  padding: 0px 12px;
+  font-size: 14px;
   border-radius: 20px;
   font-weight: 600;
+}
+
+.full-task-card-border .pending {
+  color: rgb(250, 158, 45);
+}
+
+.full-task-card-border .progress {
+  color: rgb(17, 133, 242);
+}
+
+.full-task-card-border .completed {
+  color: rgb(0, 186, 133);
 }
 
 .popup-close {
@@ -907,6 +862,7 @@ p {
   cursor: pointer;
   color: #999;
   transition: color 0.2s ease, transform 0.2s ease;
+  z-index: 1;
 }
 
 .popup-close:hover {
@@ -933,7 +889,7 @@ p {
   position: relative;
   margin: auto;
   width: 90%;
-  max-width: 550px;
+  max-width: 500px;
   max-height: 90vh;
   background: #fff;
   border-radius: 16px;
@@ -945,10 +901,12 @@ p {
 }
 
 .edit-popup-body {
-  max-height: 65vh;
+  max-height: 64vh;
   overflow-y: auto;
   padding-right: 6px;
   overflow-x: hidden;
+  border-top: 1px solid #eee;
+  padding-top: 10px;
 }
 
 .edit-task-border {
@@ -967,10 +925,14 @@ p {
   margin: 10px 0px 5px 2px;
 }
 
+.task-panel-title .popup-close {
+  left: 95%;
+}
+
 .edit-popup input,
 .edit-popup select {
   font-size: 14px;
-  margin: 10px 0px 13px 4px;
+  margin: 10px 0px 13px 0px;
   padding: 10px;
   width: 95%;
   border-radius: 6.5px;
@@ -1005,9 +967,9 @@ p {
   margin-bottom: 16px;
 }
 
-.edit-form label {
+.edit-form .float-label {
   font-size: 12px;
-  color: #555;
+  font-weight: 600;
   margin-bottom: 6px;
   color: rgb(93, 95, 239);
 }
@@ -1037,14 +999,13 @@ p {
 
 .edit-popup .input-range {
   cursor: pointer;
+  accent-color: rgb(93, 95, 239);
   padding: 0%;
 }
 
-.edit-popup .checkbox-label,
-.status-label,
-.progress-label {
+.edit-popup .status-label {
   position: relative;
-  left: 2.5%;
+  left: 0%;
 }
 
 .options-grid {
@@ -1070,6 +1031,11 @@ p {
   width: 18px;
   height: 18px;
   cursor: pointer;
+  accent-color: rgb(93, 95, 239);
+}
+
+.edit-popop-box .error {
+  left: -6px;
 }
 
 .edit-popup-buttons {
@@ -1089,7 +1055,7 @@ p {
 }
 
 .button.primary {
-  background-color: rgb(84, 98, 232);
+  background-color: rgb(93, 95, 239);
   color: #fff;
   transition: background-color 0.2s, box-shadow 0.2s
 }
@@ -1296,6 +1262,7 @@ footer {
     position: relative;
     left: 1.5%;
     margin-top: 12%;
+    font-size: 28px;
   }
 
   /* TASK PANEL SECTION */
@@ -1310,46 +1277,36 @@ footer {
   .task-panel-section input,
   .task-panel-section select {
     width: 100%;
-    padding: 15px 10px;
-    font-size: 18px;
+    padding: 13px 10px;
+    font-size: 16px;
     border-radius: 8px;
-    margin-top: 20px;
+    margin-top: 15px;
   }
 
   .task-panel-section .float-label {
-    font-size: 15px;
-    top: 12px;
+    font-size: 14px;
+    top: 8px;
   }
 
   /* Textarea */
 
   .task-panel-section textarea {
     width: 100%;
-    font-size: 18px;
-    height: 120px;
+    font-size: 16px;
+    height: 100px;
     margin-top: 20px;
     border-radius: 8px;
   }
 
   .task-panel-section textarea::placeholder {
-    padding: 2rem 0rem;
-    font-size: 18px;
-  }
-
-  .task-panel-section .color-label {
-    font-size: 18px;
-    left: 12px;
-  }
-
-  .task-panel-section .progress-label {
-    font-size: 18px;
-    left: 12px;
+    padding: 1.7rem 0rem;
+    font-size: 16px;
   }
 
   /* Checkbox */
 
   .task-panel-section .checkbox-label {
-    font-size: 18px;
+    font-size: 16px;
     left: 12px;
   }
 
@@ -1358,7 +1315,7 @@ footer {
   }
 
   .task-panel-section .check-label {
-    font-size: 17px;
+    font-size: 16px;
     margin-left: 65px;
     position: relative;
     left: -65px;
@@ -1371,7 +1328,7 @@ footer {
   /* Radio-button */
 
   .task-panel-section .status-label {
-    font-size: 18px;
+    font-size: 16px;
     left: 12px;
   }
 
@@ -1380,27 +1337,9 @@ footer {
   }
 
   .task-panel-section .radio-label {
-    font-size: 17px;
+    font-size: 16px;
     margin-left: 65px;
     left: -65px;
-  }
-
-  /* Upload-File */
-
-  .task-panel-section .upload-box {
-    position: relative;
-    right: 10px;
-    width: 100%;
-    margin-left: 20px;
-  }
-
-  .upload-file p {
-    font-size: 17px;
-  }
-
-  .upload-file small {
-    font-size: 14px;
-    margin-left: 20px;
   }
 
   /* Button */
@@ -1408,19 +1347,22 @@ footer {
   .task-panel-section .buttons {
     display: flex;
     border-radius: 10px;
+    justify-content: center;
   }
 
   .task-panel-section .create-button {
     font-size: 16px;
-    flex-basis: 70%;
-    /* left: 1%; */
+    flex-basis: 30%;
+    left: 1%;
     bottom: 5px;
+    white-space: nowrap;
   }
 
   .task-panel-section .reset-button {
+    padding: 10px;
     font-size: 16px;
     bottom: 5px;
-    flex-basis: 30%;
+    flex-basis: 20%;
     left: 1%;
     margin: 0px 0px 0px 15px;
   }
@@ -1485,13 +1427,17 @@ footer {
     margin-bottom: 5%;
   }
 
-  .footer-content p {
-    margin-top: 35px;
+  .footer-content .footer-p {
     font-size: 17px;
+    margin-top: 20px;
   }
 
   .footer-content ul {
-    font-size: 17px;
+    font-size: 16px;
+  }
+
+  .footer-content li {
+    padding: 3% 0%;
   }
 
   .footer-content {
@@ -1502,7 +1448,7 @@ footer {
   .footer-bottom {
     flex-direction: column;
     align-items: center;
-    font-size: 17px;
+    font-size: 16px;
   }
 }
 
@@ -1697,18 +1643,6 @@ footer {
     left: -26px;
   }
 
-  /* Upload-File */
-
-  .task-panel-section .upload-box {
-    width: 98%;
-    height: 100px;
-    margin: 13px 0 13px 3px;
-  }
-
-  .upload-file p {
-    font-size: 16px;
-  }
-
   /* Button */
 
   .task-panel-section .buttons {
@@ -1719,7 +1653,6 @@ footer {
 
   .task-panel-section .create-button {
     padding: 0px 40px;
-    margin-top: 20px;
     border-radius: 10px;
     font-size: 14px;
     left: -2.4%;
@@ -1728,10 +1661,8 @@ footer {
   }
 
   .task-panel-section .reset-button {
-    margin: 10px 0;
     padding: 13px 30px;
     margin-left: 5px;
-    top: 2px;
     font-size: 15px;
     left: 0%;
     flex-basis: 32%;
@@ -1820,14 +1751,22 @@ footer {
 
   /* FULL TASK-CARD */
 
+  .full-task-card {
+    padding: 15px 15px 15px 15px;
+  }
+
+  .fulltask-popup-body {
+    max-height: 60vh;
+    padding: 0px 0px;
+  }
+
   .full-taskcard-datas {
-    padding: 20px;
     border-radius: 12px;
-    padding: 15px;
+    padding: 0px;
   }
 
   .full-task-card-border {
-    padding: 0px 20px 10px 20px;
+    padding: 10px 20px 10px 20px;
   }
 
   .full-taskcard-grid {
@@ -1843,8 +1782,16 @@ footer {
     font-size: 13px;
   }
 
+  .grid-item {
+    grid-template-columns: 90px 10px 1fr;
+    /* display: flex; */
+    /* align-items: center; */
+    column-gap: 0px;
+  }
+
   .grid-item .value {
     font-size: 13px;
+    padding-left: 2px;
   }
 
   .progress-label {
@@ -1854,11 +1801,6 @@ footer {
   .full-taskcard-datas .priority-container {
     flex-direction: column;
     gap: 10px;
-  }
-
-  .full-taskcard-datas .priority-container .progress {
-    margin-left: 8px;
-    font-size: 13px;
   }
 
   /* EDIT TASK POPUP */
@@ -1994,14 +1936,7 @@ footer {
 }
 
 @media (min-width: 350px) and (max-width: 400px) {
-  .full-task-card-border {
-    padding: 10px;
-  }
-
-  .full-taskcard-datas {
-    padding: 15px;
-  }
-
+  
   .filter-buttons .filter-button {
     padding: 0.5rem 0.5rem;
     font-size: clamp(0.5rem, 3.5vw, 1rem);
@@ -2037,14 +1972,6 @@ footer {
     font-size: clamp(0.5rem, 3.5vw, 0.66rem);
     margin-left: clamp(0.1rem, 1vw, 0.2rem);
     border-radius: 18px;
-  }
-
-  .full-task-card {
-    width: 100%;
-  }
-
-  .full-task-card-border {
-    padding: 5px 20px 20px 20px;
   }
 
   .filter-buttons {

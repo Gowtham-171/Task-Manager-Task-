@@ -318,9 +318,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
 // Full Task-card Details (Popup)
 
-const fullTaskcard = document.querySelector('.full-task-card');
+const fullTaskcard = document.querySelector('.fulltask-popup');
 const fulltaskCloseButton = document.querySelector('#fulltask-popup-close');
-const popupOverlay = document.querySelector('.fulltask-overlay');
+const popupOverlay = document.querySelector('.full-task-overlay');
 
 taskCardContainer.addEventListener('click', (event) => {
 
@@ -362,14 +362,17 @@ function fullTaskPopup(taskId) {
     popupDate.textContent = task.date;
     popupTime.textContent = task.time;
     popupHours.textContent = `${task.hours} Hours`;
+
     popupPriority.innerHTML = `<span>&#9679</span>${task.priority}`;
-    popupStatus.innerHTML = `${task.status}`;
+    popupPriority.className = task.priority.toLowerCase();
+
+    popupStatus.innerHTML = `<small>&#9679</small>${task.status}`;
+    popupStatus.className = task.status.toLowerCase();
+    
     popupUrl.href = task.url;
     popupProgressBar.style.width = task.progress + '%';
     popupProgressText.textContent = task.progress + '%';
     popupType.textContent = task.taskTypes?.join(", ");
-
-    popupPriority.className = task.priority.toLowerCase();
 
     fullTaskcard.style.display = 'flex';
     popupOverlay.style.display = 'flex';
@@ -668,7 +671,6 @@ taskList.addEventListener("click", (e) => {
 
     deletePopup.style.display = 'block';
     popupOverlay.style.display = 'block';
-
 });
 
 function deleteTask(id) {
@@ -701,6 +703,7 @@ cancelDelete.addEventListener("click", () => {
     taskToDeleteId = null;
     deletePopup.style.display = 'none';
     popupOverlay.style.display = 'none';
+    
 });
 
 
