@@ -100,7 +100,7 @@
           </div>
 
           <div class="project-url">
-            <input type="url" id="url-input" placeholder="Project URL *">
+            <input type="text" id="url-input" placeholder="Project URL *">
             <span class="error"></span>
           </div>
 
@@ -108,18 +108,6 @@
             <textarea id="description-input" placeholder="Task-Description *"></textarea>
             <span class="error"></span>
           </div>
-
-          <!-- <div class="task-progress">
-            <label for="range" class="progress-label">Task Progress</label> <br>
-            <input type="range" id="progress-input" class="input-range" name="range" min="0" max="100" value="0"> <br>
-            <p class="task-progress-label">0%</p>
-            <span class="error"></span>
-          </div> -->
-
-          <!-- <div class="task-color">
-            <label for="color" class="color-label">Task Color</label> <br>
-            <input type="color" id="color-input" class="color-pick" name="color">
-          </div> -->
 
           <div class="task-type">
             <label for="" class="checkbox-label">Task Type *</label> <br>
@@ -145,14 +133,6 @@
               class="radio-label">Completed</label> <br> -->
             <span class="error"></span>
           </div>
-
-          <!-- <div class="upload-file">
-            <label class="upload-box">
-              <p><i class="fa-solid fa-paperclip"></i> Click to upload attachments</p>
-              <small>Supported: PDF, DOC, Images</small>
-              <input type="file" id="upload-input" class="input-upload" accept=".pdf,.doc,.docx,image/*">
-            </label>
-          </div> -->
 
           <div class="buttons">
             <button type="submit" id="create-button" class="create-button"> <span>&#10003;</span> Create Task</button>
@@ -205,6 +185,8 @@
         </div>
 
         <!-- DELETE CONFIRMATION POPUP -->
+
+        <div class="delete-overlay"></div>
 
         <div class="delete-popup">
           <div class="icon">
@@ -331,7 +313,7 @@
 
                 <div class="input-email">
                   <label class="float-label">Email</label>
-                  <input type="email" id="taskEmail" placeholder="Assignee Email *" />
+                  <input type="text" id="taskEmail" placeholder="Assignee Email *" />
                   <span class="error"></span>
                 </div>
 
@@ -370,7 +352,7 @@
 
                 <div class="project-url">
                   <label class="float-label">Project URL</label>
-                  <input type="url" id="taskUrl" placeholder="Project URL">
+                  <input type="text" id="taskUrl" placeholder="Project URL">
                   <span class="error"></span>
                 </div>
 

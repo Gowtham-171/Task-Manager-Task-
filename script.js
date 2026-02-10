@@ -33,6 +33,11 @@ form.addEventListener('submit', (event) => {
     }
 });
 
+const userNameValidator = /^[A-Za-z\s.]+$/;                               // letters, space, dot
+const userPattern = /^(?:[A-Za-z]{3,})(?:[.\s][A-Za-z]+)*$/;              // proper format
+const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+const urlPattern = /^https?:\/\/[\w.-]+(\.[\w.-]+)+([/#?].*)?$/i;
+
 function validateInputs() {
     const nameVal = inputName.value.trim();
     const emailVal = inputEmail.value.trim();
@@ -48,7 +53,23 @@ function validateInputs() {
 
     // Validate User name
     if (usernameVal === '') {
-        setError(inputUsername, 'User Name is required');
+        setError(inputUsername, 'User name is required');
+        firstError ??= inputUsername;
+    }
+    else if (usernameVal.length < 3) {
+        setError(inputUsername, 'User name must be at least 3 characters');
+        firstError ??= inputUsername;
+    }
+    else if (!userNameValidator.test(usernameVal)) {
+        setError(inputUsername, 'User name should not contain numbers or special characters');
+        firstError ??= inputUsername;
+    }
+    else if (usernameVal.startsWith('.') || usernameVal.endsWith('.')) {
+        setError(inputUsername, 'User name should not start or end with a dot');
+        firstError ??= inputUsername;
+    }
+    else if (!userPattern.test(usernameVal)) {
+        setError(inputUsername, 'Invalid user name format');
         firstError ??= inputUsername;
     }
     else {
@@ -73,8 +94,12 @@ function validateInputs() {
         setError(inputEmail, 'Email is required');
         firstError ??= inputEmail;
     }
-    else if (!validateEmail(emailVal)) {
-        setError(inputEmail, 'Please enter a valid email');
+    else if (!emailVal.includes('@')) {
+        setError(inputEmail, "Email must include '@' symbol");
+        firstError ??= inputEmail;
+    }
+    else if (!emailPattern.test(emailVal)) {
+        setError(inputEmail, 'Enter a valid email (example: name@email.com)');
         firstError ??= inputEmail;
     }
     else {
@@ -92,11 +117,22 @@ function validateInputs() {
 
     // Validate Time
     if (timeVal === '') {
-        setError(inputTime, 'Due Time is required');
+        setError(inputTime, 'Due time is required');
         firstError ??= inputTime;
     }
+    else if (dateVal === formattedTodayDate()) {
+        const currentTime = formattedCurrentTime();
+
+        if (timeVal < currentTime) {
+            setError(inputTime, 'Due Time cannot be in the past');
+            firstError ??= inputTime;
+        }
+        else {
+            setSuccess(inputTime);
+        }
+    }
     else {
-        setSuccess(inputTime)
+        setSuccess(inputTime);
     }
 
     // Validate Select Priority
@@ -113,6 +149,10 @@ function validateInputs() {
         setError(inputHours, 'Estimated Hours are required');
         firstError ??= inputHours;
     }
+    else if (hoursVal == 0) {
+        setError(inputHours, 'Estimated Hours must be more than 0');
+        firstError ??= inputHours;
+    }
     else {
         setSuccess(inputHours);
     }
@@ -122,8 +162,16 @@ function validateInputs() {
         setError(inputUrl, 'Project URL is required');
         firstError ??= inputUrl;
     }
+    else if (!/^https?:\/\//i.test(urlVal)) {
+        setError(inputUrl, 'Please include http:// or https:// in the URL');
+        firstError ??= inputUrl;
+    }
+    else if (!urlPattern.test(urlVal)) {
+        setError(inputUrl, 'Invalid URL');
+        firstError ??= inputUrl;
+    }
     else {
-        setSuccess(inputUrl)
+        setSuccess(inputUrl);
     }
 
     // Validate Task Description
@@ -185,22 +233,16 @@ function setSuccess(element) {
     element.style.border = "";
 }
 
-function isDuplicateTask(taskName) {
+function isDuplicateTask(taskName, taskId = null) {
     const tasks = getTasks();
 
     return tasks.some(task =>
-        task.name.toLowerCase() === taskName.toLowerCase()
+        task.name.toLowerCase() === taskName.toLowerCase() && task.id !== taskId
     );
 }
 
-const validateEmail = (emailVal) => {
-    return String(emailVal)
-        .toLowerCase()
-        .match(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/);
-};
 
-
-// Toast Message
+// Toast Message ( Success Notification )
 
 const toast = document.querySelector('.toast');
 const toastClose = document.getElementById('toast-close');
@@ -281,6 +323,7 @@ function renderTasks() {
         taskCard.classList.add("task-card", taskPriority);           // task card count
         taskCard.dataset.id = task.id;                                // for Popup for all 
         taskCard.dataset.priority = task.priority.toLowerCase();      // for button filter
+        taskCard.dataset.status = task.status.toLowerCase();      
 
         taskCard.innerHTML = `<div class = task-card-title>
           <h4>${task.name}</h4>
@@ -320,7 +363,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 const fullTaskcard = document.querySelector('.fulltask-popup');
 const fulltaskCloseButton = document.querySelector('#fulltask-popup-close');
-const popupOverlay = document.querySelector('.full-task-overlay');
 
 taskCardContainer.addEventListener('click', (event) => {
 
@@ -368,19 +410,17 @@ function fullTaskPopup(taskId) {
 
     popupStatus.innerHTML = `<small>&#9679</small>${task.status}`;
     popupStatus.className = task.status.toLowerCase();
-    
+
     popupUrl.href = task.url;
     popupProgressBar.style.width = task.progress + '%';
     popupProgressText.textContent = task.progress + '%';
     popupType.textContent = task.taskTypes?.join(", ");
 
     fullTaskcard.style.display = 'flex';
-    popupOverlay.style.display = 'flex';
 }
 
 fulltaskCloseButton.addEventListener('click', () => {
     fullTaskcard.style.display = 'none';
-    popupOverlay.style.display = 'none';
 });
 
 // Edit Task Validation 
@@ -418,7 +458,23 @@ function validateEditInputs() {
 
     // Validate User name
     if (usernameVal === '') {
-        setError(usernameEdit, 'User Name is required');
+        setError(usernameEdit, 'User name is required');
+        firstError ??= usernameEdit;
+    }
+    else if (usernameVal.length < 3) {
+        setError(usernameEdit, 'User name must be at least 3 characters');
+        firstError ??= usernameEdit;
+    }
+    else if (!userNameValidator.test(usernameVal)) {
+        setError(usernameEdit, 'User name should not contain numbers or special characters');
+        firstError ??= usernameEdit;
+    }
+    else if (usernameVal.startsWith('.') || usernameVal.endsWith('.')) {
+        setError(usernameEdit, 'User name should not start or end with a dot');
+        firstError ??= usernameEdit;
+    }
+    else if (!userPattern.test(usernameVal)) {
+        setError(usernameEdit, 'Invalid user name format');
         firstError ??= usernameEdit;
     }
     else {
@@ -430,6 +486,10 @@ function validateEditInputs() {
         setError(tasknameEdit, 'Task Name is required');
         firstError ??= tasknameEdit;
     }
+    else if (isDuplicateTask(tasknameVal, editTaskId)) {
+        setError(tasknameEdit, "Task name already exists");
+        firstError ??= tasknameEdit;
+    }
     else {
         setSuccess(tasknameEdit);
     }
@@ -439,8 +499,12 @@ function validateEditInputs() {
         setError(emailEdit, 'Email is required');
         firstError ??= emailEdit;
     }
-    else if (!validateEmail(emailVal)) {
-        setError(emailEdit, 'Please enter a valid email');
+    else if (!emailVal.includes('@')) {
+        setError(emailEdit, "Email must include '@' symbol");
+        firstError ??= emailEdit;
+    }
+    else if (!emailPattern.test(emailVal)) {
+        setError(emailEdit, 'Enter a valid email (example: name@email.com)');
         firstError ??= emailEdit;
     }
     else {
@@ -470,6 +534,10 @@ function validateEditInputs() {
         setError(hoursEdit, 'Estimated Hours are required');
         firstError ??= hoursEdit;
     }
+    else if (hoursVal == 0) {
+        setError(hoursEdit, 'Estimated Hours must be more than 0');
+        firstError ??= hoursEdit;
+    }
     else {
         setSuccess(hoursEdit);
     }
@@ -477,6 +545,14 @@ function validateEditInputs() {
     // Validate Project URL
     if (urlVal === '') {
         setError(urlEdit, 'Project URL is required');
+        firstError ??= urlEdit;
+    }
+    else if (!/^https?:\/\//i.test(urlVal)) {
+        setError(urlEdit, 'Please include http:// or https:// in the URL');
+        firstError ??= urlEdit;
+    }
+    else if (!urlPattern.test(urlVal)) {
+        setError(urlEdit, 'Invalid URL');
         firstError ??= urlEdit;
     }
     else {
@@ -566,7 +642,7 @@ taskCardContainer.addEventListener("click", (event) => {
     if (event.target.closest(".edit-btn")) {
         const card = event.target.closest(".task-card");
 
-        editTaskId = card.dataset.id;
+        editTaskId = Number(card.dataset.id);
         isEditMode = true;
 
         editTaskPopup(editTaskId);
@@ -609,7 +685,6 @@ function editTaskPopup(taskId) {
 }
 function closeEditPopup() {
     editTask.style.display = "none";
-    popupOverlay.style.display = "none";
     editTaskId = null;
     isEditMode = false;
 }
@@ -657,6 +732,7 @@ const deletePopup = document.querySelector('.delete-popup ');
 const cancelDelete = document.querySelector('.cancel-button');
 const confirmDelete = document.querySelector('.confirm-delete-button');
 const deleteTaskName = document.querySelector('#delete-task-name');
+const deleteOverlay = document.querySelector('.delete-overlay');
 
 let taskToDeleteId = null;
 
@@ -670,7 +746,7 @@ taskList.addEventListener("click", (e) => {
     deleteTaskName.textContent = taskName;
 
     deletePopup.style.display = 'block';
-    popupOverlay.style.display = 'block';
+    deleteOverlay.style.display = 'block';
 });
 
 function deleteTask(id) {
@@ -696,14 +772,14 @@ confirmDelete.addEventListener("click", () => {
     }, 400);
 
     deletePopup.style.display = 'none';
-    popupOverlay.style.display = 'none';
+    deleteOverlay.style.display = 'none';
 });
 
 cancelDelete.addEventListener("click", () => {
     taskToDeleteId = null;
     deletePopup.style.display = 'none';
-    popupOverlay.style.display = 'none';
-    
+    deleteOverlay.style.display = 'none';
+
 });
 
 
@@ -933,15 +1009,29 @@ copyrightYear.textContent = currentYear;
 
 // Date and Time Control (No Past)
 
+
+function formattedTodayDate() {
+    return new Date().toISOString().split("T")[0];
+}
+
+function formattedCurrentTime() {
+    const currentDate = new Date();
+    const hours = String(currentDate.getHours()).padStart(2, "0");
+    const minutes = String(currentDate.getMinutes()).padStart(2, "0");
+
+    return `${hours}:${minutes}`;
+}
+
 document.addEventListener("DOMContentLoaded", () => {
     const dateInput = document.getElementById("date-input");
-    const today = new Date().toISOString().split("T")[0];
+    const today = formattedTodayDate();
 
     dateInput.min = today;
+    dateEdit.min = today;
 
-    if (dateInput.value && dateInput.value < today) {
-        dateInput.value = "";
-    }
+    // if (dateInput.value && dateInput.value < today) {
+    //     dateInput.value = "";
+    // }
 });
 
 

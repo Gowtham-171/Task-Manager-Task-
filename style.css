@@ -126,6 +126,8 @@ main .line {
   background-color: rgb(247, 249, 250);
 }
 
+/* Toast Notification */
+
 .toast {
   position: fixed;
   top: 115px;
@@ -707,7 +709,7 @@ select {
   justify-content: center;
 }
 
-.full-task-overlay{
+.full-task-overlay {
   position: absolute;
   inset: 0;
   background: rgba(0, 0, 0, 0.7);
@@ -1155,6 +1157,14 @@ p {
 .confirm-delete-button:hover {
   background: #d32f2f;
   box-shadow: 0 10px 20px rgba(229, 57, 53, 0.35);
+}
+
+.delete-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 998;
+  display: none;
 }
 
 /*----------FOOTER-----------*/
@@ -1936,7 +1946,7 @@ footer {
 }
 
 @media (min-width: 350px) and (max-width: 400px) {
-  
+
   .filter-buttons .filter-button {
     padding: 0.5rem 0.5rem;
     font-size: clamp(0.5rem, 3.5vw, 1rem);
