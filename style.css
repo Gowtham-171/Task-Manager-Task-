@@ -21,42 +21,42 @@ header {
   width: 100%;
   box-shadow: 0px 2px 10px rgb(0, 0, 0, 0.15);
   background-color: white;
-  position: fixed;
+  position: sticky;
   top: 0%;
   z-index: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .header-container {
-  display: inline-block;
   position: relative;
   left: 5.5%;
 }
 
 header .logo {
-  display: inline-block;
   background-color: rgb(93, 95, 239);
   color: white;
   border-radius: 8px;
   padding: 3px 0px;
 }
 
-header .title {
-  display: inline-block;
+.header-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 /*----------NAV-BAR-----------*/
 
 .nav-container {
-  display: inline-block;
-  position: relative;
-  left: 60%;
+  display: flex;
 }
 
-nav .nav-links {
+.nav-links {
   list-style: none;
   display: flex;
-  position: relative;
-  right: 8%;
+  gap: 20px;
 }
 
 .nav-links a {
@@ -64,6 +64,7 @@ nav .nav-links {
   padding: 10px;
   margin: 0px 20px;
   color: rgba(0, 0, 0, 0.6);
+  outline: none;
 }
 
 .nav-links a.active-nav {
@@ -115,15 +116,11 @@ main .line {
   border-radius: 5px;
 }
 
-.main-title {
-  display: inline-block;
-  position: relative;
-  left: 4.9%;
-  margin-top: 8.5%;
-  margin-left: 20px;
-  padding-left: 10px;
-  border-radius: 2px;
-  background-color: rgb(247, 249, 250);
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 65px 100px 25px 100px;
+  margin-bottom: 25px;
 }
 
 /* Toast Notification */
@@ -406,17 +403,29 @@ select {
   margin-left: 100px;
 }
 
-.active-task-section img {
-  height: 17px;
-  width: 17px;
-  position: relative;
-  top: 3px;
-  margin-right: 8px;
+.task-card-heading .active-panel-title {
+  display: flex;
+  white-space: nowrap;
 }
 
-.task-card-heading .active-panel-title {
-  font-size: 19px;
-  white-space: nowrap;
+.active-panel-title select {
+  font-size: 23px;
+  font-weight: 700;
+  border: none;
+  outline: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 0px 5px;
+  margin: 0%;
+}
+
+.active-panel-title select option {
+  font-size: 15px;
+}
+
+.active-panel-title h3 {
+  font-size: 23px;
+  margin-top: 3px;
 }
 
 .task-card-heading {
@@ -460,6 +469,14 @@ select {
   border: 1px solid rgb(93, 95, 239);
 }
 
+.active-task-section img {
+  height: 17px;
+  width: 17px;
+  position: relative;
+  top: 3px;
+  margin-right: 8px;
+}
+
 /* EMPTY TASK CONTAINER */
 
 .empty-task {
@@ -470,6 +487,7 @@ select {
   text-align: center;
   padding: 20px;
   margin-top: 5vh;
+  margin-bottom: 9.5vh;
 }
 
 .empty-task span {
@@ -540,6 +558,11 @@ select {
 
 .task-list.active {
   grid-template-columns: 1fr 1fr 1fr;
+}
+
+.task-card-container.scroll {
+  height: 930px;
+  overflow-y: scroll;
 }
 
 .task-card {
@@ -719,7 +742,7 @@ select {
   position: relative;
   width: 90%;
   max-width: 550px;
-  max-height: 90vh;
+  max-height: 70vh;
   background: #fff;
   border-radius: 16px;
   z-index: 1000;
@@ -728,7 +751,7 @@ select {
 }
 
 .fulltask-popup-body {
-  max-height: 64vh;
+  max-height: 50vh;
   overflow-y: auto;
   padding-right: 6px;
   overflow-x: hidden;
@@ -1269,10 +1292,13 @@ footer {
   }
 
   main .main-title {
-    position: relative;
-    left: 1.5%;
-    margin-top: 12%;
+    /* margin: 25px 10px; */
     font-size: 28px;
+  }
+
+  .main-header {
+    margin: 55px 50px 0px 50px;
+    margin-bottom: 25px;
   }
 
   /* TASK PANEL SECTION */
@@ -1544,10 +1570,15 @@ footer {
   }
 
   .main-title {
-    font-size: 23px;
-    margin-top: 30%;
-    margin-bottom: 5%;
-    left: -14px;
+    font-size: 22px;
+    /* margin-bottom: 5%; */
+  }
+
+  .main-header {
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 50px 15px 5px 15px;
+    gap: 20px;
   }
 
   .toast {
@@ -1559,7 +1590,7 @@ footer {
 
   .task-panel-section {
     width: 100%;
-    margin: 15px auto;
+    margin: 30px auto;
     left: 0;
     padding: 15px;
     border-radius: 16px;

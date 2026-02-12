@@ -301,7 +301,6 @@ function createTask() {
     saveTasks(tasks);
 
     renderTasks();
-    taskcardsCount();
 }
 
 function renderTasks() {
@@ -323,7 +322,7 @@ function renderTasks() {
         taskCard.classList.add("task-card", taskPriority);           // task card count
         taskCard.dataset.id = task.id;                                // for Popup for all 
         taskCard.dataset.priority = task.priority.toLowerCase();      // for button filter
-        taskCard.dataset.status = task.status.toLowerCase();      
+        taskCard.dataset.status = task.status.toLowerCase();
 
         taskCard.innerHTML = `<div class = task-card-title>
           <h4>${task.name}</h4>
@@ -350,14 +349,9 @@ function renderTasks() {
 
     taskcardsCount();
 
-    const activeFilter = getActiveFilter();
-    applyFilter(activeFilter);
+    // const activeFilter = getActiveFilter();
+    combinedFilter();
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-    renderTasks();
-    taskcardsCount();
-});
 
 // Full Task-card Details (Popup)
 
@@ -397,11 +391,17 @@ function fullTaskPopup(taskId) {
 
     if (!task) return;
 
+    const newDate = new Date(task.date).toLocaleDateString("en-US", {
+        month: "short",
+        day: "2-digit",
+        year: "numeric"
+    });
+
     popupTaskname.textContent = task.name;
     popupDescription.textContent = task.description;
     popupUser.textContent = task.username;
     popupEmail.textContent = task.email;
-    popupDate.textContent = task.date;
+    popupDate.textContent = newDate;
     popupTime.textContent = task.time;
     popupHours.textContent = `${task.hours} Hours`;
 
@@ -796,6 +796,10 @@ hamburger.addEventListener('click', () => {
 
 // Priority Filtering Buttons
 
+let currentPriority = "all";
+let currentStatus = "all";
+let currentSearch = "";
+
 const filterButtons = document.querySelectorAll(".filter-button");
 
 filterButtons.forEach((button) => {
@@ -805,86 +809,105 @@ filterButtons.forEach((button) => {
         filterButtons.forEach((btn) => btn.classList.remove("active"));
         button.classList.add("active");
 
-        applyFilter(filterValue);
+        currentPriority = filterValue;
+        combinedFilter();
     });
 });
 
-function applyFilter(filterValue) {
+const statusFilter = document.getElementById("statusFilter");
+
+statusFilter.addEventListener("change", () => {
+    currentStatus = statusFilter.value;
+    combinedFilter();
+});
+
+function combinedFilter() {
     const taskCards = document.querySelectorAll(".task-card");
 
     taskCards.forEach((card) => {
-        const priority = card.dataset.priority;
 
-        if (filterValue === "all" || priority === filterValue) {
+        const priority = card.dataset.priority;
+        const status = card.dataset.status;
+
+        const priorityMatch =
+            currentPriority === "all" || priority === currentPriority;
+
+        const statusMatch =
+            currentStatus === "all" || status === currentStatus;
+
+        if (priorityMatch && statusMatch) {
             card.style.display = "block";
         } else {
             card.style.display = "none";
         }
     });
 
-    togglePriorityUI(filterValue);
+    togglePriorityUI(currentPriority);
 }
-
-function getActiveFilter() {
-    return document.querySelector(".filter-button.active")?.dataset.filter || "all";
-}
-
 
 // Global Empty Task Container 
 
 const addTaskButton = document.querySelector('.add-task-button');
 const emptyTask = document.querySelector('.empty-task');
+const globalEmptyDescription = document.querySelector('.empty-description');
 
 addTaskButton.addEventListener("click", () => {
-    inputUsername.focus();
+    location.hash = "dashboard";
+
+    setTimeout(() => {
+        inputUsername.focus();
+    }, 100);
 });
-
-function toggleEmptyState() {
-
-    if (taskList.children.length === 0) {
-        emptyTask.style.display = "flex";
-        taskCardContainer.style.height = "auto";
-        taskCardContainer.style.overflowY = "visible";
-        taskList.style.display = "none";
-    }
-    else {
-        emptyTask.style.display = "none";
-        taskCardContainer.style.height = "1000px";
-        taskCardContainer.style.overflowY = "auto";
-        taskList.style.display = "grid";
-    }
-}
-
 
 // Priority Empty Container
 
 const priorityEmptyUI = document.getElementById("priority-empty-ui");
 const priorityEmptyTitle = document.getElementById("priority-empty-title");
 
-function togglePriorityUI(priority) {
-    const totalTasks = document.querySelectorAll(".task-card").length;
-    const filteredCount = priorityCount(priority);
+function getVisibleTasksCount() {
+    return [...document.querySelectorAll(".task-card")]
+        .filter(card => card.style.display !== "none").length;
+}
 
+function togglePriorityUI(priority) {
+    const taskCards = document.querySelectorAll(".task-card");
+
+    const totalTasks = taskCards.length;
+    const visibleTasks = getVisibleTasksCount();
+
+    // global empty state
     if (totalTasks === 0) {
         emptyTask.style.display = "flex";
         priorityEmptyUI.classList.add("hidden");
         taskList.style.display = "none";
+
+        taskCardContainer.style.height = "auto";
+        taskCardContainer.style.overflowY = "visible";
         return;
     }
 
-    if (priority !== "all" && filteredCount === 0) {
+    // priority or status empty state
+    if (visibleTasks === 0) {
         emptyTask.style.display = "none";
         priorityEmptyUI.classList.remove("hidden");
         taskList.style.display = "none";
 
-        priorityEmptyTitle.textContent = `No ${priority} priority tasks`;
+        priorityEmptyTitle.textContent =
+            currentStatus === "completed"
+                ? "No completed tasks"
+                : `No ${priority} priority tasks`;
+
+        taskCardContainer.style.height = "auto";
+        taskCardContainer.style.overflowY = "visible";
         return;
     }
 
+    // normal task list state
     emptyTask.style.display = "none";
     priorityEmptyUI.classList.add("hidden");
     taskList.style.display = "grid";
-    taskCardContainer.style.height = "900px";
+
+    taskCardContainer.style.height = "930px";
     taskCardContainer.style.overflowY = "auto";
 }
 
@@ -947,13 +970,11 @@ function resetUI() {
     taskPanelSection.classList.remove('active');
     activeTaskSection.classList.remove('active');
     taskList.classList.remove('active');
-
     navLinks.forEach(link => link.classList.remove('active-nav'));
 }
 
 function showDashboard() {
     resetUI();
-    // taskCardContainer.style.height = "900px";    
 
     mainTitle.innerHTML = `<span class="line"></span>Task Dashboard`;
     document.querySelector('#dashboard-nav').classList.add('active-nav');
@@ -967,7 +988,6 @@ function showTasks() {
     activeTaskSection.classList.add('active');
     taskList.classList.add('active');
     taskCardContainer.style.height = "auto";
-
     mainTitle.innerHTML = `<span class="line"></span>Tasks`;
     document.querySelector('#tasks-nav').classList.add('active-nav');
 }
@@ -1023,22 +1043,18 @@ function formattedCurrentTime() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const dateInput = document.getElementById("date-input");
+    renderTasks();
+    taskcardsCount();
+
     const today = formattedTodayDate();
-
-    dateInput.min = today;
+    inputDate.min = today;
     dateEdit.min = today;
-
-    // if (dateInput.value && dateInput.value < today) {
-    //     dateInput.value = "";
-    // }
 });
 
 
 // // Prevent <a> tag reload
 
 // const footer = document.querySelector(".footer-container");
-
 // footer.addEventListener("click", (e) => {
 //     const link = e.target.closest("a");
 //     if (!link) {

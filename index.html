@@ -38,7 +38,7 @@
   </header>
 
   <main>
-    <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
+        <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
     <div id="toast" class="toast">
       <span class="toast-icon">✓</span>
       <p class="toast-message"></p>
@@ -146,7 +146,13 @@
       <section class="active-task-section">
         <div class="task-card-heading">
           <div class="active-panel-title">
-            <h3>&#9989 Active Tasks</h3>
+            <!-- <h3>&#9989</h3> -->
+            <select class="active-panel-title" id="statusFilter">
+              <option value="all">&#9989; All Tasks</option>
+              <option value="pending">&#9203; Pending Tasks</option>
+              <option value="in progress">&#128260; Active Tasks</option>
+              <option value="completed">&#9989; Completed Tasks</option>
+            </select>
           </div>
 
           <div class="filter-buttons">
