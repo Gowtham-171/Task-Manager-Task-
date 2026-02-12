@@ -37,12 +37,22 @@
     </nav>
   </header>
 
+  <div id="toast" class="toast">
+    <span class="toast-icon">✓</span>
+    <p class="toast-message"></p>
+    <i class="fa-solid fa-circle-xmark" id="toast-close"></i>
+  </div>
+
   <main>
+    <div class="main-header">
+      <div>
         <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
-    <div id="toast" class="toast">
-      <span class="toast-icon">✓</span>
-      <p class="toast-message"></p>
-      <i class="fa-solid fa-circle-xmark" id="toast-close"></i>
+      </div>
+
+      <div class="search-container">
+        <i class="fa-solid fa-magnifying-glass search-icon"></i>
+        <input type="text" class="search-input" placeholder="Search tasks..." />
+      </div>
     </div>
 
     <section class="main-section">
@@ -51,12 +61,12 @@
 
       <section class="task-panel-section">
         <div class="task-panel-title">
-          <h3>&#x1F4DD;Create New Task</h3>
+          <h3>&#x1F4DD; Create New Task</h3>
         </div>
 
         <form id="form">
           <div class="input-username">
-            <input type="text" class="username" id="username-input" placeholder="User Name *" />
+            <input type="text" class="username" id="username-input" placeholder="Assignee Name *" />
             <span class="error"></span>
           </div>
 
@@ -306,8 +316,8 @@
             <div class="edit-popup-body">
               <form class="edit-form">
                 <div class="input-username">
-                  <label class="float-label">User Name</label>
-                  <input type="text" id="taskUsername" placeholder="User Name" />
+                  <label class="float-label">Assignee Name</label>
+                  <input type="text" id="taskUsername" placeholder="Assignee Name" />
                   <span class="error"></span>
                 </div>
 
@@ -341,7 +351,6 @@
                   <div class="select-priority">
                     <label class="float-label">Priority</label>
                     <select id="taskPriority">
-                      <option value="" disabled selected>-- Select priority --</option>
                       <option value="Low">Low Priority</option>
                       <option value="Medium">Medium Priority</option>
                       <option value="High">High Priority</option>

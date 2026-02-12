@@ -30,8 +30,7 @@ header {
 }
 
 .header-container {
-  position: relative;
-  left: 5.5%;
+  margin-left: 70px;
 }
 
 header .logo {
@@ -51,6 +50,7 @@ header .logo {
 
 .nav-container {
   display: flex;
+  margin-right: 60px;
 }
 
 .nav-links {
@@ -62,7 +62,7 @@ header .logo {
 .nav-links a {
   text-decoration: none;
   padding: 10px;
-  margin: 0px 20px;
+  margin: 0px 10px;
   color: rgba(0, 0, 0, 0.6);
   outline: none;
 }
@@ -123,24 +123,74 @@ main .line {
   margin-bottom: 25px;
 }
 
+/* Tasks search box */
+
+.search-container {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+  min-width: 220px;
+  display: none;
+}
+
+.search-container.active {
+  display: block;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px 16px 12px 45px;
+  border-radius: 12px;
+  border: 1.5px solid #e0e0e0;
+  background: #ffffff;
+  font-size: 15px;
+  font-weight: 500;
+  color: #333;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-input::placeholder {
+  color: #9aa0a6;
+  font-weight: 400;
+}
+
+.search-input:focus {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.search-icon {
+  position: absolute;
+  left: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 14px;
+  color: #9aa0a6;
+}
+
 /* Toast Notification */
 
 .toast {
   position: fixed;
-  top: 115px;
-  right: 40vw;
+  top: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  width: fit-content;
+  max-width: 90vw;
   background-color: rgb(93, 95, 239);
   color: white;
-  padding: 12px 18px;
-  border-radius: 8px;
-  font-size: 14px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  opacity: 0;
+  padding: 12px 20px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
   transform: translateY(-10px);
   transition: all 0.3s ease;
-  z-index: 2;
-  display: flex;
-  gap: 5px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  z-index: 99999;
+  opacity: 0;
 }
 
 .toast-icon {
@@ -415,12 +465,13 @@ select {
   outline: none;
   background: transparent;
   cursor: pointer;
-  padding: 0px 5px;
+  padding: 0px 0px;
   margin: 0%;
+  padding-right: -10px;
 }
 
 .active-panel-title select option {
-  font-size: 15px;
+  font-size: 16px;
 }
 
 .active-panel-title h3 {
@@ -433,7 +484,7 @@ select {
   justify-content: space-between;
   gap: 12px;
   width: 100%;
-  padding: 0.75rem 0.8rem;
+  padding: 0.75rem 0.9rem 0.75rem 0.4rem;
 }
 
 .filter-buttons {
@@ -626,7 +677,7 @@ select {
 .task-card h4 {
   display: -webkit-box;
   margin-top: 0.5rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
   font-size: 1.1rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -635,12 +686,13 @@ select {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  height: 40px;
 }
 
 .task-card p {
   display: -webkit-box;
   color: rgba(0, 0, 0, 0.544);
-  margin: 1.2rem 0.2rem;
+  margin: 0.55rem 0.2rem 1.2rem 0.2rem;
   font-size: 0.9rem;
   word-wrap: break-word;
   overflow-wrap: break-word;
@@ -649,14 +701,22 @@ select {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  /* height: 30px; */
+  height: 33px;
+}
+
+.task-list .task-card-date {
+  margin: 25px 0px 0px 3px;
+}
+
+.task-list .task-card-person {
+  margin: 0px 0px 5px 3px;
 }
 
 .priority-container {
   border-top: 1px solid rgb(232, 234, 237);
   display: flex;
   justify-content: space-between;
-  margin-top: 2rem;
+  margin-top: 1rem;
   padding-top: 1rem;
 }
 
@@ -730,6 +790,7 @@ select {
   z-index: 999;
   align-items: center;
   justify-content: center;
+  padding: 20px;
 }
 
 .full-task-overlay {
@@ -740,9 +801,9 @@ select {
 
 .full-task-card {
   position: relative;
-  width: 90%;
+  width: 95%;
   max-width: 550px;
-  max-height: 70vh;
+  max-height: 90vh;
   background: #fff;
   border-radius: 16px;
   z-index: 1000;
@@ -751,16 +812,16 @@ select {
 }
 
 .fulltask-popup-body {
-  max-height: 50vh;
+  max-height: 60vh;
   overflow-y: auto;
-  padding-right: 6px;
+  padding-right: 12px;
   overflow-x: hidden;
 }
 
 .full-task-card-border {
   border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
-  padding: 10px 40px 40px 40px;
+  padding: 25px 20px 20px 30px;
 }
 
 .task-title {
@@ -773,18 +834,19 @@ select {
   font-size: 15px;
   color: #666;
   line-height: 1.5;
-  margin: 25px 0px 18px 0px;
+  margin: 13px 0px 18px 0px;
+  text-align: justify;
 }
 
 .full-taskcard-grid {
   display: grid;
   gap: 14px;
   margin-bottom: 18px;
-  margin-left: 40px;
+  margin-left: 55px;
 }
 
 .full-taskcard-datas h3,
-p {
+.full-taskcard-datas p {
   word-wrap: break-word;
   overflow-wrap: break-word;
   white-space: normal;
@@ -800,12 +862,18 @@ p {
 .grid-item .label {
   font-size: 13.5px;
   color: #888;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .grid-item .value {
   font-size: 13.5px;
   font-weight: 500;
   padding-left: 20px;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
 
 .link {
@@ -818,8 +886,7 @@ p {
 }
 
 .progress-section {
-  margin-top: 30px;
-  margin-bottom: 18px;
+  margin-top: 25px;
 }
 
 .progress-label {
@@ -878,9 +945,9 @@ p {
 }
 
 .popup-close {
-  position: relative;
-  left: 100%;
-  top: 10px;
+  position: absolute;
+  top: 45px;
+  right: 45px;
   background: none;
   border: none;
   font-size: 18px;
@@ -902,6 +969,8 @@ p {
   inset: 0;
   display: none;
   z-index: 999;
+  align-items: center;
+  justify-content: center;
 }
 
 .edit-overlay {
@@ -912,7 +981,6 @@ p {
 
 .edit-popop-box {
   position: relative;
-  margin: auto;
   width: 90%;
   max-width: 500px;
   max-height: 90vh;
@@ -920,8 +988,6 @@ p {
   border-radius: 16px;
   padding: 20px;
   z-index: 1000;
-  top: 50%;
-  transform: translateY(-50%);
   box-shadow: 0 20px 60px rgba(0, 0, 0, 0.25);
 }
 
@@ -937,21 +1003,17 @@ p {
 .edit-task-border {
   border: 2px solid rgb(232, 234, 237);
   border-radius: 16px;
-  padding: 10px 20px 10px 30px;
+  padding: 20px;
 }
 
 .edit-task-border h3 {
   position: relative;
-  bottom: 15px;
+  bottom: 10px;
   margin: 0px 0px 0px -5px;
 }
 
 .edit-popop-box .task-panel-title {
   margin: 10px 0px 5px 2px;
-}
-
-.task-panel-title .popup-close {
-  left: 95%;
 }
 
 .edit-popup input,
@@ -1252,27 +1314,20 @@ footer {
 
   /* HEADER */
 
-  header .header-container {
-    position: relative;
-    left: 2.1%;
-  }
-
   header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     padding: 16px 24px;
   }
 
-  .nav-container {
-    display: inline-block;
-    position: static;
-    margin-right: -14px;
+  header .header-container {
+    margin-left: 26px;
   }
 
   nav .nav-links {
-    display: flex;
-    gap: 12px;
+    gap: 10px;
+  }
+
+  .nav-container {
+    margin-right: 20px;
   }
 
   .nav-links .non-active-nav,
@@ -1292,7 +1347,6 @@ footer {
   }
 
   main .main-title {
-    /* margin: 25px 10px; */
     font-size: 28px;
   }
 
@@ -1433,20 +1487,6 @@ footer {
     font-size: 16px;
   }
 
-  /* FULL TASK-CARD */
-
-  .full-taskcard-datas {
-    padding: 24px;
-  }
-
-  .full-taskcard-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .task-title {
-    font-size: 18px;
-  }
-
   /*----------FOOTER-----------*/
 
   footer {
@@ -1495,19 +1535,15 @@ footer {
   /* HEADER */
 
   header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 14px 18px;
   }
 
   .header-container {
-    left: -1%;
+    margin-left: -3px;
   }
 
   header .title {
     font-size: 25px;
-    margin-left: 5px;
   }
 
   /* nav-bar */
@@ -1530,9 +1566,10 @@ footer {
   .nav-links {
     flex-direction: column;
     align-items: center;
+    height: 100vh;
     text-align: center;
-    padding: 10px 0;
-    margin-left: 18%;
+    padding: 30px 0;
+    margin-left: 35%;
   }
 
   .nav-links li {
@@ -1583,7 +1620,11 @@ footer {
 
   .toast {
     top: 100px;
-    right: 23vw;
+    white-space: nowrap;
+  }
+
+  .search-container {
+    max-width: 100%;
   }
 
   /* TASK PANEL SECTION */
@@ -1634,18 +1675,6 @@ footer {
   .task-panel-section textarea::placeholder {
     padding: 1.8rem 0rem;
     font-size: 17px;
-  }
-
-  /* Color-picker */
-
-  .task-panel-section .color-label {
-    font-size: 17px;
-    left: 1%;
-  }
-
-  .task-panel-section .task-color {
-    margin-bottom: 17px;
-    left: 1%;
   }
 
   /* Checkbox */
@@ -1793,7 +1822,7 @@ footer {
   /* FULL TASK-CARD */
 
   .full-task-card {
-    padding: 15px 15px 15px 15px;
+    padding: 15px;
   }
 
   .fulltask-popup-body {
@@ -1803,16 +1832,15 @@ footer {
 
   .full-taskcard-datas {
     border-radius: 12px;
-    padding: 0px;
   }
 
   .full-task-card-border {
-    padding: 10px 20px 10px 20px;
+    padding: 15px 20px 10px 20px;
   }
 
   .full-taskcard-grid {
     grid-template-columns: 1fr;
-    margin-left: 0px;
+    margin-left: 35px;
   }
 
   .task-title {
@@ -1824,15 +1852,20 @@ footer {
   }
 
   .grid-item {
-    grid-template-columns: 90px 10px 1fr;
-    /* display: flex; */
-    /* align-items: center; */
-    column-gap: 0px;
+    gap: 0px;
   }
 
   .grid-item .value {
     font-size: 13px;
     padding-left: 2px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
+  }
+
+  .grid-item .label {
+    font-size: 13px;
+    word-break: break-word;
+    overflow-wrap: anywhere;
   }
 
   .progress-label {
@@ -1842,25 +1875,16 @@ footer {
   .full-taskcard-datas .priority-container {
     flex-direction: column;
     gap: 10px;
+    margin-top: 25px;
   }
 
   /* EDIT TASK POPUP */
 
   .edit-popop-box {
-    height: 80vh;
-    padding: 15px;
-  }
-
-  .edit-popup-body {
-    height: 61.5vh;
-  }
-
-  .edit-task-border {
-    padding: 5px 10px 25px 20px;
-  }
-
-  .edit-task-border .task-panel-title {
-    margin: 10px 0px 5px 2px;
+    width: 90%;
+    max-height: 90vh;
+    height: auto;
+    padding: 16px;
   }
 
   .edit-row {
@@ -1971,6 +1995,15 @@ footer {
     border-radius: 18px;
   }
 
+  .grid-item {
+    grid-template-columns: 100px 10px 1fr;
+    column-gap: 10px;
+  }
+
+  .full-taskcard-grid {
+    margin-left: 0px;
+  }
+
   .filter-buttons {
     right: 0px;
   }
@@ -1983,6 +2016,15 @@ footer {
     font-size: clamp(0.5rem, 3.5vw, 1rem);
     margin-left: clamp(0.1rem, 1vw, 0.2rem);
     border-radius: 18px;
+  }
+
+  .grid-item {
+    grid-template-columns: 90px 10px 1fr;
+    column-gap: 0px;
+  }
+
+  .full-taskcard-grid {
+    margin-left: 0px;
   }
 
   .filter-buttons {
@@ -2017,5 +2059,14 @@ footer {
 
   .filter-buttons {
     right: -2px;
+  }
+
+  .full-taskcard-grid {
+    margin-left: 0px;
+  }
+
+  .grid-item {
+    grid-template-columns: 60px 10px 1fr;
+    column-gap: -30px;
   }
 }

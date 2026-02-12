@@ -336,7 +336,7 @@ function renderTasks() {
           </div>
         </div>
         <p>${task.description}</p>
-        <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due:${newDate}</p>
+        <p class="task-card-date"><img src="images/Calendar-image.png" alt="Calendar-image">Due: ${newDate}</p>
         <p class="task-card-person"><img src="images/Person-image.png" alt="Person-image">${task.username}</p>
         
         <div class="priority-container">
@@ -657,7 +657,7 @@ function editTaskPopup(taskId) {
         return;
     }
 
-    editTask.style.display = "block";
+    editTask.style.display = "flex";
 
     usernameEdit.value = task.username || "";
     tasknameEdit.value = task.name || "";
@@ -829,13 +829,22 @@ function combinedFilter() {
         const priority = card.dataset.priority;
         const status = card.dataset.status;
 
+        const title = card.querySelector("h4")?.textContent.toLowerCase() || "";
+        const description = card.querySelector("p")?.textContent.toLowerCase() || "";
+        const username = card.querySelector(".task-card-person")?.textContent.toLowerCase() || "";
+
         const priorityMatch =
             currentPriority === "all" || priority === currentPriority;
 
         const statusMatch =
             currentStatus === "all" || status === currentStatus;
 
-        if (priorityMatch && statusMatch) {
+        const searchMatch =
+            title.includes(currentSearch) ||
+            description.includes(currentSearch) ||
+            username.includes(currentSearch);
+
+        if  (priorityMatch && statusMatch && searchMatch)  {
             card.style.display = "block";
         } else {
             card.style.display = "none";
@@ -957,6 +966,13 @@ function taskcardsCount() {
     lowButtonCount.textContent = low;
 }
 
+const searchInput = document.querySelector(".search-input");
+
+searchInput.addEventListener("input", () => {
+    currentSearch = searchInput.value.toLowerCase().trim();
+    combinedFilter();
+});
+
 // Page Navigation 
 
 const mainSection = document.querySelector('.main-section');
@@ -964,12 +980,14 @@ const taskPanelSection = document.querySelector('.task-panel-section');
 const activeTaskSection = document.querySelector('.active-task-section');
 const mainTitle = document.querySelector('.main-title');
 const navLinks = document.querySelectorAll('.nav-links a');
+const searchBox = document.querySelector('.search-container');
 
 function resetUI() {
     mainSection.classList.remove('active');
     taskPanelSection.classList.remove('active');
     activeTaskSection.classList.remove('active');
     taskList.classList.remove('active');
+    searchBox.classList.remove('active');
     navLinks.forEach(link => link.classList.remove('active-nav'));
 }
 
@@ -978,6 +996,11 @@ function showDashboard() {
 
     mainTitle.innerHTML = `<span class="line"></span>Task Dashboard`;
     document.querySelector('#dashboard-nav').classList.add('active-nav');
+    // hamburger.classList.toggle('active');
+    // navContainer.classList.toggle('active');
+
+    searchInput.value = "";
+    currentSearch = "";
 }
 
 function showTasks() {
@@ -990,6 +1013,12 @@ function showTasks() {
     taskCardContainer.style.height = "auto";
     mainTitle.innerHTML = `<span class="line"></span>Tasks`;
     document.querySelector('#tasks-nav').classList.add('active-nav');
+    searchBox.classList.add('active');
+    
+    searchInput.value = "";
+    currentSearch = "";
+
+    combinedFilter();
 }
 
 function showProfile() {
@@ -1051,6 +1080,13 @@ document.addEventListener("DOMContentLoaded", () => {
     dateEdit.min = today;
 });
 
+// Prevent Entering (+ - e E) in number input
+
+inputHours.addEventListener('keydown', function(e) {
+  if (['e','E','+','-'].includes(e.key)) {
+    e.preventDefault();
+  }
+});
 
 // // Prevent <a> tag reload
 
