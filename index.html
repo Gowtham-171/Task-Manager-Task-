@@ -37,6 +37,8 @@
     </nav>
   </header>
 
+  <!-- TOAST NOTIFICATION -->
+
   <div id="toast" class="toast">
     <span class="toast-icon">✓</span>
     <p class="toast-message"></p>
@@ -49,11 +51,58 @@
         <h1 class="main-title"><span class="line"></span>Task Dashboard</h1>
       </div>
 
+      <!-- TASKS SEARCH BOX -->
+
       <div class="search-container">
         <i class="fa-solid fa-magnifying-glass search-icon"></i>
         <input type="text" class="search-input" placeholder="Search tasks..." />
       </div>
     </div>
+
+    <!-- PROFILE SECTION -->
+
+    <section class="profile-box">
+      <div class="profile-card">
+
+        <div class="profile-image">
+          <i class="fa-solid fa-user"></i>
+        </div>
+
+        <h2 class="name">Admin User</h2>
+        <p class="role">Administrator</p>
+
+        <div class="info-box">
+
+          <div class="info-row">
+            <div class="info-left">
+              <i class="fa-solid fa-envelope"></i>
+              <span>Email</span>
+            </div>
+            <div class="info-right">
+              admin@e2infosystems.com
+            </div>
+          </div>
+
+          <div class="info-line"></div>
+
+          <div class="info-row">
+            <div class="info-left">
+              <i class="fa-solid fa-building"></i>
+              <span>Organization</span>
+            </div>
+            <div class="info-right">
+              E2 InfoSystems
+            </div>
+          </div>
+
+        </div>
+
+        <button class="profile-edit-button">
+          <i class="fa-solid fa-pen"></i> Edit Profile
+        </button>
+
+      </div>
+    </section>
 
     <section class="main-section">
 
@@ -137,10 +186,7 @@
             <input type="radio" name="status" class="radio" value="Pending" id="Pending"> <label for="Pending"
               class="radio-label">Pending</label>
             <input type="radio" name="status" class="radio in-progress-radio" value="In Progress" id="In Progress">
-            <label for="In Progress" class="radio-label in-progress-label">In Progress</label>
-            <br class="check-radio-br">
-            <!-- <input type="radio" name="status" class="radio" id="Completed" value="Completed"> <label for="Completed"
-              class="radio-label">Completed</label> <br> -->
+            <label for="In Progress" class="radio-label in-progress-label">In Progress</label><br>
             <span class="error"></span>
           </div>
 
@@ -160,7 +206,7 @@
             <select class="active-panel-title" id="statusFilter">
               <option value="all">&#9989; All Tasks</option>
               <option value="pending">&#9203; Pending Tasks</option>
-              <option value="in progress">&#128260; Active Tasks</option>
+              <option value="in progress">&#128260; In Progress Tasks</option>
               <option value="completed">&#9989; Completed Tasks</option>
             </select>
           </div>
@@ -217,7 +263,6 @@
             <button class="confirm-delete-button">Delete</button>
           </div>
         </div>
-
       </section>
 
       <!-- FULL TASK-CARD POPUP-->
@@ -227,7 +272,6 @@
 
         <div class="full-task-card">
           <div class="full-task-card-border">
-
             <div class="full-taskcard-datas">
 
               <button class="popup-close" id="fulltask-popup-close">

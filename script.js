@@ -17,24 +17,24 @@ const taskCardContainer = document.querySelector('.task-card-container');
 const taskCard = document.querySelector('.task-card');
 const form = document.querySelector('#form');
 
-// Form Validation
+// Create Task Form Validation
 
 form.addEventListener('submit', (event) => {
     event.preventDefault();
     const isValid = validateInputs();
 
     if (isValid) {
-        showToast("Task Created Successfully");
-
         setTimeout(() => {
             createTask();
             form.reset();
+
+            showToast("Task Created Successfully");
         }, 400);
     }
 });
 
-const userNameValidator = /^[A-Za-z\s.]+$/;                               // letters, space, dot
-const userPattern = /^(?:[A-Za-z]{3,})(?:[.\s][A-Za-z]+)*$/;              // proper format
+const userNameValidator = /^[A-Za-z\s.]+$/;
+const userPattern = /^(?:[A-Za-z]{3,})(?:[.\s][A-Za-z]+)*$/;
 const emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
 const urlPattern = /^https?:\/\/[\w.-]+(\.[\w.-]+)+([/#?].*)?$/i;
 
@@ -53,23 +53,23 @@ function validateInputs() {
 
     // Validate User name
     if (usernameVal === '') {
-        setError(inputUsername, 'User name is required');
+        setError(inputUsername, 'Assignee Name is required');
         firstError ??= inputUsername;
     }
     else if (usernameVal.length < 3) {
-        setError(inputUsername, 'User name must be at least 3 characters');
+        setError(inputUsername, 'Assignee Name must be at least 3 characters');
         firstError ??= inputUsername;
     }
     else if (!userNameValidator.test(usernameVal)) {
-        setError(inputUsername, 'User name should not contain numbers or special characters');
+        setError(inputUsername, 'Assignee name cannot include numbers or special characters');
         firstError ??= inputUsername;
     }
     else if (usernameVal.startsWith('.') || usernameVal.endsWith('.')) {
-        setError(inputUsername, 'User name should not start or end with a dot');
+        setError(inputUsername, 'Assignee Name cannot start or end with a dot');
         firstError ??= inputUsername;
     }
     else if (!userPattern.test(usernameVal)) {
-        setError(inputUsername, 'Invalid user name format');
+        setError(inputUsername, 'Invalid Assignee Name format');
         firstError ??= inputUsername;
     }
     else {
@@ -81,8 +81,12 @@ function validateInputs() {
         setError(inputName, 'Task Name is required');
         firstError ??= inputName;
     }
+    else if (!userNameValidator.test(nameVal)) {
+        setError(inputName, 'Task name cannot include numbers or special characters');
+        firstError ??= inputName;
+    }
     else if (isDuplicateTask(nameVal)) {
-        setError(inputName, "Task name already exists");
+        setError(inputName, "Task Name already exists");
         firstError ??= inputName;
     }
     else {
@@ -91,7 +95,7 @@ function validateInputs() {
 
     // Validate Email
     if (emailVal === '') {
-        setError(inputEmail, 'Email is required');
+        setError(inputEmail, 'Assignee Email is required');
         firstError ??= inputEmail;
     }
     else if (!emailVal.includes('@')) {
@@ -99,7 +103,7 @@ function validateInputs() {
         firstError ??= inputEmail;
     }
     else if (!emailPattern.test(emailVal)) {
-        setError(inputEmail, 'Enter a valid email (example: name@email.com)');
+        setError(inputEmail, 'Please enter a valid email (e.g., name@email.com)');
         firstError ??= inputEmail;
     }
     else {
@@ -117,7 +121,7 @@ function validateInputs() {
 
     // Validate Time
     if (timeVal === '') {
-        setError(inputTime, 'Due time is required');
+        setError(inputTime, 'Due Time is required');
         firstError ??= inputTime;
     }
     else if (dateVal === formattedTodayDate()) {
@@ -163,7 +167,7 @@ function validateInputs() {
         firstError ??= inputUrl;
     }
     else if (!/^https?:\/\//i.test(urlVal)) {
-        setError(inputUrl, 'Please include http:// or https:// in the URL');
+        setError(inputUrl, 'Enter a valid URL starting with http:// or https://');
         firstError ??= inputUrl;
     }
     else if (!urlPattern.test(urlVal)) {
@@ -189,7 +193,7 @@ function validateInputs() {
     const firstCheckbox = document.querySelector('.check');
 
     if (!inputtaskTypes) {
-        setError(firstCheckbox, "Please select at least one task type");
+        setError(firstCheckbox, "Please select at least one Task Type");
         firstError ??= firstCheckbox;
     } else {
         setSuccess(firstCheckbox);
@@ -201,7 +205,7 @@ function validateInputs() {
     const firstRadio = document.querySelector('.radio');
 
     if (!inputRadio) {
-        setError(firstRadio, "Please select task status");
+        setError(firstRadio, "Please select Task Status");
         firstError ??= firstRadio;
     } else {
         setSuccess(firstRadio);
@@ -273,7 +277,8 @@ function saveTasks(tasks) {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }
 
-// Creating new Task
+
+// Storing New Task in Local Storage 
 
 const taskList = document.getElementById("taskList");
 
@@ -302,6 +307,8 @@ function createTask() {
 
     renderTasks();
 }
+
+// Creating new Task Cards
 
 function renderTasks() {
     taskList.innerHTML = "";
@@ -348,8 +355,6 @@ function renderTasks() {
     });
 
     taskcardsCount();
-
-    // const activeFilter = getActiveFilter();
     combinedFilter();
 }
 
@@ -423,6 +428,7 @@ fulltaskCloseButton.addEventListener('click', () => {
     fullTaskcard.style.display = 'none';
 });
 
+
 // Edit Task Validation 
 
 const editTask = document.querySelector(".edit-popup");
@@ -458,23 +464,23 @@ function validateEditInputs() {
 
     // Validate User name
     if (usernameVal === '') {
-        setError(usernameEdit, 'User name is required');
+        setError(usernameEdit, 'Assignee Name is required');
         firstError ??= usernameEdit;
     }
     else if (usernameVal.length < 3) {
-        setError(usernameEdit, 'User name must be at least 3 characters');
+        setError(usernameEdit, 'Assignee Name must be at least 3 characters');
         firstError ??= usernameEdit;
     }
     else if (!userNameValidator.test(usernameVal)) {
-        setError(usernameEdit, 'User name should not contain numbers or special characters');
+        setError(usernameEdit, 'Assignee name cannot include numbers or special characters');
         firstError ??= usernameEdit;
     }
     else if (usernameVal.startsWith('.') || usernameVal.endsWith('.')) {
-        setError(usernameEdit, 'User name should not start or end with a dot');
+        setError(usernameEdit, 'Assignee Name cannot start or end with a dot');
         firstError ??= usernameEdit;
     }
     else if (!userPattern.test(usernameVal)) {
-        setError(usernameEdit, 'Invalid user name format');
+        setError(usernameEdit, 'Invalid Assignee Name format');
         firstError ??= usernameEdit;
     }
     else {
@@ -486,8 +492,12 @@ function validateEditInputs() {
         setError(tasknameEdit, 'Task Name is required');
         firstError ??= tasknameEdit;
     }
+    else if (!userNameValidator.test(tasknameVal)) {
+        setError(tasknameEdit, 'Task name cannot include numbers or special characters');
+        firstError ??= tasknameEdit;
+    }
     else if (isDuplicateTask(tasknameVal, editTaskId)) {
-        setError(tasknameEdit, "Task name already exists");
+        setError(tasknameEdit, 'Task Name already exists');
         firstError ??= tasknameEdit;
     }
     else {
@@ -496,7 +506,7 @@ function validateEditInputs() {
 
     // Validate Email
     if (emailVal === '') {
-        setError(emailEdit, 'Email is required');
+        setError(emailEdit, 'Assignee Email is required');
         firstError ??= emailEdit;
     }
     else if (!emailVal.includes('@')) {
@@ -504,7 +514,7 @@ function validateEditInputs() {
         firstError ??= emailEdit;
     }
     else if (!emailPattern.test(emailVal)) {
-        setError(emailEdit, 'Enter a valid email (example: name@email.com)');
+        setError(emailEdit, 'Please enter a valid email (e.g., name@email.com)');
         firstError ??= emailEdit;
     }
     else {
@@ -524,6 +534,17 @@ function validateEditInputs() {
     if (timeVal === '') {
         setError(timeEdit, 'Due Time is required');
         firstError ??= timeEdit;
+    }
+    else if (dateVal === formattedTodayDate()) {
+        const currentTime = formattedCurrentTime();
+
+        if (timeVal < currentTime) {
+            setError(timeEdit, 'Due Time cannot be in the past');
+            firstError ??= timeEdit;
+        }
+        else {
+            setSuccess(timeEdit);
+        }
     }
     else {
         setSuccess(timeEdit);
@@ -548,7 +569,7 @@ function validateEditInputs() {
         firstError ??= urlEdit;
     }
     else if (!/^https?:\/\//i.test(urlVal)) {
-        setError(urlEdit, 'Please include http:// or https:// in the URL');
+        setError(urlEdit, 'Enter a valid URL starting with http:// or https://');
         firstError ??= urlEdit;
     }
     else if (!urlPattern.test(urlVal)) {
@@ -574,7 +595,7 @@ function validateEditInputs() {
     const firstCheckbox = document.querySelector('.edit-checkbox-label');
 
     if (!taskTypesEdit) {
-        setError(firstCheckbox, "Please select at least one task type");
+        setError(firstCheckbox, "Please select at least one Task Type");
         firstError ??= firstCheckbox;
     } else {
         setSuccess(firstCheckbox);
@@ -618,6 +639,23 @@ checkboxesEdit.forEach((checkbox) => {
     checkbox.addEventListener("change", () => editCheckError.textContent = "");
 });
 
+// Clear Error on Reset
+
+resetButton.addEventListener("click", () => {
+
+    const errorMessages = document.querySelectorAll(".error");
+    errorMessages.forEach(error => error.textContent = "");
+
+    const allFields = form.querySelectorAll("input, select, textarea");
+    allFields.forEach(field => {
+        field.style.borderColor = "";
+    });
+
+});
+
+
+// Edit Form Submit
+
 const editForm = document.querySelector('.edit-form');
 
 editForm.addEventListener('submit', (event) => {
@@ -625,17 +663,15 @@ editForm.addEventListener('submit', (event) => {
     const isValid = validateEditInputs();
 
     if (isValid) {
-        showToast("Task Updated Successfully");
-
         setTimeout(() => {
             updateTask();
+            showToast("Task Updated Successfully");
         }, 400);
     }
 });
 
 // Edit Task (Popup)
 
-let isEditMode = false;
 let editTaskId = null;
 
 taskCardContainer.addEventListener("click", (event) => {
@@ -643,7 +679,6 @@ taskCardContainer.addEventListener("click", (event) => {
         const card = event.target.closest(".task-card");
 
         editTaskId = Number(card.dataset.id);
-        isEditMode = true;
 
         editTaskPopup(editTaskId);
     }
@@ -659,15 +694,15 @@ function editTaskPopup(taskId) {
 
     editTask.style.display = "flex";
 
-    usernameEdit.value = task.username || "";
-    tasknameEdit.value = task.name || "";
-    emailEdit.value = task.email || "";
-    dateEdit.value = task.date || "";
-    timeEdit.value = task.time || "";
-    selectPriorityEdit.value = task.priority || "";
-    hoursEdit.value = task.hours || "";
-    urlEdit.value = task.url || "";
-    descriptionEdit.value = task.description || "";
+    usernameEdit.value = task.username;
+    tasknameEdit.value = task.name;
+    emailEdit.value = task.email;
+    dateEdit.value = task.date;
+    timeEdit.value = task.time;
+    selectPriorityEdit.value = task.priority;
+    hoursEdit.value = task.hours;
+    urlEdit.value = task.url;
+    descriptionEdit.value = task.description;
     progressEdit.value = task.progress || 0;
     progressLabel.textContent = `${task.progress}%`;
 
@@ -686,7 +721,6 @@ function editTaskPopup(taskId) {
 function closeEditPopup() {
     editTask.style.display = "none";
     editTaskId = null;
-    isEditMode = false;
 }
 
 taskEditCloseButton.addEventListener('click', closeEditPopup);
@@ -765,14 +799,14 @@ function deleteTask(id) {
 confirmDelete.addEventListener("click", () => {
     if (!taskToDeleteId) return;
 
-    showToast("Task Deleted Successfully");
-
     setTimeout(() => {
         deleteTask(taskToDeleteId);
-    }, 400);
 
-    deletePopup.style.display = 'none';
-    deleteOverlay.style.display = 'none';
+        deletePopup.style.display = 'none';
+        deleteOverlay.style.display = 'none';
+
+        showToast("Task Deleted Successfully");
+    }, 400);
 });
 
 cancelDelete.addEventListener("click", () => {
@@ -793,8 +827,13 @@ hamburger.addEventListener('click', () => {
     navContainer.classList.toggle('active');
 })
 
+function closeMobileNav() {
+    hamburger.classList.remove('active');
+    navContainer.classList.remove('active');
+}
 
-// Priority Filtering Buttons
+
+// Tasks Priority and Status Filter
 
 let currentPriority = "all";
 let currentStatus = "all";
@@ -833,18 +872,16 @@ function combinedFilter() {
         const description = card.querySelector("p")?.textContent.toLowerCase() || "";
         const username = card.querySelector(".task-card-person")?.textContent.toLowerCase() || "";
 
-        const priorityMatch =
-            currentPriority === "all" || priority === currentPriority;
+        const priorityFind = currentPriority === "all" || priority === currentPriority;
 
-        const statusMatch =
-            currentStatus === "all" || status === currentStatus;
+        const statusFind = currentStatus === "all" || status === currentStatus;
 
-        const searchMatch =
+        const searchFind =
             title.includes(currentSearch) ||
             description.includes(currentSearch) ||
             username.includes(currentSearch);
 
-        if  (priorityMatch && statusMatch && searchMatch)  {
+        if (priorityFind && statusFind && searchFind) {
             card.style.display = "block";
         } else {
             card.style.display = "none";
@@ -852,6 +889,7 @@ function combinedFilter() {
     });
 
     togglePriorityUI(currentPriority);
+    taskcardsCount();
 }
 
 // Global Empty Task Container 
@@ -868,12 +906,12 @@ addTaskButton.addEventListener("click", () => {
     }, 100);
 });
 
-// Priority Empty Container
+// Priority and Status Empty Container
 
 const priorityEmptyUI = document.getElementById("priority-empty-ui");
 const priorityEmptyTitle = document.getElementById("priority-empty-title");
 
-function getVisibleTasksCount() {
+function visibleTasksCount() {
     return [...document.querySelectorAll(".task-card")]
         .filter(card => card.style.display !== "none").length;
 }
@@ -882,9 +920,8 @@ function togglePriorityUI(priority) {
     const taskCards = document.querySelectorAll(".task-card");
 
     const totalTasks = taskCards.length;
-    const visibleTasks = getVisibleTasksCount();
+    const visibleTasks = visibleTasksCount();
 
-    // global empty state
     if (totalTasks === 0) {
         emptyTask.style.display = "flex";
         priorityEmptyUI.classList.add("hidden");
@@ -895,23 +932,32 @@ function togglePriorityUI(priority) {
         return;
     }
 
-    // priority or status empty state
     if (visibleTasks === 0) {
         emptyTask.style.display = "none";
         priorityEmptyUI.classList.remove("hidden");
         taskList.style.display = "none";
 
-        priorityEmptyTitle.textContent =
-            currentStatus === "completed"
-                ? "No completed tasks"
-                : `No ${priority} priority tasks`;
+        const statusTasks = [...taskCards].filter(
+            card => currentStatus === "all" || card.dataset.status === currentStatus
+        );
+
+        if (statusTasks.length === 0) {
+            priorityEmptyTitle.textContent =
+                currentStatus === "all"
+                    ? "No Tasks"
+                    : `No ${currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)} Tasks`;
+        } else {
+            priorityEmptyTitle.textContent =
+                priority === "all"
+                    ? `No ${currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)} Tasks`
+                    : `No ${priority.charAt(0).toUpperCase() + priority.slice(1)} Priority Tasks`;
+        }
 
         taskCardContainer.style.height = "auto";
         taskCardContainer.style.overflowY = "visible";
         return;
     }
 
-    // normal task list state
     emptyTask.style.display = "none";
     priorityEmptyUI.classList.add("hidden");
     taskList.style.display = "grid";
@@ -920,23 +966,6 @@ function togglePriorityUI(priority) {
     taskCardContainer.style.overflowY = "auto";
 }
 
-function priorityCount(priority) {
-    const taskcard = document.querySelectorAll(".task-card");
-    const hightaskCard = document.querySelectorAll(".task-card.high");
-    const mediumtaskCard = document.querySelectorAll(".task-card.medium");
-    const lowtaskCard = document.querySelectorAll(".task-card.low");
-
-    if (priority === "high") {
-        return hightaskCard.length;
-    }
-    if (priority === "medium") {
-        return mediumtaskCard.length;
-    }
-    if (priority === "low") {
-        return lowtaskCard.length;
-    }
-    return taskcard.length;
-}
 
 // Taskcards Count
 
@@ -946,25 +975,43 @@ function taskcardsCount() {
     const mediumButtonCount = document.getElementById("medium-button-count");
     const lowButtonCount = document.getElementById("low-button-count");
 
-    const cards = document.querySelectorAll(".task-card");
+    const taskCards = document.querySelectorAll(".task-card");
 
-    let high = 0;
-    let medium = 0;
-    let low = 0;
+    let highCount = 0;
+    let mediumCount = 0;
+    let lowCount = 0;
+    let totalCount = 0;
 
-    cards.forEach((card) => {
+    taskCards.forEach((card) => {
+
         const priority = card.dataset.priority;
+        const status = card.dataset.status;
 
-        if (priority === "high") high++;
-        if (priority === "medium") medium++;
-        if (priority === "low") low++;
+        const statusFind =
+            currentStatus === "all" || status === currentStatus;
+
+        if (statusFind) {
+            totalCount++;
+
+            if (priority === "high") {
+                highCount++;
+            }
+            if (priority === "medium") {
+                mediumCount++;
+            }
+            if (priority === "low") {
+                lowCount++;
+            }
+        }
     });
 
-    allButtonCount.textContent = cards.length;
-    highbuttonCount.textContent = high;
-    mediumButtonCount.textContent = medium;
-    lowButtonCount.textContent = low;
+    allButtonCount.textContent = totalCount;
+    highbuttonCount.textContent = highCount;
+    mediumButtonCount.textContent = mediumCount;
+    lowButtonCount.textContent = lowCount;
 }
+
+// Tasks Search Filter
 
 const searchInput = document.querySelector(".search-input");
 
@@ -972,6 +1019,7 @@ searchInput.addEventListener("input", () => {
     currentSearch = searchInput.value.toLowerCase().trim();
     combinedFilter();
 });
+
 
 // Page Navigation 
 
@@ -981,6 +1029,7 @@ const activeTaskSection = document.querySelector('.active-task-section');
 const mainTitle = document.querySelector('.main-title');
 const navLinks = document.querySelectorAll('.nav-links a');
 const searchBox = document.querySelector('.search-container');
+const profileBox = document.querySelector('.profile-box');
 
 function resetUI() {
     mainSection.classList.remove('active');
@@ -989,6 +1038,8 @@ function resetUI() {
     taskList.classList.remove('active');
     searchBox.classList.remove('active');
     navLinks.forEach(link => link.classList.remove('active-nav'));
+    mainSection.style.display = "grid";
+    profileBox.style.display = 'none';
 }
 
 function showDashboard() {
@@ -996,8 +1047,6 @@ function showDashboard() {
 
     mainTitle.innerHTML = `<span class="line"></span>Task Dashboard`;
     document.querySelector('#dashboard-nav').classList.add('active-nav');
-    // hamburger.classList.toggle('active');
-    // navContainer.classList.toggle('active');
 
     searchInput.value = "";
     currentSearch = "";
@@ -1014,7 +1063,7 @@ function showTasks() {
     mainTitle.innerHTML = `<span class="line"></span>Tasks`;
     document.querySelector('#tasks-nav').classList.add('active-nav');
     searchBox.classList.add('active');
-    
+
     searchInput.value = "";
     currentSearch = "";
 
@@ -1025,11 +1074,14 @@ function showProfile() {
     resetUI();
 
     mainTitle.innerHTML = `<span class="line"></span>Profile`;
+    mainSection.style.display = "none";
+    profileBox.style.display = 'flex';
     document.querySelector('#profile-nav').classList.add('active-nav');
 }
 
 function handleNavigation() {
     const page = location.hash.replace('#', '') || 'dashboard';
+    closeMobileNav();
 
     switch (page) {
         case 'tasks':
@@ -1058,7 +1110,6 @@ copyrightYear.textContent = currentYear;
 
 // Date and Time Control (No Past)
 
-
 function formattedTodayDate() {
     return new Date().toISOString().split("T")[0];
 }
@@ -1080,13 +1131,15 @@ document.addEventListener("DOMContentLoaded", () => {
     dateEdit.min = today;
 });
 
+
 // Prevent Entering (+ - e E) in number input
 
-inputHours.addEventListener('keydown', function(e) {
-  if (['e','E','+','-'].includes(e.key)) {
-    e.preventDefault();
-  }
+inputHours.addEventListener('keydown', function (e) {
+    if (['e', 'E', '+', '-', '.'].includes(e.key)) {
+        e.preventDefault();
+    }
 });
+
 
 // // Prevent <a> tag reload
 
