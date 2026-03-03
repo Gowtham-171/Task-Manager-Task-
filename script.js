@@ -910,6 +910,8 @@ addTaskButton.addEventListener("click", () => {
 
 const priorityEmptyUI = document.getElementById("priority-empty-ui");
 const priorityEmptyTitle = document.getElementById("priority-empty-title");
+const tasksCount = document.querySelectorAll('.filter-button span');
+const filterButton = document.querySelector('.filter-buttons');
 
 function visibleTasksCount() {
     return [...document.querySelectorAll(".task-card")]
@@ -923,16 +925,30 @@ function togglePriorityUI(priority) {
     const visibleTasks = visibleTasksCount();
 
     if (totalTasks === 0) {
+        filterButton.classList.remove('.active');
+
         emptyTask.style.display = "flex";
         priorityEmptyUI.classList.add("hidden");
         taskList.style.display = "none";
 
         taskCardContainer.style.height = "auto";
         taskCardContainer.style.overflowY = "visible";
+
+        tasksCount.forEach((count) => {
+            count.classList.add('active');
+        });
+
+        filterButtons.forEach((button) => {
+            button.classList.remove('adjust');
+        })
+
+        filterButton.classList.add('active');
+
         return;
     }
 
     if (visibleTasks === 0) {
+
         emptyTask.style.display = "none";
         priorityEmptyUI.classList.remove("hidden");
         taskList.style.display = "none";
@@ -946,6 +962,17 @@ function togglePriorityUI(priority) {
                 currentStatus === "all"
                     ? "No Tasks"
                     : `No ${currentStatus.charAt(0).toUpperCase() + currentStatus.slice(1)} Tasks`;
+
+            tasksCount.forEach((count) => {
+                count.classList.add('active');
+            });
+
+            filterButtons.forEach((button) => {
+                button.classList.remove('adjust');
+            })
+
+            filterButton.classList.remove('active');
+
         } else {
             priorityEmptyTitle.textContent =
                 priority === "all"
@@ -958,6 +985,17 @@ function togglePriorityUI(priority) {
         return;
     }
 
+    tasksCount.forEach((count) => {
+        count.classList.remove('active');
+    });
+
+
+    filterButtons.forEach((button) => {
+        button.classList.add('adjust');
+    })
+
+    filterButton.classList.add('active');
+
     emptyTask.style.display = "none";
     priorityEmptyUI.classList.add("hidden");
     taskList.style.display = "grid";
@@ -965,7 +1003,6 @@ function togglePriorityUI(priority) {
     taskCardContainer.style.height = "930px";
     taskCardContainer.style.overflowY = "auto";
 }
-
 
 // Taskcards Count
 
@@ -1005,10 +1042,10 @@ function taskcardsCount() {
         }
     });
 
-    allButtonCount.textContent = totalCount;
-    highbuttonCount.textContent = highCount;
-    mediumButtonCount.textContent = mediumCount;
-    lowButtonCount.textContent = lowCount;
+    allButtonCount.textContent = `(${totalCount})`;
+    highbuttonCount.textContent = `(${highCount})`;
+    mediumButtonCount.textContent = `(${mediumCount})`;
+    lowButtonCount.textContent = `(${lowCount})`;
 }
 
 // Tasks Search Filter
@@ -1139,15 +1176,3 @@ inputHours.addEventListener('keydown', function (e) {
         e.preventDefault();
     }
 });
-
-
-// // Prevent <a> tag reload
-
-// const footer = document.querySelector(".footer-container");
-// footer.addEventListener("click", (e) => {
-//     const link = e.target.closest("a");
-//     if (!link) {
-//         return
-//     }
-//     e.preventDefault();
-// });
