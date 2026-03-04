@@ -462,7 +462,7 @@ select {
   padding-right: -10px;
   margin-left: 10px;
   width: 100%;
-  border: 2px solid rgb(232, 234, 237);
+  border: none;
 }
 
 .active-panel-title select option {
