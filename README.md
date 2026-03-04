@@ -36,7 +36,7 @@ The application allows users to manage tasks with priority levels, status tracki
 
 ## 🌐 Live Demo
 
-👉 https://weather-web-application-pink.vercel.app/
+👉 https://task-manager-task-one.vercel.app/
 
 ---
 
@@ -151,33 +151,6 @@ Example structure stored in LocalStorage:
 }
 ```
 
----
-
-## 📂 Project Structure
-
-```
-task-manager-dashboard
-│
-├── index.html
-├── style.css
-├── script.js
-│
-├── images
-│   ├── icon.png
-│   ├── Calendar-image.png
-│   ├── Person-image.png
-│   ├── Add-task-image.png
-│   └── no-task-image.png
-│
-└── Preview-images
-    ├── preview1.png
-    ├── preview2.png
-    ├── preview3.png
-    └── preview4.png
-```
-
----
-
 ## 📱 Responsive Design
 
 The dashboard is fully responsive and optimized for:
@@ -208,10 +181,8 @@ This project helped practice:
 
 ## 👨‍💻 Author
 
-**Gowtham S**
+**Gowtham Sundaram**
 
-Aspiring **Front-End Developer** passionate about building interactive web applications and modern UI dashboards.
+Aspiring **Fullstack Developer** passionate about building interactive web applications and modern UI dashboards.
 
 ---
-
-⭐ If you like this project, consider giving it a **star on GitHub**!
